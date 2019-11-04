@@ -1,0 +1,8 @@
+tidak bisa booking hari ini
+harga masih belum di tentukan
+booking paling lama 1 bulan
+perlu menambahkan hari yg tidak ada operasional
+perlu ada backup untuk booking
+ada fitur untuk cancel
+untuk top destination nya dinamis
+membuat table api terlebih dahulu
