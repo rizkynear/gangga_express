@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFastBoatsTable extends Migration
+class CreateBooksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateFastBoatsTable extends Migration
      */
     public function up()
     {
-        Schema::create('fast_boats', function (Blueprint $table) {
+        Schema::create('books', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->string('passenger_name');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ class CreateFastBoatsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fast_boats');
+        Schema::dropIfExists('books');
     }
 }

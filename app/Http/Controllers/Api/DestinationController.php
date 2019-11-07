@@ -1,0 +1,40 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Http\Models\Destination;
+use App\Http\Requests\DestinationStore;
+use App\Http\Resources\DestinationCollection;
+use App\Http\Resources\DestinationResource;
+use Illuminate\Support\Str;
+
+class DestinationController extends Controller
+{
+    public function showAll()
+    {
+        return new DestinationCollection(Destination::all());
+    }
+
+    public function showOne(Destination $destination)
+    {
+        return new DestinationResource($destination);
+    }
+
+    public function store(DestinationStore $request)
+    {
+        $destination = new Destination;
+        $imageName   = Str::random(60) . '.' . $request->image->getClientOriginalExtension();
+
+        $destination->storeImage($request->image, $imageName);
+        $destination->storeThumbnail($imageName, null, 250);
+
+        $destination->name = $request->name;
+        $destination->location = $request->location;
+        $destination->image = $imageName;
+        $destination->save();
+
+        return new DestinationResource($destination);
+    }
+}
