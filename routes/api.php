@@ -17,6 +17,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/destinations', 'DestinationController@showAll');
-Route::get('/destinations/{destination}', 'DestinationController@showOne');
-Route::post('/destinations/store', 'DestinationController@store');
+Route::group(['prefix' => 'destinations'], function() {
+    Route::get('/', 'DestinationController@showAll');
+    Route::get('{destination}', 'DestinationController@showOne');
+    Route::post('store', 'DestinationController@store');
+});
