@@ -18,6 +18,7 @@ class TestimonialResource extends JsonResource
             'id'          => $this->id,
             'name'        => $this->name,
             'nationality' => $this->nationality,
+            'description' => $this->description,
             'image'       => $this->image
         ];
     }
