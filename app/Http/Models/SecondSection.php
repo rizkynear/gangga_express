@@ -9,6 +9,7 @@ class SecondSection extends Model
 {
     use Translatable;
 
-    public $translationModel        = 'App\Http\Models\CompanyTranslation';
     protected $translatedAttributes = ['title', 'sub_title', 'content']; 
+    protected $fillable             = ['image_1', 'image_2'];
+    public $translationModel        = 'App\Http\Models\CompanyTranslation';
 }
