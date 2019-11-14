@@ -2,6 +2,7 @@
 
 use App\Http\Models\Blog;
 use App\Http\Models\Company;
+use App\Http\Models\SecondSection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -62,20 +63,22 @@ Route::group(['prefix' => 'boats'], function() {
     Route::get('{boat}', 'BoatController@showOne');
 });
 
-// Route::get('create', function() {
-//     $data = [
-//         'en' => ['title' => 'test', 'sub_title' => 'test', 'content' => 'test'],
-//         'id' => ['title' => 'asd', 'sub_title' => 'asd', 'content' => 'asd'],
-//     ];
+Route::get('create', function() {
+    $data = [
+        'image_1' => 'test',
+        'image_2' => 'asd',
+        'en' => ['title' => 'test', 'sub_title' => 'test', 'content' => 'test'],
+        'id' => ['title' => 'asd', 'sub_title' => 'asd', 'content' => 'asd']
+    ];
 
-//     $company = Company::create($data);
+    $secondSection = SecondSection::create($data);
 
-//     return response()->json([
-//         'title' => $company->translate('en')->title,
-//         'sub_title' => $company->translate('en')->sub_title,
-//         'content' => $company->translate('en')->content,
-//         'title_id' => $company->translate('id')->title,
-//         'sub_title_id' => $company->translate('id')->sub_title,
-//         'content_id' => $company->translate('id')->content,
-//     ]);
-// });
+    return response()->json([
+        'title' => $secondSection->translate('en')->title,
+        'sub_title' => $secondSection->translate('en')->sub_title,
+        'content' => $secondSection->translate('en')->content,
+        'title_id' => $secondSection->translate('id')->title,
+        'sub_title_id' => $secondSection->translate('id')->sub_title,
+        'content_id' => $secondSection->translate('id')->content,
+    ]);
+});
