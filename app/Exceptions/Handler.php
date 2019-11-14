@@ -4,11 +4,11 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use App\Traits\ExpectJsonError;
+use App\Traits\HandleJsonError;
 
 class Handler extends ExceptionHandler
 {
-    use ExpectJsonError;
+    use HandleJsonError;
 
     /**
      * A list of the exception types that are not reported.

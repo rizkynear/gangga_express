@@ -10,12 +10,12 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
 
-trait ExpectJsonError 
+trait HandleJsonError
 {
     public function render($request, Exception $exception)
     {
         if($request->expectsJson()) {
-            if ($exception instanceof NotFoundHttpException || $exception instanceof ModelNotFoundException) {
+            if ($exception instanceof ModelNotFoundException) {
                 return response()->json([
                     'error' => [
                         'code'   => 404,
@@ -28,18 +28,18 @@ trait ExpectJsonError
                 ], 404);
             }
 
-            if ($exception instanceof FatalThrowableError) {
-                return response()->json([
-                    'error' => [
-                        'code'   => 500,
-                        'title'  => "FatalThrowableError",
-                        'errors' => [
-                            'title'   => 'FatalThrowableError',
-                            'message' => 'Server Error'
-                        ]
-                    ]
-                ], 500);
-            }
+            // if ($exception instanceof FatalThrowableError) {
+            //     return response()->json([
+            //         'error' => [
+            //             'code'   => 500,
+            //             'title'  => "FatalThrowableError",
+            //             'errors' => [
+            //                 'title'   => 'FatalThrowableError',
+            //                 'message' => 'Server Error'
+            //             ]
+            //         ]
+            //     ], 500);
+            // }
 
             if ($exception instanceof AuthenticationException) {
                 return response()->json([

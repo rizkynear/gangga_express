@@ -15,7 +15,14 @@ class CreateBooksTable extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('booking_code');
             $table->string('passenger_name');
+            $table->string('departure_port');
+            $table->string('departure_time');
+            $table->string('destination_port');
+            $table->string('passenger_total');
+            $table->string('price');
+            $table->integer('booking_detail');
             $table->timestamps();
         });
     }

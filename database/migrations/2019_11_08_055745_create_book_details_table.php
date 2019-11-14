@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBoatsTable extends Migration
+class CreateBookDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateBoatsTable extends Migration
      */
     public function up()
     {
-        Schema::create('boats', function (Blueprint $table) {
+        Schema::create('book_details', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('engine');
-            $table->integer('capacity');
-            $table->integer('length');
-            $table->float('width');
-            $table->string('image');
+            $table->string('nationality');
+            $table->integer('adult_total');
+            $table->integer('child_total');
+            $table->integer('infant_total');
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ class CreateBoatsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('boats');
+        Schema::dropIfExists('book_details');
     }
 }

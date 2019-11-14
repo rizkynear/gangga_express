@@ -178,6 +178,9 @@ return [
         // Intervention Image
         Intervention\Image\ImageServiceProvider::class,
 
+        //Translation
+        Astrotomic\Translatable\TranslatableServiceProvider::class,
+
     ],
 
     /*

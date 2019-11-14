@@ -2,14 +2,12 @@
 
 namespace App\Http\Models;
 
-use App\Traits\DeleteImage;
+use App\Traits\ImageHandling;
 use Illuminate\Database\Eloquent\Model;
-use App\Traits\MakeImageFolder;
-use App\Traits\StoreImage;
 
 class Destination extends Model
 {
-    use MakeImageFolder, DeleteImage, StoreImage;
+    use ImageHandling;
 
     protected $fillable  = ['name', 'location', 'image'];
     protected $storePath = 'images/destinations';

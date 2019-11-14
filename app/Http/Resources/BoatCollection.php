@@ -3,8 +3,9 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use App\Http\Resources\BoatResource;
 
-class ArticleCollection extends ResourceCollection
+class BoatCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -14,6 +15,8 @@ class ArticleCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'data' => BoatResource::collection($this->collection)
+        ];
     }
 }

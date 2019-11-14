@@ -21,20 +21,4 @@ class DestinationController extends Controller
     {
         return new DestinationResource($destination);
     }
-
-    public function store(DestinationStore $request)
-    {
-        $destination = new Destination;
-        $imageName   = Str::random(60) . '.' . $request->image->getClientOriginalExtension();
-
-        $destination->storeImage($request->image, $imageName);
-        $destination->storeThumbnail($imageName, null, 250);
-
-        $destination->name = $request->name;
-        $destination->location = $request->location;
-        $destination->image = $imageName;
-        $destination->save();
-
-        return new DestinationResource($destination);
-    }
 }
