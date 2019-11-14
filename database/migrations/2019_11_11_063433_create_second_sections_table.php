@@ -14,10 +14,7 @@ class CreateSecondSectionsTable extends Migration
     public function up()
     {
         Schema::create('second_sections', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('title');
-            $table->string('sub_title');
-            $table->longText('content');
+            $table->increments('id');
             $table->string('image_1');
             $table->string('image_2');
             $table->timestamps();
