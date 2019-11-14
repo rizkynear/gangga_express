@@ -12,9 +12,4 @@ class Blog extends Model
     protected $fillable = ['image'];
     public $translationModel = 'App\Http\Models\BlogTranslation';
     protected $translatedAttributes = ['title', 'description']; 
-
-    public function translations()
-    {
-        return $this->hasMany('App\Http\Models\BlogTranslation');
-    }
 }
