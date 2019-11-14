@@ -22,32 +22,25 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::prefix((function() {
-    $locale = request()->segment(3); // use third segment as locale
-    
-    return LaravelLocalization::setLocale($locale);
-})())->group(function() {
-    Route::prefix('blogs')->group(function () {
-        Route::get('/', 'BlogController@showAll');
-        Route::get('{blog}', 'BlogController@showOne');
-    });
-
-    Route::prefix('second-sections')->group(function() { 
-        Route::get('/', 'SecondSectionController@showAll');
-        Route::get('{secondSection}', 'SecondSectionController@showOne');
-    });
-
-    Route::prefix('testimonials')->group(function() {
-        Route::get('/', 'TestimonialController@showAll');
-        Route::get('{testimonial}', 'TestimonialController@showOne');
-    });
-
-    Route::prefix('companies')->group(function() {
-        Route::get('/', 'CompanyController@showAll');
-        Route::get('{company}', 'CompanyController@showOne');
-    });
+Route::group(['prefix' => 'blogs'], function() {
+    Route::get('/', 'BlogController@showAll');
+    Route::get('{blog}', 'BlogController@showOne');
 });
 
+Route::group(['prefix' => 'second-sections'], function() { 
+    Route::get('/', 'SecondSectionController@showAll');
+    Route::get('{secondSection}', 'SecondSectionController@showOne');
+});
+
+Route::group(['prefix' => 'testimonials'], function() {
+    Route::get('/', 'TestimonialController@showAll');
+    Route::get('{testimonial}', 'TestimonialController@showOne');
+});
+
+Route::group(['prefix' => 'companies'], function() {
+    Route::get('/', 'CompanyController@showAll');
+    Route::get('{company}', 'CompanyController@showOne');
+});
 
 Route::group(['prefix' => 'destinations'], function() {
     Route::get('/', 'DestinationController@showAll');

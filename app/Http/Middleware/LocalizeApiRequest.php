@@ -17,7 +17,7 @@ class LocalizeApiRequest
     public function handle($request, Closure $next)
     {
         LaravelLocalization::setLocale($request->header('X-App-Locale') ?: config('app.locale'));
-
+        
         return $next($request);
     }
 }
