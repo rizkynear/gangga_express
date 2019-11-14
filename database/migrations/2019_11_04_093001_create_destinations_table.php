@@ -18,6 +18,8 @@ class CreateDestinationsTable extends Migration
             $table->string('name');
             $table->string('location');
             $table->string('image');
+            $table->float('latitude');
+            $table->float('longtitude');
             $table->timestamps();
         });
     }
