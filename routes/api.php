@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Models\Blog;
+use App\Http\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +39,11 @@ Route::prefix((function() {
         Route::get('/', 'TestimonialController@showAll');
         Route::get('{testimonial}', 'TestimonialController@showOne');
     });
+
+    Route::prefix('companies')->group(function() {
+        Route::get('/', 'CompanyController@showAll');
+        Route::get('{company}', 'CompanyController@showOne');
+    });
 });
 
 
@@ -58,17 +64,18 @@ Route::group(['prefix' => 'boats'], function() {
 
 // Route::get('create', function() {
 //     $data = [
-//         'image' => 'test',
-//         'en' => ['title' => 'test', 'description' => 'test'],
-//         'id' => ['title' => 'asd', 'description' => 'asd'],
+//         'en' => ['title' => 'test', 'sub_title' => 'test', 'content' => 'test'],
+//         'id' => ['title' => 'asd', 'sub_title' => 'asd', 'content' => 'asd'],
 //     ];
 
-//     $blog = Blog::create($data);
+//     $company = Company::create($data);
 
 //     return response()->json([
-//         'title' => $blog->translate('en')->title,
-//         'description' => $blog->translate('en')->description,
-//         'title_id' => $blog->translate('id')->title,
-//         'description_id' => $blog->translate('id')->description,
+//         'title' => $company->translate('en')->title,
+//         'sub_title' => $company->translate('en')->sub_title,
+//         'content' => $company->translate('en')->content,
+//         'title_id' => $company->translate('id')->title,
+//         'sub_title_id' => $company->translate('id')->sub_title,
+//         'content_id' => $company->translate('id')->content,
 //     ]);
 // });
