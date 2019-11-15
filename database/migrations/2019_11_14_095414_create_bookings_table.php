@@ -16,8 +16,10 @@ class CreateBookingsTable extends Migration
         Schema::create('bookings', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('code');
-            $table->string('departure');
-            $table->string('return');
+            $table->string('departure_route');
+            $table->dateTime('departure_time');
+            $table->string('return_route');
+            $table->dateTime('return_time');
             $table->string('type');
             $table->string('price');
             $table->timestamps();

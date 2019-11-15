@@ -56,25 +56,3 @@ Route::group(['prefix' => 'boats'], function() {
     Route::get('/', 'BoatController@showAll');
     Route::get('{boat}', 'BoatController@showOne');
 });
-
-Route::get('create', function() {
-    $data = [
-        'name' => 'test',
-        'nationality' => 'jepun',
-        'image' => 'asd',
-        'en' => ['description' => 'test'],
-        'id' => ['description' => 'asd']
-    ];
-
-    Testimonial::create($data);
-
-    return response()->json([
-        // 'title' => $secondSection->translate('en')->title,
-        // 'sub_title' => $secondSection->translate('en')->sub_title,
-        // 'content' => $secondSection->translate('en')->content,
-        // 'title_id' => $secondSection->translate('id')->title,
-        // 'sub_title_id' => $secondSection->translate('id')->sub_title,
-        // 'content_id' => $secondSection->translate('id')->content,
-        'message' => 'sip masuk gan'
-    ]);
-});
