@@ -1,9 +1,5 @@
 <?php
 
-use App\Http\Models\Blog;
-use App\Http\Models\Company;
-use App\Http\Models\SecondSection;
-use App\Http\Models\Testimonial;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'blogs'], function() {
     Route::get('/', 'BlogController@showAll');
-    Route::get('{blog}', 'BlogController@showOne');
+    Route::get('{blog}', 'BlogController@showOne')->name('blog');
 });
 
 Route::group(['prefix' => 'second-sections'], function() { 

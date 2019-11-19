@@ -13,7 +13,7 @@ class Blog extends Model
     public $translationModel = 'App\Http\Models\BlogTranslation';
     protected $translatedAttributes = ['title', 'description', 'slug']; 
 
-    /**
+     /**
      * Get the route key for the model.
      *
      * @return string
