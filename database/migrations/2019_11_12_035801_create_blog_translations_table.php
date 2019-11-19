@@ -18,6 +18,7 @@ class CreateBlogTranslationsTable extends Migration
             $table->integer('blog_id')->unsigned();
             $table->string('title');
             $table->longText('description');
+            $table->string('slug');
             $table->string('locale')->index();
 
             $table->foreign('blog_id')->references('id')->on('blogs')->onDelete('cascade');
