@@ -11,15 +11,5 @@ class Blog extends Model
 
     protected $fillable = ['image'];
     public $translationModel = 'App\Http\Models\BlogTranslation';
-    protected $translatedAttributes = ['title', 'description', 'slug']; 
-
-     /**
-     * Get the route key for the model.
-     *
-     * @return string
-     */
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
+    protected $translatedAttributes = ['title', 'description', 'slug'];
 }

@@ -52,3 +52,7 @@ Route::group(['prefix' => 'boats'], function() {
     Route::get('/', 'BoatController@showAll');
     Route::get('{boat}', 'BoatController@showOne');
 });
+
+Route::group(['prefix' => 'booking'], function() {
+    Route::post('check-availability', 'BookingController@check');
+});

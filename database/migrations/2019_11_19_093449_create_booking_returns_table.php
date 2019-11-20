@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePortsTable extends Migration
+class CreateBookingReturnsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreatePortsTable extends Migration
      */
     public function up()
     {
-        Schema::create('ports', function (Blueprint $table) {
+        Schema::create('booking_returns', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('location');
-            $table->timestamps();
+            $table->integer('booking_id');
+            $table->string('departure_port');
+            $table->string('arrival_port');
+            $table->string('departure_time');
+            $table->string('arrival_time');
         });
     }
 
@@ -28,6 +30,6 @@ class CreatePortsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ports');
+        Schema::dropIfExists('booking_returns');
     }
 }
