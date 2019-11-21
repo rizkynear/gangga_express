@@ -4,7 +4,7 @@ namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class BookingDeparture extends Model
+class BookingSchedule extends Model
 {
     public $timestamps = false;
 

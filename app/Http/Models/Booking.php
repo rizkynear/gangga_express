@@ -13,16 +13,11 @@ class Booking extends Model
 
     public function details()
     {
-        return $this->hasMany('App\Http\Models\BookingDetails');
+        return $this->hasMany('App\Http\Models\BookingDetail');
     }
 
-    public function departure()
+    public function schedules()
     {
-        return $this->hasOne('App\Http\Models\BookingDeparture');
-    }
-
-    public function return()
-    {
-        return $this->hasOne('App\Http\Models\BookingReturn');
+        return $this->hasMany('App\Http\Models\BookingSchedule');
     }
 }

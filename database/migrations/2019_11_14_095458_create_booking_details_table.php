@@ -20,7 +20,7 @@ class CreateBookingDetailsTable extends Migration
             $table->string('nationality');
             $table->integer('age');
             $table->longText('address');
-            $table->string('type');
+            $table->string('category');
         });
     }
 

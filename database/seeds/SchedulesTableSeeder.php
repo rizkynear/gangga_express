@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Models\Route;
-use App\Http\Models\Schedule;
 use Illuminate\Database\Seeder;
 
 class SchedulesTableSeeder extends Seeder
@@ -14,7 +13,6 @@ class SchedulesTableSeeder extends Seeder
     public function run()
     {
         $route = new Route();
-        $schedule = new Schedule();
 
         $route->departure = 'Tribuana';
         $route->arrival = 'Sampalan';
