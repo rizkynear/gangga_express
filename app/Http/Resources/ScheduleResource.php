@@ -16,23 +16,9 @@ class ScheduleResource extends JsonResource
      */
     public function toArray($request)
     {
-        if ($request->has('route')) {
-            $bookingSchedules = BookingSchedule::where('route', '=', $request->route);
-        }
+        $bookingSchedules = BookingSchedule::where('route', '=', $this->route);
 
-        if ($request->has('date')) {
-            $bookingSchedules->where('date', '=', $request->date);
-        }
-
-        $count = 0;
-        $total = $request->passenger;
-
-        foreach($bookingSchedules->get() as $bookingSchedule) {
-            if ($this->departure == $bookingSchedule->departure) {
-                $count += $bookingSchedule->booking->details->where('category', '!=', 'infant')->count();
-                $total = $request->passenger + $count;
-            }
-        }
+        $total = $this->checkAvailability($request, $bookingSchedules);
 
         return [
             'id'        => $this->id,
@@ -41,5 +27,20 @@ class ScheduleResource extends JsonResource
             'arrival'   => $this->arrival,
             'status'    => $total > $this->quota ? 'full' : 'available',
         ];
+    }
+
+    private function checkAvailability($request, $records)
+    {   
+        $count = 0;
+        $total = $request->passenger;
+
+        foreach($records->get() as $bookingSchedule) {
+            if ($this->departure == $bookingSchedule->departure) {
+                $count += $bookingSchedule->booking->details->where('category', '!=', 'infant')->count();
+                $total = $request->passenger + $count;
+            }
+        }
+
+        return $total;
     }
 }
