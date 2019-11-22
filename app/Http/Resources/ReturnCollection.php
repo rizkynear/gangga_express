@@ -3,9 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
-use App\Http\Resources\ScheduleResource;
 
-class ScheduleCollection extends ResourceCollection
+class ReturnCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -16,7 +15,7 @@ class ScheduleCollection extends ResourceCollection
     public function toArray($request)
     {
         return [
-            'data' => ScheduleResource::collection($this->collection)
+            'data' => ReturnResource::collection($this->collection)
         ];
     }
 }

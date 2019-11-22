@@ -5,10 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Models\Destination;
-use App\Http\Requests\DestinationStore;
 use App\Http\Resources\DestinationCollection;
 use App\Http\Resources\DestinationResource;
-use Illuminate\Support\Str;
 
 class DestinationController extends Controller
 {

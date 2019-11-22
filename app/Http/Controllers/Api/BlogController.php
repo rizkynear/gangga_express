@@ -8,7 +8,6 @@ use App\Http\Models\BlogTranslation;
 use App\Http\Resources\BlogCollection;
 use App\Http\Resources\BlogResource;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 
 class BlogController extends Controller
 {

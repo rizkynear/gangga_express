@@ -4,17 +4,17 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Models\Booking;
-use App\Http\Models\BookingSchedule;
-use App\Http\Models\Route;
 use App\Http\Models\Schedule;
-use App\Http\Resources\ScheduleCollection;
-use App\Http\Resources\ScheduleResource;
+use App\Http\Resources\DepartureResource;
+use App\Http\Resources\ReturnResource;
 
 class BookingController extends Controller
 {
     public function search(Request $request)
     {
+        $departure = null;
+        $return    = null;
+
         if ($request->has('departure_route')) {
             $departure = Schedule::where('route', '=', $request->departure_route)->get();
         }
@@ -25,8 +25,8 @@ class BookingController extends Controller
 
         return [
             'data' => [
-                'departure' => ScheduleResource::collection($departure),
-                'return'    => ScheduleResource::collection($return)
+                'departure' => DepartureResource::collection($departure),
+                'return'    => is_null($return) ? null : ReturnResource::collection($return)
             ]
         ];
     }

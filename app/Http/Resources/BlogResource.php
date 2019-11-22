@@ -2,13 +2,10 @@
 
 namespace App\Http\Resources;
 
-use App\Traits\Translate;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class BlogResource extends JsonResource
 {
-    // use Translate;
-
     /**
      * Transform the resource into an array.
      *

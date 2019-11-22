@@ -2,11 +2,10 @@
 
 namespace App\Http\Resources;
 
-use App\Http\Models\Booking;
 use App\Http\Models\BookingSchedule;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ScheduleResource extends JsonResource
+class ReturnResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,18 +17,22 @@ class ScheduleResource extends JsonResource
     {
         $bookingSchedules = BookingSchedule::where('route', '=', $this->route);
 
-        $total = $this->checkAvailability($request, $bookingSchedules);
+        if ($request->has('return_date')) {
+            $bookingSchedules->where('departure', '=', $request->return_date);
+        }
+
+        $total = $this->checkTotal($request, $bookingSchedules);
 
         return [
             'id'        => $this->id,
             'route'     => $this->route,
             'departure' => $this->departure,
             'arrival'   => $this->arrival,
-            'status'    => $total > $this->quota ? 'full' : 'available',
+            'status'    => $total > $this->quota ? 'full' : 'available'
         ];
     }
 
-    private function checkAvailability($request, $records)
+    private function checkTotal($request, $records)
     {   
         $count = 0;
         $total = $request->passenger;
