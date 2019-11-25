@@ -23,7 +23,7 @@ class BookingsTableSeeder extends Seeder
         $schedule = [
             'date'  => now(),
             'route' => 'tribuana-sampalan',
-            'departure' => '10:00:00',
+            'departure' => '01:00:00',
             'arrival'  => '11:00:00',
             'type'     => 'departure'
         ];
@@ -31,7 +31,7 @@ class BookingsTableSeeder extends Seeder
         $schedule_2 = [
             'date'  => now(),
             'route' => 'sampalan-tribuana',
-            'departure' => '10:00:00',
+            'departure' => '09:00:00',
             'arrival'  => '11:00:00',
             'type'     => 'return'
         ];

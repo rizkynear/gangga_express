@@ -12,7 +12,7 @@ class SliderController extends Controller
 {
     public function showAll()
     {
-        return new SliderCollection(Slider::all());
+        return new SliderCollection(Slider::all()->sortBy('position'));
     }
 
     public function showOne(Slider $slider)

@@ -14,7 +14,7 @@ class BoatsTableSeeder extends Seeder
     {
         for ($i = 1; $i <= 10; $i++) { 
             $data = [
-                'name'     => 'gangga_1',
+                'name'     => 'gangga_' . $i,
                 'engine'   => 'Yamaha',
                 'capacity' => 40,
                 'length'   => 10,

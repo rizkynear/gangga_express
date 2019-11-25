@@ -9,7 +9,7 @@ class Destination extends Model
 {
     use ImageHandling;
 
-    protected $fillable  = ['name', 'location', 'image'];
+    protected $fillable  = ['name', 'location', 'image', 'longitude', 'latitude'];
     protected $storePath = 'images/destinations';
 
     protected function imagePath()
