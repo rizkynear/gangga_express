@@ -28,19 +28,19 @@ class DepartureResource extends JsonResource
             'route'     => $this->route,
             'departure' => $this->departure,
             'arrival'   => $this->arrival,
-            'status'    => $total
+            'status'    => $total > $this->quota ? 'full' : 'available'
         ];
     }
 
-    private function checkTotal($request, $records)
+    private function checkTotal($request, $bookingSchedules)
     {   
         $count = 0;
-        $total = $request->passenger;
+        $total = $request->adult + $request->child;
 
-        foreach($records->get() as $bookingSchedule) {
+        foreach($bookingSchedules->get() as $bookingSchedule) {
             if ($this->departure == $bookingSchedule->departure) {
                 $count += $bookingSchedule->booking->details->where('category', '!=', 'infant')->count();
-                $total = $request->passenger + $count;
+                $total = $request->adult + $request->child + $count;
             }
         }
 
