@@ -9,13 +9,8 @@ use App\Http\Resources\SecondSectionCollection;
 
 class SecondSectionController extends Controller
 {
-    public function showAll()
+    public function show()
     {
         return new SecondSectionCollection(SecondSection::all());
-    }
-
-    public function showOne(SecondSection $secondSection)
-    {
-        return new SecondSectionResource($secondSection);
     }
 }

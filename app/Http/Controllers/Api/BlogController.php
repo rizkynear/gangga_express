@@ -13,7 +13,7 @@ class BlogController extends Controller
 {
     public function showAll()
     {
-        return new BlogCollection(Blog::all());
+        return new BlogCollection(Blog::all()->sortByDesc('created_at'));
     }
 
     public function showOne(BlogTranslation $blog)

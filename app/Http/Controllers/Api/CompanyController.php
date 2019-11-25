@@ -10,13 +10,8 @@ use App\Http\Resources\CompanyResource;
 
 class CompanyController extends Controller
 {
-    public function showAll()
+    public function show()
     {
         return new CompanyCollection(Company::all());
-    }
-
-    public function showOne(Company $company)
-    {
-        return new CompanyResource($company);
     }
 }

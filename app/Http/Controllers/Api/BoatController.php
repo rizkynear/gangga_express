@@ -10,13 +10,8 @@ use App\Http\Controllers\Controller;
 
 class BoatController extends Controller
 {
-    public function showAll()
+    public function show()
     {
         return new BoatCollection(Boat::all());
-    }
-
-    public function showOne(Boat $boat)
-    {
-        return new BoatResource($boat);
     }
 }

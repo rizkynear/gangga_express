@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Models\Holiday;
 use App\Http\Models\Schedule;
 use App\Http\Resources\DepartureResource;
+use App\Http\Resources\HolidayCollection;
 use App\Http\Resources\ReturnResource;
 
 class BookingController extends Controller
@@ -29,5 +31,10 @@ class BookingController extends Controller
                 'return'    => is_null($return) ? null : ReturnResource::collection($return)
             ]
         ];
+    }
+
+    public function holiday()
+    {
+        return new HolidayCollection(Holiday::all());
     }
 }

@@ -20,7 +20,7 @@ class BlogResource extends JsonResource
             'description' => $this->description,
             'image'       => $this->image,
             'link'        => route('api.blog', $this->slug),
-            'upload_at'   => $this->created_at
+            'upload_at'   => $this->created_at->format('Y-m-d')
         ];
     }
 }

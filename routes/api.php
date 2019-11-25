@@ -14,18 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
 Route::group(['prefix' => 'blogs'], function() {
     Route::get('/', 'BlogController@showAll');
     Route::get('{blog}', 'BlogController@showOne')->name('blog');
 });
 
 Route::group(['prefix' => 'second-sections'], function() { 
-    Route::get('/', 'SecondSectionController@showAll');
-    Route::get('{secondSection}', 'SecondSectionController@showOne');
+    Route::get('/', 'SecondSectionController@show');
 });
 
 Route::group(['prefix' => 'testimonials'], function() {
@@ -33,9 +28,8 @@ Route::group(['prefix' => 'testimonials'], function() {
     Route::get('{testimonial}', 'TestimonialController@showOne');
 });
 
-Route::group(['prefix' => 'companies'], function() {
-    Route::get('/', 'CompanyController@showAll');
-    Route::get('{company}', 'CompanyController@showOne');
+Route::group(['prefix' => 'company'], function() {
+    Route::get('/', 'CompanyController@show');
 });
 
 Route::group(['prefix' => 'destinations'], function() {
@@ -49,10 +43,10 @@ Route::group(['prefix' => 'sliders'], function() {
 });
 
 Route::group(['prefix' => 'boats'], function() {
-    Route::get('/', 'BoatController@showAll');
-    Route::get('{boat}', 'BoatController@showOne');
+    Route::get('/', 'BoatController@show');
 });
 
 Route::group(['prefix' => 'booking'], function() {
     Route::get('search', 'BookingController@search');
+    Route::get('holiday', 'BookingController@holiday');
 });
