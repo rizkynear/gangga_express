@@ -6,7 +6,7 @@
         <div class="box-mid-out">
             <div class="box-mid-in">
                 <div class="box-login box-shadow text-center">
-                    <form action="{{ route('login) }}" method="post">
+                    <form action="{{ route('login') }}" method="post">
                         @csrf
                         <div>
                             <img class="login-logo" src="{{ asset('storage/images/admin/logo-default.png') }}" alt="Gangga Express">
@@ -21,7 +21,7 @@
                                 <input type="text" name="username" class="form-control" placeholder="Username" required autofocus>
                             </div>
                             @error('username')
-                                <span class="invalid-feedback" role="alert">
+                                <span class="invalid-feedback text-red" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
@@ -30,10 +30,10 @@
                             <label class="sr-only">Password</label>
                             <div class="seamless-input-group">
                                 <span class="seamless-addon"><i class="fa fa-lock" aria-hidden="true"></i></span>
-                                <input type="password" class="form-control" placeholder="Password" required>
+                                <input type="password" name="password" class="form-control" placeholder="Password" required>
                             </div>
                             @error('password')
-                                <span class="invalid-feedback" role="alert">
+                                <span class="invalid-feedback text-red" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror

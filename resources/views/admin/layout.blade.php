@@ -74,12 +74,12 @@
                             <li class="dropdown user user-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <img src="{{ asset('storage/images/admin/user-default.png') }}" class="user-image" alt="User Image">
-                                    <span class="hidden-xs">Hello Admin <i class="fa fa-caret-down" aria-hidden="true"></i></span>
+                                    <span class="hidden-xs">Hello {{ Auth::user()->name }}<i class="fa fa-caret-down" aria-hidden="true"></i></span>
                                 </a>
                                 <ul class="dropdown-menu box-shadow">
                                     <li class="user-header">
                                         <img src="{{ asset('storage/images/admin/user-default.png') }}" class="img-circle" alt="User Image">
-                                        <p>Admin</p>
+                                        <p>{{ Auth::user()->name }}</p>
                                     </li>
                                     <li class="user-footer">
                                         <div class="text-center">
@@ -116,21 +116,16 @@
                                 <li><a href="the-company.php"> Tribuana Port - Buyuk</a></li>
                                 <li><a href="the-company.php"> Sampalan - Tribuana Port</a></li>
                                 <li><a href="the-company.php"> Buyuk - Tribuana Port</a></li>
+                                <li><a href="the-company.php"> Holiday Date</a></li>
                             </ul>
                         </li>
-
-                        <!-- <li>
-            <a href="bug-report.php">
-            <i class="fa fa-calendar" aria-hidden="true"></i> <span>Fastboat Schedule</span>
-            </a>
-        </li> -->
                         <li>
                             <a href="destinations.php">
                                 <i class="fa fa-compass" aria-hidden="true"></i> <span>Destinations</span>
                             </a>
                         </li>
                         <li>
-                            <a href="blog.php">
+                            <a href="{{ route('blog') }}">
                                 <i class="fa fa-book" aria-hidden="true"></i> <span>Blog</span>
                             </a>
                         </li>
@@ -164,11 +159,6 @@
                                 </span>
                             </a>
                         </li>
-                        <!-- <li>
-            <a href="terms-conditions.php">
-            <i class="fa fa-check-square-o" aria-hidden="true"></i> <span>Terms &amp; Conditions</span>
-            </a>
-        </li> -->
                     </ul>
                 </section>
             </aside>

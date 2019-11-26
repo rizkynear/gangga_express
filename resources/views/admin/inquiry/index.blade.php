@@ -84,6 +84,7 @@
                                         <th>Contact Info</th>
                                         <th>Departure</th>
                                         <th>Return</th>
+                                        <th>Price</th>
                                         <th style="width: 150px;">Action</th>
                                     </tr>
                                 </thead>
@@ -92,6 +93,11 @@
                                         <tr>
                                             <td>
                                                 <span class="display-xs-block">B00<?php echo $i + 1 ?></span>
+                                                <?php if (($i % 2) == 0) : ?>
+                                                    <span><i class="fa fa-exchange"></i></span>
+                                                <?php else : ?>
+                                                    <span><i class="fa fa-long-arrow-right"></i></span>
+                                                <?php endif; ?>
                                             </td>
                                             <td>
                                                 <span class="display-xs-block">31 Nov 2019</span>
@@ -103,19 +109,26 @@
                                                 <span class="display-xs-block">steve@gmail.com</span>
                                             </td>
                                             <td>
-                                                <span class="display-xs-block">Tribuana Port(Bali) - Sampalan (Nusa Penida)
-                                                    24 September 2019
-                                                    06.30 to 7.30
-                                                </span>
+                                                <span class="display-xs-block">Tribuana Port (Bali) - Sampalan (Nusa Penida)</span>
+                                                <span class="display-xs-block">24 September 2019</span>
+                                                <span class="display-xs-block">06.30 to 7.30</span>
                                             </td>
                                             <td>
-                                                <span class="display-xs-block">Buyuk (Nusa Penida) - Tribuana Port(Bali)
-                                                    25 September 2019
-                                                    06.30 to 7.30</span>
+                                                <?php if (($i % 2) == 0) : ?>
+                                                    <span class="display-xs-block">Buyuk (Nusa Penida) - Tribuana Port(Bali)</span>
+                                                    <span class="display-xs-block">25 September 2019</span>
+                                                    <span class="display-xs-block">06.30 to 7.30</span>
+                                                <?php else : ?>
+                                                    <span>-</i></span>
+                                                <?php endif; ?>
+
+                                            </td>
+                                            <td>
+                                                <span class="display-xs-block">IDR 180,000</span>
                                             </td>
                                             <td>
                                                 <span>
-                                                    <a class="btn btn-default" href="detail-passenger.php" title="View Passenger" data-toggle="tooltip" data-placement="top">
+                                                    <a class="btn btn-default" href="detail_passenger.php" title="View Passenger" data-toggle="tooltip" data-placement="top">
                                                         <i class="fa fa-address-book"></i>
                                                     </a>
                                                 </span>
@@ -253,17 +266,6 @@
 @endsection
 
 @section('script')
-<!-- <script>
-      $(document).ready(function(){
-        $('#report-date-range').daterangepicker({
-          maxDate: moment(),
-          "locale": {
-            "format": "DD/MM/YYYY",
-          }
-        });
-      });
-    </script> -->
-
 <script type="text/javascript">
     $(function() {
         $('#inquiry-date').datetimepicker({

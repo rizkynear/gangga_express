@@ -13,8 +13,20 @@
 
 Auth::routes(['register' => false, 'reset' => false]);
 
-Route::group(['middleware' => 'auth'], function() {
+Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function() {
+    Route::get('/', function() {
+        return redirect('admin/dashboard');
+    });
+
     Route::prefix('dashboard')->group(function() {
         Route::get('/', 'DashboardController@index');
+
+        Route::group(['prefix' => 'blog'], function() {
+            Route::get('/', 'BlogController@index')->name('blog');
+        });
+
+        Route::group(['prefix' => 'blog'], function() {
+            Route::get('/', 'BlogController@index')->name('blog');
+        });
     });
 });

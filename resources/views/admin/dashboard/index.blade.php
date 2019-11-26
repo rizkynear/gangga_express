@@ -38,23 +38,20 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php for ($i = 0; $i < 3; $i++) : ?>
+                                    @foreach ($sliders as $slider)
                                         <tr>
-                                            <!-- <td>
-                            <span class="display-xs-block"><?php echo $i + 1 ?></span>
-                          </td> -->
                                             <td>
-                                                <span class="display-xs-block"><img class="img-responsive img-xs" src="http://via.placeholder.com/700x400" alt=""></span>
+                                                <span class="display-xs-block"><img class="img-responsive img-xs" src="{{ asset('storage/images/sliders/thumbnail/' . $slider->image) }}" alt=""></span>
                                             </td>
                                             <td>
+                                                <input type="hidden" name="position" value="{{ $slider->position }}">
                                                 <span class="display-xs-inline-block" data-toggle="tooltip" title="Edit"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit-image"><i class="fa fa-pencil" aria-hidden="true"></i></button></span>
                                                 <span class="display-xs-inline-block" data-toggle="tooltip" title="Delete"><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-confirmation"><i class="fa fa-trash" aria-hidden="true"></i></button></span>
                                                 <span class="display-xs-inline-block" data-toggle="tooltip" title="Up"><button type="button" class="btn btn-direction" data-toggle="modal" data-target="#"><i class="fa fa-arrow-up" aria-hidden="true"></i></button></span>
                                                 <span class="display-xs-inline-block" data-toggle="tooltip" title="Down"><button type="button" class="btn btn-direction" data-toggle="modal" data-target="#"><i class="fa fa-arrow-down" aria-hidden="true"></i></button></span>
-
                                             </td>
                                         </tr>
-                                    <?php endfor ?>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -93,20 +90,19 @@
                         <div class="tab-content">
                             <div id="desc-en" class="tab-pane fade in active">
                                 <div class="box-body">
-
                                     <!--FORM-->
                                     <form method="post" action="">
                                         <div class="form-group">
                                             <label class="required">Title</label>
-                                            <input type="text" class="form-control" autofocus required>
+                                            <input type="text" name="title_en"class="form-control" value="{{ $secondSection->translate('en')->title }}">
                                         </div>
                                         <div class="form-group">
                                             <label class="required">Sub Title</label>
-                                            <input type="text" class="form-control" autofocus required>
+                                            <input type="text" name="sub_title_en" class="form-control" value="{{ $secondSection->translate('en')->sub_title }}">
                                         </div>
                                         <div class="form-group">
                                             <label class="required">Content</label>
-                                            <textarea id="terms-conditions" rows="5"></textarea>
+                                            <textarea id="terms-conditions" rows="5" name="content_en">{{ $secondSection->translate('en')->content }}</textarea>
                                             <script>
                                                 ClassicEditor
                                                     .create(document.querySelector('#terms-conditions'), {
@@ -131,15 +127,15 @@
                                     <form method="post" action="">
                                         <div class="form-group">
                                             <label class="required">Title</label>
-                                            <input type="text" class="form-control" autofocus required>
+                                            <input type="text" name="title_id" class="form-control" value="{{ $secondSection->translate('id')->title }}">
                                         </div>
                                         <div class="form-group">
                                             <label class="required">Sub Title</label>
-                                            <input type="text" class="form-control" autofocus required>
+                                            <input type="text" name="sub_title_id" class="form-control" value="{{ $secondSection->translate('id')->sub_title }}">
                                         </div>
                                         <div class="form-group">
                                             <label class="required">Content</label>
-                                            <textarea id="text-id" rows="5"></textarea>
+                                            <textarea id="text-id" rows="5" name="content_id">{{ $secondSection->translate('id')->content }}</textarea>
                                             <script>
                                                 ClassicEditor
                                                     .create(document.querySelector('#text-id'), {
@@ -182,7 +178,6 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <!-- <th style="width: 60px;">No</th> -->
                                         <th style="width: 250px;">Image</th>
                                         <th style="width: 450px;">Name</th>
                                         <th style="width: 450px;">Description</th>
@@ -190,27 +185,24 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php for ($i = 0; $i < 3; $i++) : ?>
+                                    @foreach ($testimonials as $testimonial)
                                         <tr>
-                                            <!-- <td>
-                            <span class="display-xs-block"><?php echo $i + 1 ?></span>
-                          </td> -->
                                             <td>
-                                                <span class="display-xs-block"><img class="img-responsive img-xs" src="http://via.placeholder.com/700x400" alt=""></span>
+                                                <span class="display-xs-block"><img class="img-responsive img-xs" src="{{ asset('storage/images/testimonials/thumbnail/' . $testimonial->image) }}" alt=""></span>
                                             </td>
                                             <td>
-                                                <span class="display-xs-block"><strong>Shen mei</strong></span>
-                                                <span class="display-xs-block">Indonesia</span>
+                                                <span class="display-xs-block"><strong>{{ $testimonial->name }}</strong></span>
+                                                <span class="display-xs-block">{{ $testimonial->nationality }}</span>
                                             </td>
                                             <td>
-                                                <span class="display-xs-block">Ja ja ja</span>
+                                                <span class="display-xs-block">{{ $testimonial->description }}</span>
                                             </td>
                                             <td>
                                                 <span class="display-xs-inline-block" data-toggle="tooltip" title="Edit"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit-package"><i class="fa fa-pencil" aria-hidden="true"></i></button></span>
                                                 <span class="display-xs-inline-block" data-toggle="tooltip" title="Delete"><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-confirmation"><i class="fa fa-trash" aria-hidden="true"></i></button></span>
                                             </td>
                                         </tr>
-                                    <?php endfor ?>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
