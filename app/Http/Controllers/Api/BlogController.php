@@ -22,4 +22,11 @@ class BlogController extends Controller
 
         return new BlogResource($blog);
     }
+
+    public function latest() 
+    {
+        $blogs = Blog::all()->sortByDesc('id')->take(3);
+
+        return new BlogCollection($blogs);
+    }
 }
