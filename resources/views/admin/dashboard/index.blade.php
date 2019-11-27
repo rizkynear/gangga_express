@@ -21,7 +21,7 @@
                                 <h2 class="font18 my-5">Image Slider</h2>
                             </div>
                             <div class="col-sm-6 text-right">
-                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-add-image"><i class="fa fa-plus" aria-hidden="true"></i> Add Image</button>
+                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-add-slider"><i class="fa fa-plus" aria-hidden="true"></i> Add Image</button>
                             </div>
                         </div>
 
@@ -42,11 +42,14 @@
                                                 <span class="display-xs-block"><img class="img-responsive img-xs" src="{{ asset('storage/images/sliders/thumbnail/' . $slider->image) }}" alt=""></span>
                                             </td>
                                             <td>
-                                                <input type="hidden" name="position" value="{{ $slider->position }}">
-                                                <span class="display-xs-inline-block" data-toggle="tooltip" title="Edit"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit-image"><i class="fa fa-pencil" aria-hidden="true"></i></button></span>
-                                                <span class="display-xs-inline-block" data-toggle="tooltip" title="Delete"><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-confirmation"><i class="fa fa-trash" aria-hidden="true"></i></button></span>
-                                                <span class="display-xs-inline-block" data-toggle="tooltip" title="Up"><button type="button" class="btn btn-direction" data-toggle="modal" data-target="#"><i class="fa fa-arrow-up" aria-hidden="true"></i></button></span>
-                                                <span class="display-xs-inline-block" data-toggle="tooltip" title="Down"><button type="button" class="btn btn-direction" data-toggle="modal" data-target="#"><i class="fa fa-arrow-down" aria-hidden="true"></i></button></span>
+                                                <span class="display-xs-inline-block" data-toggle="tooltip" title="Edit"><button type="button" class="btn btn-primary edit-slider" data-id="{{ $slider->id }}"><i class="fa fa-pencil" aria-hidden="true"></i></button></span>
+                                                <span class="display-xs-inline-block" data-toggle="tooltip" title="Delete"><button type="button" class="btn btn-danger delete-slider" data-id="{{ $slider->id }}"><i class="fa fa-trash" aria-hidden="true"></i></button></span>
+                                                <form action="" method="post" style="display: inline-block">
+                                                    @csrf
+                                                    <input type="hidden" name="id" value="{{ $slider->id }}">
+                                                    <span class="display-xs-inline-block" data-toggle="tooltip" title="Up"><button type="submit" class="btn btn-direction" formaction="{{ route('slider.up') }}"><i class="fa fa-arrow-up" aria-hidden="true"></i></button></span>
+                                                    <span class="display-xs-inline-block" data-toggle="tooltip" title="Down"><button type="submit" class="btn btn-direction" formaction="{{ route('slider.down') }}"><i class="fa fa-arrow-down" aria-hidden="true"></i></button></span>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -210,8 +213,8 @@
         </div>
     </section>
 
-    <!--MODAL ADD IMAGE-->
-    <div class="modal fade" id="modal-add-image" role="dialog">
+    <!--MODAL ADD SLIDER-->
+    <div class="modal fade" id="modal-add-slider" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -219,50 +222,8 @@
                     <h4 class="title-main">Add Image</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('slider.store') }}" method="post">
+                    <form action="{{ route('slider.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
-                        <div class="form-group">
-                            <label class="required">Photo</label>
-                            <div class="row row-custom">
-                                <div class="col-sm-4">
-                                    <img class="img-responsive margin-bot-10" src="http://via.placeholder.com/700x400" alt="">
-                                </div>
-                                <div class="col-sm-8">
-                                    <div class="input-group">
-                                        <span class="input-group-btn">
-                                            <!-- <span class="btn btn-primary btn-file">
-                                                <i class="fa fa-folder-open"></i>&nbsp;Browse <input type="file" name="slider_image">
-                                            </span> -->
-                                            <input type="file" name="slider_image">
-                                        </span>
-                                        <!-- <input type="text" class="form-control" value="No file chosen" readonly=""> -->
-                                    </div>
-                                    @if ($errors->has('slider_image'))
-                                        <p class="small text-danger mt-5">{{ $errors->first('slider_image') }}</p>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Save</button>
-                        <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--MODAL ADD IMAGE END-->
-
-    <!--MODAL ADD IMAGE 2 -->
-    <div class="modal fade" id="modal-edit-image2" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="title-main">Edit Image</h4>
-                </div>
-                <div class="modal-body">
-                    <form action="" method="post">
                         <div class="form-group">
                             <label class="required">Photo</label>
                             <div class="row row-custom">
@@ -278,6 +239,9 @@
                                         </span>
                                         <input type="text" class="form-control" value="No file chosen" readonly="">
                                     </div>
+                                    @if ($errors->sliderStore->has('image'))
+                                        <p class="small text-danger mt-5">{{ $errors->sliderStore->first('image') }}</p>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -289,8 +253,73 @@
             </div>
         </div>
     </div>
-    <!--MODAL ADD IMAGE END-->
+    <!--MODAL ADD SLIDER END-->
 
+    <!--MODAL EDIT SLIDER-->
+    <div class="modal fade" id="modal-edit-slider" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="title-main">Edit Image</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('slider.edit') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group">
+                            <label class="required">Photo</label>
+                            <div class="row row-custom">
+                                <div class="col-sm-4">
+                                    <img id="edit-slider-image" class="img-responsive margin-bot-10" src="http://via.placeholder.com/700x400" alt="">
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <span class="btn btn-primary btn-file">
+                                                <i class="fa fa-folder-open"></i>&nbsp;Browse <input type="file" name="image">
+                                            </span>
+                                        </span>
+                                        <input type="text" class="form-control" value="No file chosen" readonly="">
+                                    </div>
+                                    @if ($errors->sliderEdit->has('image'))
+                                        <p class="small text-danger mt-5">{{ $errors->sliderEdit->first('image') }}</p>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <input type="hidden" id="edit-slider-id" name="id">
+                        <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Save</button>
+                        <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--MODAL EDIT SLIDER END-->
+
+    <!--MODAL DELETE SLIDER-->
+    <div class="modal fade" id="modal-delete-slider" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <div class="my-20">
+                        <h4 class="title-main mt-0 mb-10">Delete?</h4>
+                        <p>Are you sure want to delete this item?</p>
+                    </div>
+                    <form action="{{ route('slider.delete') }}" method="post">
+                        @csrf
+                        <input type="hidden" name="id" id="delete-slider-id" value="">
+                        <button class="btn btn-danger mr-5" type="submit"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+                        <button class="btn btn-default" type="submit" data-dismiss="modal">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--MODAL DELETE END-->
+    
     <!--MODAL ADD TESTIMONI-->
     <div class="modal fade" id="modal-add-testimonial" role="dialog">
         <div class="modal-dialog">
@@ -408,32 +437,37 @@
     </div>
     <!--MODAL ADD TESTIMONI END-->
 
-    <!--MODAL DELETE-->
-    <div class="modal fade" id="delete-confirmation" role="dialog">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-body text-center">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <div class="my-20">
-                        <h4 class="title-main mt-0 mb-10">Delete?</h4>
-                        <p>Are you sure want to delete this item?</p>
-                    </div>
-                    <button class="btn btn-danger mr-5" type="button" data-dismiss="modal"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
-                    <button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--MODAL DELETE END-->
 </div>
 @endsection
 
 @section('script')
 
-@if (session('modal') === 'slider-modal')
+@if ($errors->sliderStore->has('image'))
     <script>
-         $('#modal-add-image').modal();
+         $('#modal-add-slider').modal();
+    </script>
+@elseif ($errors->sliderEdit->has('image'))
+    <script>
+        $('#modal-edit-slider').modal();
     </script>
 @endif
+
+<script>
+    $(document).ready(function() {
+        $('.edit-slider').click(function() {
+            var id = $(this).data('id');
+
+            $('#edit-slider-id').attr('value', id);
+            $('#modal-edit-slider').modal();
+        });
+
+        $('.delete-slider').click(function() {
+            var id = $(this).data('id');
+
+            $('#delete-slider-id').attr('value', id);
+            $('#modal-delete-slider').modal();
+        });
+    })
+</script>
 
 @endsection

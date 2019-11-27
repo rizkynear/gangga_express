@@ -83,7 +83,11 @@
                                     </li>
                                     <li class="user-footer">
                                         <div class="text-center">
-                                            <a href="index.php" class="btn btn-danger display-xs-block">Sign out</a>
+                                            <a class="btn btn-danger display-xs-block" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Sign Out</a>
+
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                @csrf
+                                            </form>
                                         </div>
                                     </li>
                                 </ul>

@@ -23,6 +23,10 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function() {
 
         Route::group(['prefix' => 'slider', 'as' => 'slider.'], function() {
             Route::post('store', 'DashboardController@sliderStore')->name('store');
+            Route::post('edit', 'DashboardController@sliderEdit')->name('edit');
+            Route::post('delete', 'DashboardController@sliderDelete')->name('delete');
+            Route::post('up', 'DashboardController@sliderUp')->name('up');
+            Route::post('down', 'DashboardController@sliderDown')->name('down');
         });
 
         Route::group(['prefix' => 'blog'], function() {
