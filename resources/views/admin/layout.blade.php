@@ -99,7 +99,7 @@
                 <section class="sidebar">
                     <ul class="sidebar-menu" data-widget="tree">
                         <li>
-                            <a href="dashboard.php">
+                            <a href="{{ route('dashboard') }}">
                                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                             </a>
                         </li>
@@ -121,7 +121,7 @@
                         </li>
                         <li>
                             <a href="destinations.php">
-                                <i class="fa fa-compass" aria-hidden="true"></i> <span>Destinations</span>
+                                <i class="fa fa-compass" aria-hidden="true"></i> <span>Destination</span>
                             </a>
                         </li>
                         <li>

@@ -21,7 +21,6 @@
                                 <h2 class="font18 my-5">Image Slider</h2>
                             </div>
                             <div class="col-sm-6 text-right">
-                                <!-- <a href="bug-report.php" class="btn btn-default"><i class="fa fa-plus" aria-hidden="true"></i> Add Image </a> -->
                                 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-add-image"><i class="fa fa-plus" aria-hidden="true"></i> Add Image</button>
                             </div>
                         </div>
@@ -32,7 +31,6 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <!-- <th style="width: 60px;">No</th> -->
                                         <th style="width: 150px;">Image</th>
                                         <th>Action</th>
                                     </tr>
@@ -167,7 +165,6 @@
                                 <h2 class="font18 my-5">Testimonial</h2>
                             </div>
                             <div class="col-sm-6 text-right">
-                                <!-- <a href="bug-report.php" class="btn btn-default"><i class="fa fa-plus" aria-hidden="true"></i> Add Testimonial </a> -->
                                 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-add-testimonial"><i class="fa fa-plus" aria-hidden="true"></i> Add Testimonial</button>
                             </div>
                         </div>
@@ -222,7 +219,8 @@
                     <h4 class="title-main">Add Image</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="" method="post">
+                    <form action="{{ route('slider.store') }}" method="post">
+                        @csrf
                         <div class="form-group">
                             <label class="required">Photo</label>
                             <div class="row row-custom">
@@ -232,18 +230,22 @@
                                 <div class="col-sm-8">
                                     <div class="input-group">
                                         <span class="input-group-btn">
-                                            <span class="btn btn-primary btn-file">
-                                                <i class="fa fa-folder-open"></i>&nbsp;Browse <input type="file" name="image">
-                                            </span>
+                                            <!-- <span class="btn btn-primary btn-file">
+                                                <i class="fa fa-folder-open"></i>&nbsp;Browse <input type="file" name="slider_image">
+                                            </span> -->
+                                            <input type="file" name="slider_image">
                                         </span>
-                                        <input type="text" class="form-control" value="No file chosen" readonly="">
+                                        <!-- <input type="text" class="form-control" value="No file chosen" readonly=""> -->
                                     </div>
+                                    @if ($errors->has('slider_image'))
+                                        <p class="small text-danger mt-5">{{ $errors->first('slider_image') }}</p>
+                                    @endif
                                 </div>
                             </div>
                         </div>
                         <hr>
                         <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Save</button>
-                        <button class="btn btn-default">Cancel</button>
+                        <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
                     </form>
                 </div>
             </div>
@@ -281,7 +283,7 @@
                         </div>
                         <hr>
                         <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Save</button>
-                        <button class="btn btn-default">Cancel</button>
+                        <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
                     </form>
                 </div>
             </div>
@@ -424,4 +426,14 @@
     </div>
     <!--MODAL DELETE END-->
 </div>
+@endsection
+
+@section('script')
+
+@if (session('modal') === 'slider-modal')
+    <script>
+         $('#modal-add-image').modal();
+    </script>
+@endif
+
 @endsection

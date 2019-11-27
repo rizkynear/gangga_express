@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Models\SecondSection;
 use App\Http\Models\Slider;
 use App\Http\Models\Testimonial;
+use App\Http\Requests\SliderStore;
+use Illuminate\Support\Str;
 
 class DashboardController extends Controller
 {
@@ -20,5 +22,18 @@ class DashboardController extends Controller
                     ->with(compact('sliders'))
                     ->with(compact('secondSection'))
                     ->with(compact('testimonials'));
+    }
+
+    public function sliderStore(SliderStore $request)
+    {
+        $slider = new Slider();
+        $name   = Str::random(40) . '.' . $request->slider_image->getClientOriginalExtension();
+
+        $slider->storeImage($request->slider_image, $name);
+        $slider->storeThumbnail($name, 700);
+        $slider->image = $name;
+        $slider->save();
+
+        return redirect()->back();
     }
 }
