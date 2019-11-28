@@ -29,12 +29,25 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function() {
             Route::post('down', 'DashboardController@sliderDown')->name('down');
         });
 
+        Route::group(['prefix' => 'testimonial', 'as' => 'testimonial.'], function() {
+            Route::post('store', 'DashboardController@testimonialStore')->name('store');
+            Route::post('edit', 'DashboardController@testimonialEdit')->name('edit');
+            Route::post('delete', 'DashboardController@testimonialDelete')->name('delete');
+        });
+
         Route::group(['prefix' => 'blog'], function() {
             Route::get('/', 'BlogController@index')->name('blog');
         });
 
-        Route::group(['prefix' => 'about-us'], function() {
-            // Route::get('our-boat', 'BoatController@index')->name('boat');
+        Route::prefix('about-us')->group(function() {
+            Route::get('our-boat', 'BoatController@index')->name('boat');
+            
+            Route::group(['prefix' => 'our-boat', 'as' => 'boat.'], function() {
+                Route::post('store', 'BoatController@store')->name('store');
+                Route::post('edit', 'BoatController@edit')->name('edit');
+                Route::post('delete', 'BoatController@delete')->name('delete');
+            });
+
             Route::get('the-company', 'CompanyController@index')->name('company');
         });
 

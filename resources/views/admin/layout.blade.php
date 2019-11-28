@@ -144,7 +144,7 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li><a href="the-company.php"> The Company</a></li>
-                                <li><a href="our-boat.php"> Our Boat</a></li>
+                                <li><a href="{{ route('boat') }}"> Our Boat</a></li>
                             </ul>
                         </li>
                         <li>
