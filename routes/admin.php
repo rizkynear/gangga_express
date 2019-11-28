@@ -35,6 +35,11 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function() {
             Route::post('delete', 'DashboardController@testimonialDelete')->name('delete');
         });
 
+        Route::group(['prefix' => 'second-section', 'as' => 'second-section.'], function() {
+            Route::post('store', 'DashboardController@secondSectionSave')->name('save');
+            Route::post('upload', 'DashboardController@secondSectionUpload')->name('upload');
+        });
+
         Route::group(['prefix' => 'blog'], function() {
             Route::get('/', 'BlogController@index')->name('blog');
         });

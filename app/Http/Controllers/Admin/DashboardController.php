@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Models\SecondSection;
 use App\Http\Models\Slider;
 use App\Http\Models\Testimonial;
+use App\Http\Requests\SecondSectionSave;
 use App\Http\Requests\SliderEdit;
 use App\Http\Requests\SliderStore;
 use Illuminate\Support\Str;
@@ -16,7 +17,7 @@ class DashboardController extends Controller
     public function index()
     {
         $sliders       = Slider::all()->sortBy('position');
-        $secondSection = SecondSection::all()->first();
+        $secondSection = SecondSection::find(1);
         $testimonials  = Testimonial::all();
 
         return view('admin.dashboard.index')
@@ -105,5 +106,44 @@ class DashboardController extends Controller
         }
         
         return redirect()->back();
+    }
+
+    public function secondSectionSave(SecondSectionSave $request)
+    {
+        $secondSection = new SecondSection();
+
+        $secondSection->updateOrCreate([
+            'id' => 1
+        ], [
+            'en' => ['title' => $request->title_en, 'sub_title' => $request->sub_title_en, 'content' => $request->content_en],
+            'id' => ['title' => $request->title_id, 'sub_title' => $request->sub_title_id, 'content' => $request->content_id],
+        ]);
+
+        return redirect()->back()->with('success', 'Data Successfully Saved');
+    }
+
+    public function secondSectionUpload(Request $request)
+    {
+        if ($request->hasFile('upload')) 
+        {
+            $secondSection = new SecondSection();
+            $name = Str::random(40) . '.' . $request->upload->getClientOriginalExtension();
+
+            $secondSection->storeImage($request->upload, $name);
+            $secondSection->storeThumbnail($name, 200);
+
+            $CKEditorFuncNum = $request->input('CKEditorFuncNum');
+            $url = asset('storage/images/second-sections/thumbnail/' . $name); 
+            $msg = 'Image successfully uploaded'; 
+            $re = "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum, '$url', '$msg')</script>";
+             
+            @header('Content-type: text/html; charset=utf-8'); 
+            echo $re;
+        }
+    }
+
+    public function testimonialStore(testimonialStore $request)
+    {
+        
     }
 }

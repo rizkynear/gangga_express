@@ -181,6 +181,9 @@ return [
         //Translation
         Astrotomic\Translatable\TranslatableServiceProvider::class,
 
+        // CKEditor
+        Unisharp\Ckeditor\ServiceProvider::class,
+
     ],
 
     /*
