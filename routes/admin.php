@@ -14,6 +14,9 @@
 Auth::routes(['register' => false, 'reset' => false]);
 
 Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function() {
+    Route::get('/laravel-filemanager', '\UniSharp\LaravelFilemanager\Controllers\LfmController@show');
+    Route::post('/laravel-filemanager/upload', '\UniSharp\LaravelFilemanager\Controllers\UploadController@upload');
+    
     Route::get('/', function() {
         return redirect('admin/dashboard');
     });
@@ -31,17 +34,39 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function() {
 
         Route::group(['prefix' => 'testimonial', 'as' => 'testimonial.'], function() {
             Route::post('store', 'DashboardController@testimonialStore')->name('store');
-            Route::post('edit', 'DashboardController@testimonialEdit')->name('edit');
+            Route::get('{id}/edit', 'DashboardController@testimonialEdit')->name('edit');
+            Route::post('{id}/update', 'DashboardController@testimonialUpdate')->name('update');
             Route::post('delete', 'DashboardController@testimonialDelete')->name('delete');
         });
 
         Route::group(['prefix' => 'second-section', 'as' => 'second-section.'], function() {
-            Route::post('store', 'DashboardController@secondSectionSave')->name('save');
-            Route::post('upload', 'DashboardController@secondSectionUpload')->name('upload');
+            Route::post('save', 'DashboardController@secondSectionSave')->name('save');
+            Route::post('edit-image', 'DashboardController@secondSectionEditImage')->name('edit-image');
         });
 
-        Route::group(['prefix' => 'blog'], function() {
+        Route::prefix('fasboat-schedule')->group(function() {
+            Route::get('{route}', 'ScheduleController@index')->name('route');
+            
+            Route::group(['as' => 'schedule.', 'prefix' => '{route}'], function() {
+                Route::post('store', 'ScheduleController@store')->name('store');
+                Route::delete('{id}/delete', 'ScheduleController@delete')->name('delete');
+                Route::get('{id}/edit', 'ScheduleController@edit')->name('edit');
+                Route::patch('{id}/update', 'ScheduleController@update')->name('update');
+            });
+
+            Route::get('holiday', 'HolidayController@show')->name('holiday');
+        });
+
+        Route::prefix('blog')->group(function() {
             Route::get('/', 'BlogController@index')->name('blog');
+
+            Route::group(['as' => 'blog.'], function() {
+                Route::get('add', 'BlogController@showAddForm')->name('add');
+                Route::post('store', 'BlogController@store')->name('store');
+                Route::delete('{id}/delete', 'BlogController@delete')->name('delete');
+                Route::get('{id}/edit', 'BlogController@edit')->name('edit');
+                Route::patch('{id}/update', 'BlogController@update')->name('update');
+            });
         });
 
         Route::prefix('about-us')->group(function() {
@@ -49,15 +74,20 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function() {
             
             Route::group(['prefix' => 'our-boat', 'as' => 'boat.'], function() {
                 Route::post('store', 'BoatController@store')->name('store');
-                Route::post('edit', 'BoatController@edit')->name('edit');
-                Route::post('delete', 'BoatController@delete')->name('delete');
+                Route::get('{id}/edit', 'BoatController@edit')->name('edit');
+                Route::patch('{id}/update', 'BoatController@update')->name('update');
+                Route::delete('{id}/delete', 'BoatController@delete')->name('delete');
             });
 
             Route::get('the-company', 'CompanyController@index')->name('company');
+
+            Route::group(['prefix' => 'the-company', 'as' => 'company.'], function() {
+                Route::patch('save', 'CompanyController@save')->name('save');
+            });
         });
 
         Route::group(['prefix' => 'destination'], function() {
-            Route::get('/', 'DestinationController@index');
+            Route::get('/', 'DestinationController@index')->name('destination');
         });
     });
 });

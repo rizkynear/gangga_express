@@ -7,9 +7,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Models\SecondSection;
 use App\Http\Models\Slider;
 use App\Http\Models\Testimonial;
+use App\Http\Requests\SecondSectionEditImage;
 use App\Http\Requests\SecondSectionSave;
 use App\Http\Requests\SliderEdit;
 use App\Http\Requests\SliderStore;
+use App\Http\Requests\TestimonialUpdate;
+use App\Http\Requests\TestimonialStore;
 use Illuminate\Support\Str;
 
 class DashboardController extends Controller
@@ -18,7 +21,7 @@ class DashboardController extends Controller
     {
         $sliders       = Slider::all()->sortBy('position');
         $secondSection = SecondSection::find(1);
-        $testimonials  = Testimonial::all();
+        $testimonials  = Testimonial::all()->sortByDesc('id');
 
         return view('admin.dashboard.index')
                     ->with(compact('sliders'))
@@ -122,28 +125,106 @@ class DashboardController extends Controller
         return redirect()->back()->with('success', 'Data Successfully Saved');
     }
 
-    public function secondSectionUpload(Request $request)
+    public function secondSectionEditImage(SecondSectionEditImage $request)
     {
-        if ($request->hasFile('upload')) 
-        {
-            $secondSection = new SecondSection();
-            $name = Str::random(40) . '.' . $request->upload->getClientOriginalExtension();
+        $secondSection = new SecondSection();
+        $record        = SecondSection::find(1);
+        $name          = Str::random(40) . '.' . $request->image->getClientOriginalExtension();
 
-            $secondSection->storeImage($request->upload, $name);
-            $secondSection->storeThumbnail($name, 200);
+        $secondSection->storeImage($request->image, $name);
+        $secondSection->storeThumbnail($name, 700);
 
-            $CKEditorFuncNum = $request->input('CKEditorFuncNum');
-            $url = asset('storage/images/second-sections/thumbnail/' . $name); 
-            $msg = 'Image successfully uploaded'; 
-            $re = "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum, '$url', '$msg')</script>";
-             
-            @header('Content-type: text/html; charset=utf-8'); 
-            echo $re;
+        if ($request->image_index === 'image_1') {
+            if (!is_null($record->image_1)) {
+                $secondSection->deleteImage($record->image_1);
+            }
+
+            $secondSection->updateOrCreate([
+                'id' => 1
+            ], [
+                'image_1' => $name
+            ]);
         }
+
+        elseif ($request->image_index === 'image_2') {
+            if (!is_null($record->image_2)) {
+                $secondSection->deleteImage($record->image_2);
+            }
+
+            $secondSection->updateOrCreate([
+                'id' => 1
+            ], [
+                'image_2' => $name
+            ]);
+        }
+
+        return redirect()->back()->with('Image Successfully Updated');
     }
 
-    public function testimonialStore(testimonialStore $request)
+    public function testimonialStore(TestimonialStore $request)
     {
+        $testimonial = new Testimonial();
+        $name        = Str::random(40) . '.' . $request->image->getClientOriginalExtension();
+
+        $testimonial->storeImage($request->image, $name);
+        $testimonial->storeThumbnail($name, 700);
         
+        $data = [
+            'name'        => $request->name,
+            'nationality' => $request->nationality,
+            'image'       => $name,
+            'en'          => ['description' => $request->description_en],
+            'id'          => ['description' => $request->description_id]
+        ];
+
+        $testimonial->create($data);
+
+        return redirect()->back();
+    }
+
+    public function testimonialEdit(Request $request, $id)
+    {
+        $testimonial = Testimonial::findOrFail($id);
+
+        return view('admin.dashboard.testimonial-edit')->with(compact('testimonial'));
+    }
+
+    public function testimonialUpdate(TestimonialUpdate $request, $id)
+    {
+        $testimonial = new Testimonial();
+        $record      = Testimonial::findOrFail($id);
+        
+        if ($request->hasFile('image'))
+        {
+            $name = Str::random(40) . '.' . $request->image->getClientOriginalExtension();
+
+            $testimonial->deleteImage($record->image);
+            $testimonial->storeImage($request->image, $name);
+            $testimonial->storeThumbnail($name, 300);
+
+            $record->update(['image' => $name]);
+        }
+
+        $data = [
+            'name'        => $request->name,
+            'nationality' => $request->nationality,
+            'en'          => ['description' => $request->description_en],
+            'id'          => ['description' => $request->description_id]
+        ];
+
+        $record->update($data);
+
+        return redirect(route('dashboard'));
+    }
+
+    public function testimonialDelete(Request $request)
+    {
+        $testimonial = new Testimonial();
+        $record      = Testimonial::findOrFail($request->id);
+
+        $testimonial->deleteImage($record->image);
+        $record->delete();
+
+        return redirect()->back();
     }
 }

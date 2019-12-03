@@ -2,11 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\ValidationException;
 
-class BoatStore extends FormRequest
+class BlogStore extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,12 +24,11 @@ class BoatStore extends FormRequest
     public function rules()
     {
         return [
-            'name'     => 'required|max:255',
-            'engine'   => 'required|max:255',
-            'capacity' => 'required|numeric',
-            'length'   => 'required|numeric',
-            'width'    => 'required|numeric',
-            'image'    => 'required|mimes:jpg,jpeg,png|max:1024'
+            'title_id' => 'required|max:255',
+            'description_id' => 'required',
+            'title_en' => 'required|max:255',
+            'description_en' => 'required',
+            'image' => 'required|mimes:jpg,jpeg,png|max:1024',
         ];
     }
 }

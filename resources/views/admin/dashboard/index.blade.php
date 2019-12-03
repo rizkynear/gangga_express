@@ -68,8 +68,8 @@
                                 <h2 class="font18 my-5">Second Section</h2>
                             </div>
                             <div class="col-sm-6 text-right">
-                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-edit-image2"><i class="fa fa-plus" aria-hidden="true"></i> Edit Image 1</button>
-                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-edit-image2"><i class="fa fa-plus" aria-hidden="true"></i> Edit Image 2</button>
+                                <button type="button" class="btn btn-default edit-second-section-image" data-id="{{ $secondSection->id }}" data-image="{{ $secondSection->image_1 }}" data-image-index="image_1"><i class="fa fa-plus" aria-hidden="true"></i> Edit Image 1</button>
+                                <button type="button" class="btn btn-default edit-second-section-image" data-id="{{ $secondSection->id }}" data-image="{{ $secondSection->image_2 }}" data-image-index="image_2"><i class="fa fa-plus" aria-hidden="true"></i> Edit Image 2</button>
                             </div>
                         </div>
                     </div>
@@ -117,9 +117,9 @@
                                         <div class="form-group">
                                             <label class="required">Content</label>
                                             @if (is_null($secondSection))
-                                                <textarea id="second-section-ckeditor-en" rows="5" name="content_en" class="form-controler"> {{ '' ?? old('content_en') }}</textarea>
+                                                <textarea rows="5" name="content_en" class="ckeditor form-controler"> {{ '' ?? old('content_en') }}</textarea>
                                             @else 
-                                                <textarea id="second-section-ckeditor-en" rows="5" name="content_en" class="form-controler"> {{ $errors->secondSectionSave->has('content_en') ? old('content_en') : $secondSection->translate('en')->content }}</textarea>
+                                                <textarea rows="5" name="content_en" class="ckeditor form-controler"> {{ $errors->secondSectionSave->has('content_en') ? old('content_en') : $secondSection->translate('en')->content }}</textarea>
                                             @endif
                                         </div>
                                     </div>
@@ -145,9 +145,9 @@
                                         <div class="form-group">
                                             <label class="required">Content</label>
                                             @if (is_null($secondSection))
-                                                <textarea id="second-section-ckeditor-id" rows="5" name="content_id" class="form-controler"> {{ '' ?? old('content_id') }}</textarea>
+                                                <textarea rows="5" name="content_id" class="form-controler ckeditor"> {{ '' ?? old('content_id') }}</textarea>
                                             @else 
-                                                <textarea id="second-section-ckeditor-id" rows="5" name="content_id" class="form-controler"> {{ $errors->secondSectionSave->has('content_id') ? old('content_id') : $secondSection->translate('id')->content }}</textarea>
+                                                <textarea rows="5" name="content_id" class="form-controler ckeditor"> {{ $errors->secondSectionSave->has('content_id') ? old('content_id') : $secondSection->translate('id')->content }}</textarea>
                                             @endif
                                         </div>
                                     </div>
@@ -199,8 +199,10 @@
                                             <span class="display-xs-block">{{ $testimonial->description }}</span>
                                         </td>
                                         <td>
-                                            <span class="display-xs-inline-block" data-toggle="tooltip" title="Edit"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit-package"><i class="fa fa-pencil" aria-hidden="true"></i></button></span>
-                                            <span class="display-xs-inline-block" data-toggle="tooltip" title="Delete"><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-confirmation"><i class="fa fa-trash" aria-hidden="true"></i></button></span>
+                                            <form action="{{ route('testimonial.edit', $testimonial->id) }}" method="get">
+                                                <span class="display-xs-inline-block" data-toggle="tooltip" title="Edit"><button type="submit" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></button></span>
+                                                <span class="display-xs-inline-block" data-toggle="tooltip" title="Delete"><button type="button" class="btn btn-danger delete-testimonial" data-id="{{ $testimonial->id }}"><i class="fa fa-trash" aria-hidden="true"></i></button></span>
+                                            </form>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -256,6 +258,50 @@
     </div>
     <!--MODAL ADD SLIDER END-->
 
+    <!--MODAL EDIT SECOND SECTION-->
+    <div class="modal fade" id="modal-edit-second-section-image" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="title-main">Edit Image</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('second-section.edit-image') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group">
+                            <label class="required">Photo</label>
+                            <div class="row row-custom">
+                                <div class="col-sm-4">
+                                    <img class="img-responsive margin-bot-10" src="http://via.placeholder.com/700x400" alt="" id="second-section-image">
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <span class="btn btn-primary btn-file">
+                                                <i class="fa fa-folder-open"></i>&nbsp;Browse <input type="file" name="image">
+                                            </span>
+                                        </span>
+                                        <input type="text" class="form-control" value="No file chosen" readonly="">
+                                    </div>
+                                    @if ($errors->secondSectionEditImage->has('image'))
+                                        <p class="small text-danger mt-5">{{ $errors->secondSectionEditImage->first('image') }}</p>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <input type="hidden" id="second-section-id" name="id" value="">
+                        <input type="hidden" id="second-section-image-index" name="image_index" value="">
+                        <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Save</button>
+                        <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--MODAL EDIT SECOND SECTION END-->
+
     <!--MODAL EDIT SLIDER-->
     <div class="modal fade" id="modal-edit-slider" role="dialog">
         <div class="modal-dialog">
@@ -300,7 +346,7 @@
     <!--MODAL EDIT SLIDER END-->
 
     <!--MODAL DELETE SLIDER-->
-    <div class="modal fade" id="modal-delete-slider" role="dialog">
+    <div class="modal fade" id="modal-delete" role="dialog">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-body text-center">
@@ -309,9 +355,9 @@
                         <h4 class="title-main mt-0 mb-10">Delete?</h4>
                         <p>Are you sure want to delete this item?</p>
                     </div>
-                    <form action="{{ route('slider.delete') }}" method="post">
+                    <form action="" method="post" id="form-delete">
                         @csrf
-                        <input type="hidden" name="id" id="delete-slider-id" value="">
+                        <input type="hidden" name="id" id="delete-id" value="">
                         <button class="btn btn-danger mr-5" type="submit"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
                         <button class="btn btn-default" type="submit" data-dismiss="modal">Cancel</button>
                     </form>
@@ -330,7 +376,8 @@
                     <h4 class="title-main">Add Testimonial</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('testimonial.store') }}" method="post">
+                    <form action="{{ route('testimonial.store') }}" method="post" enctype="multipart/form-data">
+                        @csrf
                         <div class="form-group">
                             <label class="required">Photo</label>
                             <div class="row row-custom">
@@ -346,16 +393,25 @@
                                         </span>
                                         <input type="text" class="form-control" value="No file chosen" readonly="">
                                     </div>
+                                    @if ($errors->testimonialStore->has('image'))
+                                        <p class="small text-danger mt-5">{{ $errors->testimonialStore->first('image') }}</p>
+                                    @endif
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="required">Name</label>
                             <input type="text" class="form-control" name="name" value="{{ old('name') }}">
+                            @if ($errors->testimonialStore->has('name'))
+                                <p class="small text-danger mt-5">{{ $errors->testimonialStore->first('name') }}</p>
+                            @endif
                         </div>
                         <div class="form-group">
                             <label class="required">Nationality</label>
                             <input type="text" class="form-control" name="nationality" value="{{ old('nationality') }}">
+                            @if ($errors->testimonialStore->has('nationality'))
+                                <p class="small text-danger mt-5">{{ $errors->testimonialStore->first('nationality') }}</p>
+                            @endif
                         </div>
                         <ul class="nav nav-tabs">
                             <li class="active"><a data-toggle="tab" href="#testimonial-en"><img src="img/flag_gb.png" alt=""> English</a></li>
@@ -366,7 +422,7 @@
                                 <div class="box-body">
                                     <div class="form-group">
                                         <label class="required">Description</label>
-                                        <textarea id="testimonial-ckeditor-en" name="description_en"></textarea>
+                                        <textarea class="ckeditor" name="description_en">{{ old('description_en') }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -374,10 +430,16 @@
                                 <div class="box-body">
                                     <div class="form-group">
                                         <label class="required">Description</label>
-                                        <textarea id="testimonial-ckeditor-id" name="description_id"></textarea>
+                                        <textarea class="ckeditor" name="description_id">{{ old('description_id') }}</textarea>
                                     </div>
                                 </div>
                             </div>
+                            @if ($errors->testimonialStore->has('description_en'))
+                                <p class="small text-danger mt-5">{{ $errors->testimonialStore->first('description_en') }}</p>
+                            @endif
+                            @if ($errors->testimonialStore->has('description_id'))
+                                <p class="small text-danger mt-5">{{ $errors->testimonialStore->first('description_id') }}</p>
+                            @endif
                         </div>
                         <hr>
                         <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Save</button>
@@ -394,13 +456,21 @@
 
 @section('script')
 
-@if ($errors->sliderStore->has('image'))
+@if ($errors->sliderStore->has('*'))
     <script>
         $('#modal-add-slider').modal();
     </script>
-@elseif ($errors->sliderEdit->has('image'))
+@elseif ($errors->sliderEdit->has('*'))
     <script>
         $('#modal-edit-slider').modal();
+    </script>
+@elseif ($errors->testimonialStore->has('*'))
+    <script>
+        $('#modal-add-testimonial').modal();
+    </script>
+@elseif ($errors->secondSectionEditImage->has('*'))
+    <script>
+        $('#modal-edit-second-section-image').modal();
     </script>
 @endif
 
@@ -416,34 +486,30 @@
         $('.delete-slider').click(function() {
             var id = $(this).data('id');
 
-            $('#delete-slider-id').attr('value', id);
-            $('#modal-delete-slider').modal();
+            $('#delete-id').attr('value', id);
+            $('#form-delete').attr('action', "{{ route('slider.delete') }}");
+            $('#modal-delete').modal();
+        });
+
+        $('.delete-testimonial').click(function() {
+            var id = $(this).data('id');
+
+            $('#delete-id').attr('value', id);
+            $('#form-delete').attr('action', "{{ route('testimonial.delete') }}");
+            $('#modal-delete').modal();
+        });
+
+        $('.edit-second-section-image').click(function() {
+            var id = $(this).data('id');
+            var image = $(this).data('image');
+            var imageIndex = $(this).data('image-index'); 
+
+            $('#second-section-id').attr('value', id);
+            $('#second-section-image-index').attr('value', imageIndex);
+            $('#second-section-image').attr('src', "{{ asset('storage/images/second-sections/thumbnail') }}" + '/' + image);
+            $('#modal-edit-second-section-image').modal();
         });
     })
 </script>
-
-<!-- CKEditor -->
-<script>
-    CKEDITOR.replace('second-section-ckeditor-en', {
-        filebrowserUploadUrl: "{{ route('second-section.upload', ['_token' => csrf_token()]) }}",
-        filebrowserUploadMethod: 'form'
-    });
-    
-    CKEDITOR.replace('second-section-ckeditor-id', {
-        filebrowserUploadUrl: "{{ route('second-section.upload', ['_token' => csrf_token()]) }}",
-        filebrowserUploadMethod: 'form'
-    });
-
-    CKEDITOR.replace('testimonial-ckeditor-en', {
-        filebrowserUploadUrl: "{{ route('second-section.upload', ['_token' => csrf_token()]) }}",
-        filebrowserUploadMethod: 'form'
-    });
-
-    CKEDITOR.replace('testimonial-ckeditor-id', {
-        filebrowserUploadUrl: "{{ route('second-section.upload', ['_token' => csrf_token()]) }}",
-        filebrowserUploadMethod: 'form'
-    });
-</script>
-<!-- CKEditor END -->
 
 @endsection

@@ -28,10 +28,10 @@
                     <div class="box-body">
                         <!--SAMPLE ALERT-->
                         @if (session()->has('success'))
-                        <div class="alert alert-success alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            <p><i class="icon fa fa-check"></i>{{ session('success') }}</p>
-                        </div>
+                            <div class="alert alert-success alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <p><i class="icon fa fa-check"></i>{{ session('success') }}</p>
+                            </div>
                         @endif
                         <!--SAMPLE ALERT END-->
                         <div class="table-responsive">
@@ -65,8 +65,10 @@
                                                 <span class="display-xs-block">{{ $boat->width }}</span>
                                             </td>
                                             <td>
-                                                <span class="display-xs-inline-block" data-toggle="tooltip" title="Edit"><button type="button" class="btn btn-primary edit-boat"><i class="fa fa-edit" aria-hidden="true"></i></button></span>
-                                                <span class="display-xs-inline-block" data-toggle="tooltip" title="Delete"><button type="button" class="btn btn-danger delete-boat" data-id="{{ $boat->id }}"><i class="fa fa-trash" aria-hidden="true"></i></button></span>
+                                                <form action="{{ route('boat.edit', $boat->id) }}" method="get">
+                                                    <span class="display-xs-inline-block" data-toggle="tooltip" title="Edit"><button type="submit" class="btn btn-primary"><i class="fa fa-edit" aria-hidden="true"></i></button></span>
+                                                    <span class="display-xs-inline-block" data-toggle="tooltip" title="Delete"><button type="button" class="btn btn-danger delete-boat" data-action="{{ route('boat.delete', $boat->id) }}"><i class="fa fa-trash" aria-hidden="true"></i></button></span>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -107,8 +109,8 @@
                                             </span>
                                             <input type="text" class="form-control" value="No file chosen" readonly="">
                                         </div>
-                                        @if ($errors->boatStore->has('image'))
-                                            <p class="small text-danger mt-5">{{ $errors->boatStore->first('image') }}</p>
+                                        @if ($errors->has('image'))
+                                            <p class="small text-danger mt-5">{{ $errors->first('image') }}</p>
                                         @endif
                                     </div>
                                 </div>
@@ -116,8 +118,8 @@
                             <div class="form-group">
                                 <label class="required">Boat Name</label>
                                 <input type="text" name="name" class="form-control" value="{{ old('name') }}">
-                                @if ($errors->boatStore->has('name'))
-                                    <p class="small text-danger mt-5">{{ $errors->boatStore->first('name') }}</p>
+                                @if ($errors->has('name'))
+                                    <p class="small text-danger mt-5">{{ $errors->first('name') }}</p>
                                 @endif
                             </div>
                             <div class="row row-custom">
@@ -125,8 +127,8 @@
                                     <div class="form-group">
                                         <label class="required">Boat Engine</label>
                                         <input type="text" name="engine" class="form-control" value="{{ old('engine') }}">
-                                        @if ($errors->boatStore->has('engine'))
-                                            <p class="small text-danger mt-5">{{ $errors->boatStore->first('engine') }}</p>
+                                        @if ($errors->has('engine'))
+                                            <p class="small text-danger mt-5">{{ $errors->first('engine') }}</p>
                                         @endif
                                     </div>
                                 </div>
@@ -134,8 +136,8 @@
                                     <div class="form-group">
                                         <label class="required">Boat Capacity</label>
                                         <input type="text" name="capacity" class="form-control" value="{{ old('capacity') }}">
-                                        @if ($errors->boatStore->has('capacity'))
-                                            <p class="small text-danger mt-5">{{ $errors->boatStore->first('capacity') }}</p>
+                                        @if ($errors->has('capacity'))
+                                            <p class="small text-danger mt-5">{{ $errors->first('capacity') }}</p>
                                         @endif
                                     </div>
                                 </div>
@@ -146,8 +148,8 @@
                                     <div class="form-group">
                                         <label class="required">Boat Length</label>
                                         <input type="text" name="length" class="form-control" value="{{ old('length') }}">
-                                        @if ($errors->boatStore->has('length'))
-                                            <p class="small text-danger mt-5">{{ $errors->boatStore->first('length') }}</p>
+                                        @if ($errors->has('length'))
+                                            <p class="small text-danger mt-5">{{ $errors->first('length') }}</p>
                                         @endif
                                     </div>
                                 </div>
@@ -155,8 +157,8 @@
                                     <div class="form-group">
                                         <label class="required">Boat Width</label>
                                         <input type="text" name="width" class="form-control" value="{{ old('width') }}">
-                                        @if ($errors->boatStore->has('width'))
-                                            <p class="small text-danger mt-5">{{ $errors->boatStore->first('width') }}</p>
+                                        @if ($errors->has('width'))
+                                            <p class="small text-danger mt-5">{{ $errors->first('width') }}</p>
                                         @endif
                                     </div>
                                 </div>
@@ -182,9 +184,9 @@
                         <h4 class="title-main mt-0 mb-10">Delete?</h4>
                         <p>Are you sure want to delete this item?</p>
                     </div>
-                    <form action="{{ route('boat.delete') }}" method="post">
+                    <form action="" method="post" id="form-delete">
                         @csrf
-                        <input type="hidden" id="delete-boat-id" name="id" value="">
+                        @method('DELETE')
                         <button class="btn btn-danger mr-5" type="submit"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
                         <button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>
                     </form>
@@ -198,7 +200,7 @@
 
 @section('script')
 
-@if ($errors->boatStore->has("*"))
+@if ($errors->has("*"))
     <script>
          $('#modal-add-boat').modal();
     </script>
@@ -207,9 +209,9 @@
 <script>
     $(document).ready(function() {
         $('.delete-boat').click(function() {
-            var id = $(this).data('id');
+            var action = $(this).data('action');
 
-            $('#delete-boat-id').attr('value', id);
+            $('#form-delete').attr('action', action);
             $('#modal-delete-boat').modal();
         });
     })

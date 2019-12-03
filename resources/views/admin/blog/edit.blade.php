@@ -4,28 +4,23 @@
 <div class="content-wrapper">
     <section class="content-header">
         <h1 class="title-main">
-            Add Blog
+            Edit Blog
         </h1>
-        <ol class="breadcrumb">
-            <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
-            <li><a href="{{ route('blog') }}">Blog</a></li>
-            <li class="active">Add Blog</li>
-        </ol>
     </section>
 
     <section class="content">
         <div class="row">
             <div class="col-xs-12">
                 <div class="box box-danger">
-
                     <div class="box-body">
-                        <form action="{{ route('blog.store') }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('blog.update', $blog->id) }}" method="post" enctype="multipart/form-data">
                             @csrf
+                            @method('PATCH')
                             <div class="form-group">
                                 <label class="required">Photo</label>
                                 <div class="row row-custom">
                                     <div class="col-sm-2">
-                                        <img class="img-responsive margin-bot-10" src="http://via.placeholder.com/158x181" alt="">
+                                        <img class="img-responsive margin-bot-10" src="{{ asset('storage/images/blogs/thumbnail/' . $blog->image) }}" alt="">
                                     </div>
                                     <div class="col-sm-10">
                                         <div class="input-group">
@@ -42,65 +37,55 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <ul class="nav nav-tabs margin-top-30">
-                                <li class="active"><a data-toggle="tab" href="#news-id"><img src="img/flag_id.jpg" alt=""> Indonesia</a></li>
-                                <li><a data-toggle="tab" href="#news-en"><img src="img/flag_gb.png" alt=""> English</a></li>
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a data-toggle="tab" href="#blog-en"><img src="img/flag_gb.png" alt=""> English</a></li>
+                                <li><a data-toggle="tab" href="#blog-id"><img src="img/flag_id.jpg" alt=""> Indonesia</a></li>
                             </ul>
                             <div class="tab-content">
-                                <!--INDONESIA-->
-                                <div id="news-id" class="tab-pane fade in active">
+                                <div id="blog-en" class="tab-pane fade in active">
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label class="required">Title</label>
-                                            <input type="text" class="form-control" name="title_id" value="{{ old('title_id') }}">
+                                            <input type="text" class="form-control" name="title_en" value="{{ $errors->has('title_en') ? old('title_en') : $blog->translate('en')->title }}">
                                         </div>
                                         <div class="form-group">
                                             <label class="required">Description</label>
-                                            <textarea class="ckeditor" name="description_id">{{ old('description_id') }}</textarea>
+                                            <textarea class="ckeditor" name="description_en">{{ $errors->has('description_en') ? old('description_en') : $blog->translate('en')->description }}</textarea>
                                         </div>
                                     </div>
                                 </div>
-                                <!--INDONESIA END-->
-                                <!--ENGLISH-->
-                                <div id="news-en" class="tab-pane fade">
+                                <div id="blog-id" class="tab-pane fade">
                                     <div class="box-body">
                                         <div class="form-group">
-                                            <label>Title</label>
-                                            <input type="text" class="form-control" name="title_en" value="{{ old('title_en') }}">
+                                            <label class="required">Title</label>
+                                            <input type="text" class="form-control" name="title_id" value="{{ $errors->has('title_id') ? old('title_id') : $blog->translate('id')->title }}">
                                         </div>
                                         <div class="form-group">
-                                            <label>Description</label>
-                                            <textarea class="ckeditor" name="description_en">{{ old('description_en') }}</textarea>
+                                            <label class="required">Description</label>
+                                            <textarea class="ckeditor" name="description_id">{{ $errors->has('description_id') ? old('description_id') : $blog->translate('id')->description }}</textarea>
                                         </div>
                                     </div>
-
                                 </div>
-                                <!--ENGLISH END-->
+                                @if ($errors->has('title_en'))
+                                <p class="small text-danger mt-5">{{ $errors->first('title_en') }}</p>
+                                @endif
+
                                 @if ($errors->has('title_id'))
                                     <p class="small text-danger mt-5">{{ $errors->first('title_id') }}</p>
                                 @endif
 
-                                @if ($errors->has('description_id'))
-                                    <p class="small text-danger mt-5">{{ $errors->first('description_id') }}</p>
-                                @endif
-
-                                @if ($errors->has('title_en'))
-                                    <p class="small text-danger mt-5">{{ $errors->first('title_en') }}</p>
-                                @endif
-
                                 @if ($errors->has('description_en'))
-                                    <p class="small text-danger mt-5">{{ $errors->first('description_en') }}</p>
+                                <p class="small text-danger mt-5">{{ $errors->first('description_en') }}</p>
+                                @endif
+
+                                @if ($errors->has('description_id'))
+                                <p class="small text-danger mt-5">{{ $errors->first('description_id') }}</p>
                                 @endif
                             </div>
-                            <div class="box-body">
-                                <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Save</button>
-                                <a href="{{ route('blog') }}" class="btn btn-default">Cancel</a>
-                            </div>
-
+                            <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Save</button>
+                            <a href="{{ route('blog') }}" class="btn btn-default">Cancel</a>
                         </form>
                     </div>
-
                 </div>
             </div>
         </div>

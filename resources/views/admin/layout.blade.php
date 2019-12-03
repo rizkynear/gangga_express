@@ -114,15 +114,15 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="tribuana-sampalan.php"> Tribuana Port - Sampalan</a></li>
-                                <li><a href="the-company.php"> Tribuana Port - Buyuk</a></li>
-                                <li><a href="the-company.php"> Sampalan - Tribuana Port</a></li>
-                                <li><a href="the-company.php"> Buyuk - Tribuana Port</a></li>
-                                <li><a href="the-company.php"> Holiday Date</a></li>
+                                <li><a href="{{ route('route', 'tribuana-sampalan') }}"> Tribuana Port - Sampalan</a></li>
+                                <li><a href="{{ route('route', 'tribuana-buyuk') }}"> Tribuana Port - Buyuk</a></li>
+                                <li><a href="{{ route('route', 'sampalan-tribuana') }}"> Sampalan - Tribuana Port</a></li>
+                                <li><a href="{{ route('route', 'buyuk-tribuana') }}"> Buyuk - Tribuana Port</a></li>
+                                <li><a href="{{ route('holiday') }}"> Holiday Date</a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="destinations.php">
+                            <a href="{{ route('destination') }}">
                                 <i class="fa fa-compass" aria-hidden="true"></i> <span>Destination</span>
                             </a>
                         </li>
@@ -141,7 +141,7 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="the-company.php"> The Company</a></li>
+                                <li><a href="{{ route('company') }}"> The Company</a></li>
                                 <li><a href="{{ route('boat') }}"> Our Boat</a></li>
                             </ul>
                         </li>
@@ -261,6 +261,17 @@
         }
     });
 </script>
+
+<!-- CKEditor -->
+<script>
+    $('textarea.ckeditor').ckeditor({
+        filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+        filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token={{ csrf_token() }}',
+        filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+        filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token={{ csrf_token() }}',
+    });
+</script>
+<!-- CKEditor END -->
 <!--temporary script end-->
 @yield('script')
 </html>
