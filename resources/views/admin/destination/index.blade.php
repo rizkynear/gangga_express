@@ -22,43 +22,44 @@
                             <div class="col-sm-6">
                             </div>
                             <div class="col-sm-6 text-right">
-                                <a type="button" class="btn btn-default" href="add-destinations.php"><i class="fa fa-plus" aria-hidden="true"></i> Add Destination</a>
-                                <!-- <button type="button" class="btn btn-default" data-toggle="modal" data-target="#"><i class="fa fa-plus" aria-hidden="true"></i> Add Destinations</button> -->
+                                <a type="button" class="btn btn-default" href="{{ route('destination.add') }}"><i class="fa fa-plus" aria-hidden="true"></i> Add Destination</a>
                             </div>
                         </div>
                     </div>
 
                     <div class="box-body">
                         <!--SAMPLE ALERT-->
-                        <div class="alert alert-success alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            <p><i class="icon fa fa-check"></i> New destination is successfully added!</p>
-                        </div>
+                        @if (session()->has('success'))
+                            <div class="alert alert-success alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <p><i class="icon fa fa-check"></i>{{ session('success') }}</p>
+                            </div>
+                        @endif
                         <!--SAMPLE ALERT END-->
                         <div class="table-responsive">
                             <table class="table table-striped" id="table-contact">
                                 <thead>
                                     <tr>
                                         <th style="width: 200px;">Image</th>
-                                        <th>Title</th>
+                                        <th>Name</th>
                                         <th style="width: 150px;">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php for ($i = 0; $i < 8; $i++) : ?>
+                                    @foreach ($destinations as $destination)
                                         <tr>
                                             <td>
-                                                <img class="img-responsive img-xs" src="http://via.placeholder.com/700x400" alt="">
+                                                <img class="img-responsive img-xs" src="{{ asset('storage/images/destinations/thumbnail/' . $destination->image) }}" alt="">
                                             </td>
                                             <td>
-                                                <span class="display-xs-block">Kelingking Beach</span>
+                                                <span class="display-xs-block">{{ $destination->name }}</span>
                                             </td>
                                             <td>
-                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#resend-confirmation"><i class="fa fa-edit" aria-hidden="true"></i></button>
-                                                <span class="display-xs-inline-block" data-toggle="tooltip" title="Delete"><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-confirmation"><i class="fa fa-trash" aria-hidden="true"></i></button></span>
+                                                <a class="btn btn-primary" href="{{ route('destination.edit', $destination->id) }}"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                                                <span class="display-xs-inline-block" data-toggle="tooltip" title="Delete"><button type="button" class="btn btn-danger delete-destination" data-action="{{ route('destination.delete', $destination->id) }}"><i class="fa fa-trash" aria-hidden="true"></i></button></span>
                                             </td>
                                         </tr>
-                                    <?php endfor ?>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -70,7 +71,7 @@
     </section>
 
     <!--MODAL DELETE-->
-    <div class="modal fade" id="delete-confirmation" role="dialog">
+    <div class="modal fade" id="modal-delete-destination" role="dialog">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-body text-center">
@@ -79,8 +80,12 @@
                         <h4 class="title-main mt-0 mb-10">Delete?</h4>
                         <p>Are you sure want to delete this item?</p>
                     </div>
-                    <button class="btn btn-danger mr-5" type="button" data-dismiss="modal"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
-                    <button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>
+                    <form action="" method="post" id="form-delete">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger mr-5" type="submit"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+                        <button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -92,6 +97,14 @@
 @section('script')
 <script type="text/javascript">
     $(document).ready(function() {
+
+        $('.delete-destination').click(function() {
+            var action = $(this).data('action');
+
+            $('#form-delete').attr('action', action);
+            $('#modal-delete-destination').modal();
+        });
+
         //tooltip button icon
         $('[data-toggle="tooltip"]').tooltip();
 

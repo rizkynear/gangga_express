@@ -4,12 +4,12 @@
 <div class="content-wrapper">
     <section class="content-header">
         <h1 class="title-main">
-            Add Destinations
+            Edit Destinations
         </h1>
         <ol class="breadcrumb">
             <li><a href="dashboard.php">Dashboard</a></li>
             <li>Destinations</li>
-            <li class="active">Add Destinations</li>
+            <li class="active">Edit Destinations</li>
         </ol>
     </section>
 
@@ -29,13 +29,14 @@
                     </div>
 
                     <div class="box-body">
-                        <form action="{{ route('destination.store') }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('destination.update', $destination->id) }}" method="post" enctype="multipart/form-data">
                             @csrf
+                            @method('PATCH')
                             <div class="form-group">
                                 <label class="required">Photo</label>
                                 <div class="row row-custom">
                                     <div class="col-sm-2">
-                                        <img class="img-responsive margin-bot-10" src="http://via.placeholder.com/158x181" alt="">
+                                        <img class="img-responsive margin-bot-10" src="{{ asset('storage/images/destinations/thumbnail/' . $destination->image) }}" alt="">
                                     </div>
                                     <div class="col-sm-10">
                                         <div class="input-group">
@@ -55,7 +56,7 @@
                             <hr>
                             <div class="form-group">
                                 <label class="required">Destination Name</label>
-                                <input class="form-control" type="text" name="name" value="{{ old('name') }}">
+                                <input class="form-control" type="text" name="name" value="{{ $errors->has('name') ? old('name') : $destination->name }}">
                                 @if ($errors->has('name'))
                                     <p class="small text-danger mt-5">{{ $errors->first('name') }}</p>
                                 @endif
@@ -63,7 +64,7 @@
                             <div class="form-group">
                                 <label class="required">Map Location</label>
                                 <span class="text-muted">(Set the location address manually to be more accurate)</span>
-                                <input type="text" class="form-control" id="loc-address" name="location" value="{{ old('location') }}">
+                                <input type="text" class="form-control" id="loc-address" name="location" value="{{ $errors->has('location') ? old('location') : $destination->location }}">
                                 @if ($errors->has('location'))
                                     <p class="small text-danger mt-5">{{ $errors->first('location') }}</p>
                                 @endif
@@ -99,14 +100,14 @@
         // BOOTSTRAP LOCATION PICKER
         $('#loc').locationpicker({
             location: {
-                latitude: "{{ old('latitude') ?? '-8.6821245'}}",
-                longitude: "{{ old('longitude') ?? '115.1652808'}}"
+                latitude: "{{ old('latitude') ?? $destination->latitude }}",
+                longitude: "{{ old('longitude') ?? $destination->longitude }}"
             },
             radius: 300,
             inputBinding: {
                 latitudeInput: $('#loc-lat'),
                 longitudeInput: $('#loc-lon'),
-                radiusInput: $('#loc-radius')
+                radiusInput: $('#loc-radius'),
             },
             enableAutocomplete: true
         });

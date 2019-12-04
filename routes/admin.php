@@ -95,8 +95,16 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function() {
             });
         });
 
-        Route::group(['prefix' => 'destination'], function() {
+        Route::prefix('destination')->group(function() {
             Route::get('/', 'DestinationController@index')->name('destination');
+
+            Route::group(['as' => 'destination.'], function() {
+                Route::get('add', 'DestinationController@add')->name('add');
+                Route::post('store', 'DestinationController@store')->name('store');
+                Route::delete('{id}/delete', 'DestinationController@delete')->name('delete');
+                Route::get('{id}/edit', 'DestinationController@edit')->name('edit');
+                Route::patch('{id}/update', 'DestinationController@update')->name('update');
+            });
         });
     });
 });
