@@ -44,7 +44,7 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function() {
             Route::post('edit-image', 'DashboardController@secondSectionEditImage')->name('edit-image');
         });
 
-        Route::prefix('fasboat-schedule')->group(function() {
+        Route::prefix('fasboat-schedule-route')->group(function() {
             Route::get('{route}', 'ScheduleController@index')->name('route');
             
             Route::group(['as' => 'schedule.', 'prefix' => '{route}'], function() {
@@ -53,8 +53,17 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function() {
                 Route::get('{id}/edit', 'ScheduleController@edit')->name('edit');
                 Route::patch('{id}/update', 'ScheduleController@update')->name('update');
             });
+        });
 
-            Route::get('holiday', 'HolidayController@show')->name('holiday');
+        Route::prefix('fastboat-schedule-holiday')->group(function() {
+            Route::get('holiday', 'HolidayController@index')->name('holiday');
+
+            Route::group(['as' => 'holiday.', 'prefix' => 'holiday'], function() {
+                Route::post('store', 'HolidayController@store')->name('store');
+                Route::get('{id}/edit', 'HolidayController@edit')->name('edit');
+                Route::patch('{id}/update', 'HolidayController@update')->name('update');
+                Route::delete('{id}/delete', 'HolidayController@delete')->name('delete');
+            });
         });
 
         Route::prefix('blog')->group(function() {
