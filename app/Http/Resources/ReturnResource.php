@@ -18,10 +18,10 @@ class ReturnResource extends JsonResource
         $bookingSchedules = BookingSchedule::where('route', '=', $this->route);
 
         if ($request->has('return_date')) {
-            $bookingSchedules->where('departure', '=', $request->return_date);
+            $bookingSchedules->where('date', '=', $request->return_date);
         }
 
-        $total = $this->checkTotal($request, $bookingSchedules);
+        $total = $this->checkTotal($request, $bookingSchedules->get());
 
         return [
             'id'        => $this->id,
@@ -37,7 +37,7 @@ class ReturnResource extends JsonResource
         $count = 0;
         $total = $request->adult + $request->child;
 
-        foreach($bookingSchedules->get() as $bookingSchedule) {
+        foreach($bookingSchedules as $bookingSchedule) {
             if ($this->departure == $bookingSchedule->departure) {
                 $count += $bookingSchedule->booking->details->where('category', '!=', 'infant')->count();
                 $total = $request->adult + $request->child + $count;
