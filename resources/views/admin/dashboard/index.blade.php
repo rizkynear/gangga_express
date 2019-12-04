@@ -199,10 +199,8 @@
                                             <span class="display-xs-block">{{ $testimonial->description }}</span>
                                         </td>
                                         <td>
-                                            <form action="{{ route('testimonial.edit', $testimonial->id) }}" method="get">
-                                                <span class="display-xs-inline-block" data-toggle="tooltip" title="Edit"><button type="submit" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></button></span>
-                                                <span class="display-xs-inline-block" data-toggle="tooltip" title="Delete"><button type="button" class="btn btn-danger delete-testimonial" data-id="{{ $testimonial->id }}"><i class="fa fa-trash" aria-hidden="true"></i></button></span>
-                                            </form>
+                                            <span class="display-xs-inline-block" data-toggle="tooltip" title="Edit"><a href="{{ route('testimonial.edit', $testimonial->id) }}" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></a></span>
+                                            <span class="display-xs-inline-block" data-toggle="tooltip" title="Delete"><button type="button" class="btn btn-danger delete-testimonial" data-id="{{ $testimonial->id }}"><i class="fa fa-trash" aria-hidden="true"></i></button></span>
                                         </td>
                                     </tr>
                                     @endforeach

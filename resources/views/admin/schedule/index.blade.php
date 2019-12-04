@@ -67,10 +67,8 @@
                                                     <span class="display-xs-block">{{ is_null($schedule->expired_date) || $schedule->expired_date > now() ? 'On' : 'Off'}}</span>
                                                 </td>
                                                 <td>
-                                                    <form action="{{ route('schedule.edit', ['route' => $schedule->route, 'id' => $schedule->id]) }}" method="get">
-                                                        <button type="submit" class="btn btn-primary"><i class="fa fa-edit" aria-hidden="true"></i></button>
-                                                        <span class="display-xs-inline-block" data-toggle="tooltip" title="Delete"><button type="button" class="btn btn-danger delete-schedule" data-action="{{ route('schedule.delete', ['route' => $schedule->route, 'id' => $schedule->id]) }}"><i class="fa fa-trash" aria-hidden="true"></i></button></span>
-                                                    </form>
+                                                    <a href="{{ route('schedule.edit', ['route' => $schedule->route, 'id' => $schedule->id]) }}" class="btn btn-primary"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                                                    <span class="display-xs-inline-block" data-toggle="tooltip" title="Delete"><button type="button" class="btn btn-danger delete-schedule" data-action="{{ route('schedule.delete', ['route' => $schedule->route, 'id' => $schedule->id]) }}"><i class="fa fa-trash" aria-hidden="true"></i></button></span>
                                                 </td>
                                             </tr>
                                         @endforeach

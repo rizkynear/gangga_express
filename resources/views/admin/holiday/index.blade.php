@@ -59,10 +59,8 @@
                                                 <span class="display-xs-block">{{ $holiday->name }}</span>
                                             </td>
                                             <td>
-                                                <form action="{{ route('holiday.edit', $holiday->id) }}" method="get">
-                                                    <button type="submit" class="btn btn-primary"><i class="fa fa-edit" aria-hidden="true"></i></button>
-                                                    <span class="display-xs-inline-block" data-toggle="tooltip" title="Delete"><button type="button" class="btn btn-danger delete-holiday" data-action="{{ route('holiday.delete', $holiday->id) }}"><i class="fa fa-trash" aria-hidden="true"></i></button></span>
-                                                </form>
+                                                <a href="{{ route('holiday.edit', $holiday->id) }}" class="btn btn-primary"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                                                <span class="display-xs-inline-block" data-toggle="tooltip" title="Delete"><button type="button" class="btn btn-danger delete-holiday" data-action="{{ route('holiday.delete', $holiday->id) }}"><i class="fa fa-trash" aria-hidden="true"></i></button></span>
                                             </td>
                                         </tr>
                                     @endforeach

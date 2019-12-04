@@ -65,10 +65,8 @@
                                                 <span class="display-xs-block">{{ $boat->width }}</span>
                                             </td>
                                             <td>
-                                                <form action="{{ route('boat.edit', $boat->id) }}" method="get">
-                                                    <span class="display-xs-inline-block" data-toggle="tooltip" title="Edit"><button type="submit" class="btn btn-primary"><i class="fa fa-edit" aria-hidden="true"></i></button></span>
-                                                    <span class="display-xs-inline-block" data-toggle="tooltip" title="Delete"><button type="button" class="btn btn-danger delete-boat" data-action="{{ route('boat.delete', $boat->id) }}"><i class="fa fa-trash" aria-hidden="true"></i></button></span>
-                                                </form>
+                                                <span class="display-xs-inline-block" data-toggle="tooltip" title="Edit"><a href="{{ route('boat.edit', $boat->id) }}" class="btn btn-primary"><i class="fa fa-edit" aria-hidden="true"></i></a></span>
+                                                <span class="display-xs-inline-block" data-toggle="tooltip" title="Delete"><button type="button" class="btn btn-danger delete-boat" data-action="{{ route('boat.delete', $boat->id) }}"><i class="fa fa-trash" aria-hidden="true"></i></button></span>
                                             </td>
                                         </tr>
                                     @endforeach
