@@ -19,7 +19,7 @@ class CreateSchedulesTable extends Migration
             $table->time('departure');
             $table->time('arrival');
             $table->integer('quota');
-            $table->dateTime('expired_date');
+            $table->date('expired_date');
             $table->timestamps();
         });
     }
