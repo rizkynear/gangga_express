@@ -90,8 +90,8 @@
                         @endif
                         <!--SAMPLE ALERT END-->
                         <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#desc-en"><img src="img/flag_gb.png" alt=""> English</a></li>
-                            <li><a data-toggle="tab" href="#desc-id"><img src="img/flag_id.jpg" alt=""> Indonesia</a></li>
+                            <li class="active"><a data-toggle="tab" href="#desc-en"><img src="{{ asset('storage/images/admin/flag_gb.png') }}" alt=""> English</a></li>
+                            <li><a data-toggle="tab" href="#desc-id"><img src="{{ asset('storage/images/admin/flag_id.jpg') }}" alt=""> Indonesia</a></li>
                         </ul>
                         <form method="post" action="{{ route('second-section.save') }}">
                             @csrf

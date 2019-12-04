@@ -42,6 +42,7 @@
                                     <tr>
                                         <th style="width: 200px;">Image</th>
                                         <th>Name</th>
+                                        <th>Location</th>
                                         <th style="width: 150px;">Action</th>
                                     </tr>
                                 </thead>
@@ -53,6 +54,9 @@
                                             </td>
                                             <td>
                                                 <span class="display-xs-block">{{ $destination->name }}</span>
+                                            </td>
+                                            <td>
+                                                <span class="display-xs-block">{{ $destination->location }}</span>
                                             </td>
                                             <td>
                                                 <a class="btn btn-primary" href="{{ route('destination.edit', $destination->id) }}"><i class="fa fa-edit" aria-hidden="true"></i></a>

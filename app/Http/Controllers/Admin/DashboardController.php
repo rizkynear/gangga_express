@@ -20,7 +20,7 @@ class DashboardController extends Controller
     public function index()
     {
         $sliders       = Slider::all()->sortBy('position');
-        $secondSection = SecondSection::find(1);
+        $secondSection = SecondSection::all()->first();
         $testimonials  = Testimonial::all()->sortByDesc('id');
 
         return view('admin.dashboard.index')

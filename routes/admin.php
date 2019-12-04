@@ -91,7 +91,7 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function() {
             Route::get('the-company', 'CompanyController@index')->name('company');
 
             Route::group(['prefix' => 'the-company', 'as' => 'company.'], function() {
-                Route::patch('save', 'CompanyController@save')->name('save');
+                Route::post('save', 'CompanyController@save')->name('save');
             });
         });
 
