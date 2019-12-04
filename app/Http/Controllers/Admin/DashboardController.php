@@ -158,7 +158,7 @@ class DashboardController extends Controller
             ]);
         }
 
-        return redirect()->back()->with('Image Successfully Updated');
+        return redirect()->back()->with('success', 'Image Successfully Updated');
     }
 
     public function testimonialStore(TestimonialStore $request)

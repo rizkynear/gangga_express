@@ -87,6 +87,11 @@
                                     <p><i class="icon fa fa-check"></i>{{ $error }}</p>
                                 @endforeach
                             </div>
+                        @elseif ($errors->secondSectionEditImage->has('*'))
+                            <div class="alert alert-danger alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <p><i class="icon fa fa-check"></i>{{ $errors->secondSectionEditImage->first() }}</p>
+                            </div>
                         @endif
                         <!--SAMPLE ALERT END-->
                         <ul class="nav nav-tabs">
@@ -256,7 +261,7 @@
     </div>
     <!--MODAL ADD SLIDER END-->
 
-    <!--MODAL EDIT SECOND SECTION-->
+    <!--MODAL EDIT SECOND SECTION IMAGE-->
     <div class="modal fade" id="modal-edit-second-section-image" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -282,9 +287,6 @@
                                         </span>
                                         <input type="text" class="form-control" value="No file chosen" readonly="">
                                     </div>
-                                    @if ($errors->secondSectionEditImage->has('image'))
-                                        <p class="small text-danger mt-5">{{ $errors->secondSectionEditImage->first('image') }}</p>
-                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -412,8 +414,8 @@
                             @endif
                         </div>
                         <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#testimonial-en"><img src="img/flag_gb.png" alt=""> English</a></li>
-                            <li><a data-toggle="tab" href="#testimonial-id"><img src="img/flag_id.jpg" alt=""> Indonesia</a></li>
+                            <li class="active"><a data-toggle="tab" href="#desc-en"><img src="{{ asset('storage/images/admin/flag_gb.png') }}" alt=""> English</a></li>
+                            <li><a data-toggle="tab" href="#desc-id"><img src="{{ asset('storage/images/admin/flag_id.jpg') }}" alt=""> Indonesia</a></li>
                         </ul>
                         <div class="tab-content">
                             <div id="testimonial-en" class="tab-pane fade in active">
@@ -465,10 +467,6 @@
 @elseif ($errors->testimonialStore->has('*'))
     <script>
         $('#modal-add-testimonial').modal();
-    </script>
-@elseif ($errors->secondSectionEditImage->has('*'))
-    <script>
-        $('#modal-edit-second-section-image').modal();
     </script>
 @endif
 

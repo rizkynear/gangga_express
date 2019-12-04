@@ -13,6 +13,14 @@
             <div class="col-xs-12">
                 <div class="box box-danger">
                     <div class="box-body">
+                        @if ($errors->has('*'))
+                            <div class="alert alert-danger alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                @foreach ($errors->all() as $error)
+                                    <p><i class="icon fa fa-check"></i>{{ $error }}</p>
+                                @endforeach
+                            </div>
+                        @endif
                         <form action="{{ route('blog.update', $blog->id) }}" method="post" enctype="multipart/form-data">
                             @csrf
                             @method('PATCH')
@@ -31,15 +39,12 @@
                                             </span>
                                             <input type="text" class="form-control" value="No file chosen" readonly="">
                                         </div>
-                                        @if ($errors->has('image'))
-                                            <p class="small text-danger mt-5">{{ $errors->first('image') }}</p>
-                                        @endif
                                     </div>
                                 </div>
                             </div>
                             <ul class="nav nav-tabs">
-                                <li class="active"><a data-toggle="tab" href="#blog-en"><img src="img/flag_gb.png" alt=""> English</a></li>
-                                <li><a data-toggle="tab" href="#blog-id"><img src="img/flag_id.jpg" alt=""> Indonesia</a></li>
+                                <li class="active"><a data-toggle="tab" href="#desc-en"><img src="{{ asset('storage/images/admin/flag_gb.png') }}" alt=""> English</a></li>
+                                <li><a data-toggle="tab" href="#desc-id"><img src="{{ asset('storage/images/admin/flag_id.jpg') }}" alt=""> Indonesia</a></li>
                             </ul>
                             <div class="tab-content">
                                 <div id="blog-en" class="tab-pane fade in active">
@@ -66,21 +71,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                @if ($errors->has('title_en'))
-                                <p class="small text-danger mt-5">{{ $errors->first('title_en') }}</p>
-                                @endif
-
-                                @if ($errors->has('title_id'))
-                                    <p class="small text-danger mt-5">{{ $errors->first('title_id') }}</p>
-                                @endif
-
-                                @if ($errors->has('description_en'))
-                                <p class="small text-danger mt-5">{{ $errors->first('description_en') }}</p>
-                                @endif
-
-                                @if ($errors->has('description_id'))
-                                <p class="small text-danger mt-5">{{ $errors->first('description_id') }}</p>
-                                @endif
                             </div>
                             <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Save</button>
                             <a href="{{ route('blog') }}" class="btn btn-default">Cancel</a>

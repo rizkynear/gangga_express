@@ -30,6 +30,13 @@
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                                 <p><i class="icon fa fa-check"></i>{{ session('success') }}</p>
                             </div>
+                        @elseif ($errors->has('*'))
+                            <div class="alert alert-danger alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                @foreach ($errors->all() as $error)
+                                    <p><i class="icon fa fa-check"></i>{{ $error }}</p>
+                                @endforeach
+                            </div>
                         @endif
                         <!--SAMPLE ALERT END-->
                         <ul class="nav nav-tabs">
@@ -43,15 +50,27 @@
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label class="required">Title</label>
-                                            <input type="text" class="form-control" name="title_en" value="{{ $errors->has('title_en') ? old('title_en') : $company->translate('en')->title }}">
+                                            @if (is_null($company))
+                                                <input type="text" name="title_en" class="form-control" value="{{ '' ?? old('title_en') }}">
+                                            @else
+                                                <input type="text" class="form-control" name="title_en" value="{{ $errors->has('title_en') ? old('title_en') : $company->translate('en')->title }}">
+                                            @endif
                                         </div>
                                         <div class="form-group">
                                             <label class="required">Sub Title</label>
-                                            <input type="text" class="form-control" name="sub_title_en" value="{{ $errors->has('sub_title_en') ? old('sub_title_en') : $company->translate('en')->sub_title }}">
+                                            @if (is_null($company))
+                                                <input type="text" name="sub_title_en" class="form-control" value="{{ '' ?? old('sub_title_en') }}">
+                                            @else
+                                                <input type="text" class="form-control" name="sub_title_en" value="{{ $errors->has('sub_title_en') ? old('sub_title_en') : $company->translate('en')->sub_title }}">
+                                            @endif
                                         </div>
                                         <div class="form-group">
                                             <label class="required">Content</label>
-                                            <textarea class="ckeditor" name="content_en">{{ $errors->has('content_en') ? old('content_en') : $company->translate('en')->content }}</textarea>
+                                            @if (is_null($company))
+                                                <textarea class="ckeditor" name="content_en">{{ '' ?? old('content_en') }}</textarea>
+                                            @else
+                                                <textarea class="ckeditor" name="content_en">{{ $errors->has('content_en') ? old('content_en') : $company->translate('en')->content }}</textarea>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -60,34 +79,29 @@
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label class="required">Title</label>
-                                            <input type="text" class="form-control" name="title_id" value="{{ $errors->has('title_id') ? old('title_id') : $company->translate('id')->title }}">
+                                            @if (is_null($company))
+                                                <input type="text" name="title_id" class="form-control" value="{{ '' ?? old('title_id') }}">
+                                            @else
+                                                <input type="text" class="form-control" name="title_id" value="{{ $errors->has('title_id') ? old('title_id') : $company->translate('id')->title }}">
+                                            @endif    
                                         </div>
                                         <div class="form-group">
                                             <label class="required">Sub Title</label>
-                                            <input type="text" class="form-control" name="sub_title_id" value="{{ $errors->has('sub_title_id') ? old('sub_title_id') : $company->translate('id')->sub_title }}">
+                                            @if (is_null($company))
+                                                <input type="text" name="sub_title_id" class="form-control" value="{{ '' ?? old('sub_title_id') }}">
+                                            @else
+                                                <input type="text" class="form-control" name="sub_title_id" value="{{ $errors->has('sub_title_id') ? old('sub_title_id') : $company->translate('id')->sub_title }}">
+                                            @endif
                                         </div>
                                         <div class="form-group">
                                             <label class="required">Content</label>
-                                            <textarea class="ckeditor" name="content_id">{{ $errors->has('content_id') ? old('content_id') : $company->translate('id')->content }}</textarea>
+                                            @if (is_null($company))
+                                                <textarea class="ckeditor" name="content_id">{{ '' ?? old('content_id') }}</textarea>
+                                            @else
+                                                <textarea class="ckeditor" name="content_id">{{ $errors->has('content_id') ? old('content_id') : $company->translate('id')->content }}</textarea>
+                                            @endif
                                         </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    @if ($errors->has('title_en'))
-                                        <p class="small text-danger mt-5">{{ $errors->first('title_en') }}</p>
-                                    @endif
-
-                                    @if ($errors->has('sub_title_en'))
-                                        <p class="small text-danger mt-5">{{ $errors->first('sub_title_en') }}</p>
-                                    @endif
-
-                                    @if ($errors->has('title_id'))
-                                        <p class="small text-danger mt-5">{{ $errors->first('title_id') }}</p>
-                                    @endif
-
-                                    @if ($errors->has('sub_title_id'))
-                                        <p class="small text-danger mt-5">{{ $errors->first('sub_title_id') }}</p>
-                                    @endif
                                 </div>
                                 <div class="text-right">
                                     <button class="btn btn-success" type="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save Changes</button>
