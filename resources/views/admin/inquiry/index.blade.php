@@ -19,36 +19,40 @@
 
                     <div class="box-header with-border">
                         <div class="box-body">
+                            @if (session()->has('success'))
+                                <div class="alert alert-success alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                    <p><i class="icon fa fa-check"></i>{{ session('success') }}</p>
+                                </div>
+                            @endif
                             <div class="row">
-                                <form class="text-left form-inline" action="" method="post">
+                                <form class="text-left form-inline" action="{{ route('inquiry.search') }}" method="get">
                                     <div class="form-group form-group-inline">
-                                        <input type='text' class="form-control" id='inquiry-date' placeholder="Date">
+                                        <input type='text' class="form-control" id='inquiry-date' placeholder="Date" name="date">
                                     </div>
                                     <div class="form-group form-group-inline">
                                         <select class="form-control selectpicker">
                                             <option>All route</option>
-                                            <option>Tribuana Port - Sampalan</option>
-                                            <option>Tribuana Port - Buyuk</option>
-                                            <option>Sampalan - Tribuana Port</option>
-                                            <option>Buyuk - Tribuana Port</option>
+                                            <option value="tribuana-sampalan">Tribuana Port - Sampalan</option>
+                                            <option value="tribuana-buyuk">Tribuana Port - Buyuk</option>
+                                            <option value="sampalan-tribuana">Sampalan - Tribuana Port</option>
+                                            <option value="buyuk-tribuana">Buyuk - Tribuana Port</option>
                                         </select>
                                     </div>
                                     <div class="form-group form-group-inline">
                                         <select class="form-control selectpicker">
                                             <option>All Schedule</option>
-                                            <option>06.30 AM</option>
-                                            <option>07.00 AM</option>
-                                            <option>08.00 AM</option>
-                                            <option>12.15 PM</option>
-                                            <option>13.30 PM</option>
-                                            <option>14.30 PM</option>
+                                            <option value="06:30:00">06.30 AM</option>
+                                            <option value="07:00:00">07.00 AM</option>
+                                            <option value="08:00:00">08.00 AM</option>
+                                            <option value="12:15:00">12.15 PM</option>
+                                            <option value="13:30:00">13.30 PM</option>
+                                            <option value="14:30:00">14.30 PM</option>
                                         </select>
                                     </div>
                                     <button type="submit" class="btn btn-primary"><i class="fa fa-filter" aria-hidden="true"></i> Filter</button>
                                     <a type="button" class="btn btn-default" href="add-blog.php"><i class="fa fa-download" aria-hidden="true"></i> Export CSV</a>
-
                                 </form>
-
                             </div>
                         </div>
 
@@ -73,6 +77,9 @@
 
                         <div class="table-responsive">
                             <table class="table table-striped">
+                                @if ($bookings->isEmpty())
+                                    <h2 class="text-center">No data found</h2>
+                                @else 
                                 <thead>
                                     <tr>
                                         <th>Id</th>
@@ -138,15 +145,16 @@
                                                         <i class="fa fa-bars"></i>
                                                     </a>
                                                 </span>
-                                                <span data-toggle="modal" data-target="#delete-confirmation">
-                                                    <a class="btn btn-danger" title="Delete" data-toggle="tooltip" data-placement="top">
+                                                <span>
+                                                    <button class="btn btn-danger delete-inquiry" title="Delete" data-toggle="tooltip" data-placement="top" type="button" data-action="{{ route('inquiry.delete', $booking->id) }}">
                                                         <i class="fa fa-trash"></i>
-                                                    </a>
+                                                    </button>
                                                 </span>
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
+                                @endif
                             </table>
                         </div>
                     </div>
@@ -166,103 +174,17 @@
                         <h4 class="title-main mt-0 mb-10">Delete?</h4>
                         <p>Are you sure want to delete this item?</p>
                     </div>
-                    <button class="btn btn-danger mr-5" type="button" data-dismiss="modal"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
-                    <button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>
+                    <form action="" id="form-delete" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger mr-5" type="submit"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+                        <button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
     <!--MODAL DELETE END-->
-
-    <!--MODAL DETAIL INQUIRY -->
-    <div class="modal fade" id="detail-inquiry" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <!-- <div class="modal-body text-center"> -->
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <p class="modal-title content-title" id="deleteLabel">Detail Inquiry</p>
-                </div>
-                <div class="modal-body text-left">
-                    <p><b>Personal Information</b></p>
-                    <table class="table table-striped">
-                        <tr>
-                            <td class="fourth">DateBooking</td>
-                            <td>31/11/2019</td>
-                        </tr>
-                        <tr>
-                            <td class="fourth">Full Name</td>
-                            <td>Steve</td>
-                        </tr>
-                        <tr>
-                            <td class="fourth">Email</td>
-                            <td>steve@gmail.com</td>
-                        </tr>
-                        <tr>
-                            <td class="fourth">Phone</td>
-                            <td>08412312366</td>
-                        </tr>
-                        <tr>
-                            <td class="fourth">Address</td>
-                            <td>Jl. Tukad Citarum Gg. DD 999</td>
-                        </tr>
-                        <tr>
-                            <td class="fourth">Nationality</td>
-                            <td>Australia</td>
-                        </tr>
-                    </table>
-                    <p><b>Booking Information</b></p>
-                    <table class="table table-striped">
-                        <tr>
-                            <td class="fourth">Type </td>
-                            <td>Round Trip</td>
-                        </tr>
-                        <tr>
-                            <td class="fourth">Departure Route </td>
-                            <td>
-                                <span class="display-xs-block">Tribuana Port(Bali) - Sampalan (Nusa Penida)</span>
-                                <span class="display-xs-block">24 September 2019</span>
-                                <span class="display-xs-block">06.30 to 7.30</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="fourth">Return Route </td>
-                            <td>
-                                <span class="display-xs-block">Buyuk (Nusa Penida) - Tribuana Port(Bali)</span>
-                                <span class="display-xs-block">25 September 2019</span>
-                                <span class="display-xs-block">06.30 to 7.30</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="fourth">Selected Activities</td>
-                            <td>
-                                <ul class="clearfix no-list">
-                                    <li class="pull-left">Adult (x2)</li>
-                                    <li class="pull-right">Rp. 120.000</li>
-                                </ul>
-                                <ul class="clearfix no-list">
-                                    <li class="pull-left">Child (x2)</li>
-                                    <li class="pull-right">Rp. 60.000</li>
-                                </ul>
-                                <ul class="clearfix no-list">
-                                    <li class="pull-left">Infant (x2)</li>
-                                </ul>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="fourth text-uppercase"><b>Total</b></td>
-                            <td class="text-right text-uppercase"><b>Rp. 180.000</b></td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-                <!-- </div> -->
-            </div>
-        </div>
-    </div>
-    <!--MODAL DETAIL INQUIRY END-->
 </div>
 @endsection
 
@@ -270,8 +192,15 @@
 <script type="text/javascript">
     $(function() {
         $('#inquiry-date').datetimepicker({
-            format: 'L'
+            format: 'Y-M-D'
         });
+    });
+
+    $('.delete-inquiry').click(function() {
+        var action = $(this).data('action');
+
+        $('#form-delete').attr('action', action);
+        $('#delete-confirmation').modal();
     });
 </script>
 @endsection

@@ -111,6 +111,7 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function() {
 
         Route::prefix('contact')->group(function() {
             Route::get('/', 'ContactController@index')->name('contact');
+            Route::delete('{id}/delete', 'ContactController@delete')->name('contact.delete');
         });
 
         Route::prefix('inquiry')->group(function() {
@@ -119,6 +120,7 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function() {
             Route::group(['as' => 'inquiry.'], function() {
                 Route::get('{id}/detail-passenger', 'InquiryController@detailPassenger')->name('detail-passenger');
                 Route::get('{id}/detail-inquiry', 'InquiryController@detailInquiry')->name('detail-inquiry');
+                Route::delete('{id}/delete', 'InquiryController@delete')->name('delete');
             });
         });
     });

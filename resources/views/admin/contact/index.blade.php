@@ -18,7 +18,12 @@
                 <div class="box box-danger">
 
                     <div class="box-body">
-
+                        @if (session()->has('success'))
+                            <div class="alert alert-success alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <p><i class="icon fa fa-check"></i>{{ session('success') }}</p>
+                            </div>
+                        @endif
                         <div class="table-responsive">
                             <table class="table table-striped" id="table-contact">
                                 <thead>
@@ -32,33 +37,31 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php for ($i = 0; $i < 10; $i++) : ?>
+                                    @foreach ($contacts as $contact)
                                         <tr>
                                             <td>
-                                                <span class="display-xs-block">31 Nov 2019</span>
-                                                <span class="display-xs-block">10:20</span>
+                                                <span class="display-xs-block">{{ $contact->created_at->format('d M Y') }}</span>
+                                                <span class="display-xs-block">{{ $contact->created_at->format('H:i') }}</span>
                                             </td>
                                             <td>
-                                                <span class="display-xs-block">Steve</span>
+                                                <span class="display-xs-block">{{ $contact->name }}</span>
                                             </td>
                                             <td>
-                                                <span class="display-xs-block">08412312366</span>
+                                                <span class="display-xs-block">{{ $contact->phone }}</span>
                                             </td>
                                             <td>
-                                                <span class="display-xs-block">steve@gmail.com</span>
+                                                <span class="display-xs-block">{{ $contact->email }}</span>
                                             </td>
                                             <td>
-                                                <span class="message">Lorem ipsum dolor si amet. Lorem ipsum dolor si amet Lorem ipsum dolor si amet. Lorem ipsum dolor si amet.</span>
+                                                <span class="message">{{ $contact->message }}</span>
                                             </td>
                                             <td>
-                                                <span data-toggle="modal" data-target="#delete-confirmation">
-                                                    <a class="btn btn-danger" title="Delete" data-toggle="tooltip" data-placement="top">
-                                                        <i class="fa fa-trash"></i>
-                                                    </a>
-                                                </span>
+                                                <button type="button" class="btn btn-danger delete-contact" data-action="{{ route('contact.delete', $contact->id) }}"  data-placement="top">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
                                             </td>
                                         </tr>
-                                    <?php endfor ?>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -79,8 +82,12 @@
                         <h4 class="title-main mt-0 mb-10">Delete?</h4>
                         <p>Are you sure want to delete this item?</p>
                     </div>
-                    <button class="btn btn-danger mr-5" type="button" data-dismiss="modal"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
-                    <button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>
+                    <form action="" id="form-delete" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger mr-5" type="submit"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+                        <button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -117,6 +124,13 @@
 
         $(".message").shorten({
             showChars: 70
+        });
+
+        $('.delete-contact').click(function() {
+            var action = $(this).data('action');
+
+            $('#form-delete').attr('action', action);
+            $('#delete-confirmation').modal();
         });
     });
 </script>

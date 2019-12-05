@@ -149,7 +149,7 @@
                             <a href="{{ route('contact') }}">
                                 <i class="fa fa-envelope" aria-hidden="true"></i> <span>Contact</span>
                                 <span class="pull-right-container">
-                                    <small class="label pull-right bg-red">5</small>
+                                    <small class="label pull-right bg-red" id="contact-notif"></small>
                                 </span>
                             </a>
                         </li>
@@ -285,6 +285,10 @@
             success:function(data) {
                 if (data.inquiry > 0) {
                     $('#inquiry-notif').html(data.inquiry)
+                }
+
+                if (data.contact > 0) {
+                    $('#contact-notif').html(data.contact)
                 }
             }
         });

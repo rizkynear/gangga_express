@@ -36,4 +36,13 @@ class InquiryController extends Controller
                                                    ->with(compact('domesticPrice'))
                                                    ->with(compact('foreignerPrice'));
     }
+
+    public function delete($id)
+    {
+        $booking = Booking::findOrFail($id);
+
+        $booking->delete();
+
+        return redirect()->back()->with('success', 'Data Successfully Deleted');
+    }
 }

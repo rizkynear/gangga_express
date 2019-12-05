@@ -20,4 +20,15 @@ class Booking extends Model
     {
         return $this->hasMany('App\Http\Models\BookingSchedule');
     }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function($booking) {
+            $booking->contact()->delete();
+            $booking->details()->delete();
+            $booking->schedules()->delete();
+        });
+    }
 }
