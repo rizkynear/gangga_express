@@ -21,7 +21,7 @@ class DepartureResource extends JsonResource
             $bookingSchedules->where('date', '=', $request->departure_date);
         }
 
-        $total = $this->checkTotal($request, $bookingSchedules);
+        $total = $this->checkTotal($request, $bookingSchedules->get());
 
         return [
             'id'        => $this->id,
@@ -37,7 +37,7 @@ class DepartureResource extends JsonResource
         $count = 0;
         $total = $request->adult + $request->child;
 
-        foreach($bookingSchedules->get() as $bookingSchedule) {
+        foreach($bookingSchedules as $bookingSchedule) {
             if ($this->departure == $bookingSchedule->departure) {
                 $count += $bookingSchedule->booking->details->where('category', '!=', 'infant')->count();
                 $total = $request->adult + $request->child + $count;
