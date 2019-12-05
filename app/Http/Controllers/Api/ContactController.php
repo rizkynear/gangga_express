@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ContactStore;
+use App\Http\Models\Contact;
 
 class ContactController extends Controller
 {
@@ -17,6 +18,6 @@ class ContactController extends Controller
             'message' => $request->message
         ]);
 
-        return response()->json();
+        return response()->json(['success' => 'Successfully Added']);
     }
 }
