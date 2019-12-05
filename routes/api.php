@@ -55,3 +55,7 @@ Route::group(['prefix' => 'booking'], function() {
     Route::get('search/return', 'BookingController@return');
     Route::get('holiday', 'BookingController@holiday');
 });
+
+Route::group(['prefix' => 'contact'], function() {
+    Route::post('store', 'ContactController@store')->name('store');
+});
