@@ -7,8 +7,8 @@
             Detail Passenger
         </h1>
         <ol class="breadcrumb">
-            <li><a href="dashboard.php">Dashboard</a></li>
-            <li><a href="inquiry.php">Inquiry</a></li>
+            <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
+            <li><a href="{{ route('inquiry') }}">Inquiry</a></li>
             <li class="active">Detail Passanger</li>
         </ol>
     </section>
@@ -32,44 +32,50 @@
                                 <tr>
                                     <td class="fourth"><b>Adult</b></td>
                                 </tr>
-                                <?php for ($i = 0; $i < 3; $i++) : ?>
-                                    <tr>
-                                        <td class="fourth">Andika</td>
-                                        <td>Indonesia</td>
-                                        <td>30</td>
-                                        <td>Jl Tukat Yeh Aye No 13, Renon, Denpasar</td>
-                                    </tr>
-                                <?php endfor ?>
+                                @foreach ($booking->details as $detail)
+                                    @if ($detail->category === 'adult')
+                                        <tr>
+                                            <td class="fourth">{{ $detail->name }}</td>
+                                            <td>{{ $detail->nationality }}</td>
+                                            <td>{{ $detail->age }}</td>
+                                            <td>{{ $detail->address }}</td>
+                                        </tr>
+                                    @endif
+                                @endforeach
 
                                 <tr>
                                     <td class="fourth"><b>Child</b></td>
                                 </tr>
 
-                                <?php for ($i = 0; $i < 2; $i++) : ?>
-                                    <tr>
-                                        <td class="fourth">Oyo</td>
-                                        <td>Indonesia</td>
-                                        <td>8</td>
-                                        <td>Jl Tukat Yeh Aye No 13, Renon, Denpasar</td>
-                                    </tr>
-                                <?php endfor ?>
+                                @foreach ($booking->details as $detail)
+                                    @if ($detail->category === 'child')
+                                        <tr>
+                                            <td class="fourth">{{ $detail->name }}</td>
+                                            <td>{{ $detail->nationality }}</td>
+                                            <td>{{ $detail->age }}</td>
+                                            <td>{{ $detail->address }}</td>
+                                        </tr>
+                                    @endif
+                                @endforeach
 
                                 <tr>
                                     <td class="fourth"><b>Infant</b></td>
                                 </tr>
 
-                                <?php for ($i = 0; $i < 1; $i++) : ?>
-                                    <tr>
-                                        <td class="fourth">Tulo</td>
-                                        <td>Indonesia</td>
-                                        <td>1</td>
-                                        <td>Jl Tukat Yeh Aye No 13, Renon, Denpasar</td>
-                                    </tr>
-                                <?php endfor ?>
+                                @foreach ($booking->details as $detail)
+                                    @if ($detail->category === 'infant')
+                                        <tr>
+                                            <td class="fourth">{{ $detail->name }}</td>
+                                            <td>{{ $detail->nationality }}</td>
+                                            <td>{{ $detail->age }}</td>
+                                            <td>{{ $detail->address }}</td>
+                                        </tr>
+                                    @endif
+                                @endforeach
 
                                 <tr>
                                     <td class="fourth text-uppercase"><b>Total</b></td>
-                                    <td class="text-right text-uppercase"><b>6 Pax</b></td>
+                                    <td class="text-right text-uppercase"><b>{{ $booking->total }} Pax</b></td>
                                 </tr>
                             </table>
                         </div>

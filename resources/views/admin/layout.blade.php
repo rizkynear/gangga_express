@@ -146,7 +146,7 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="contact.php">
+                            <a href="{{ route('contact') }}">
                                 <i class="fa fa-envelope" aria-hidden="true"></i> <span>Contact</span>
                                 <span class="pull-right-container">
                                     <small class="label pull-right bg-red">5</small>
@@ -154,10 +154,10 @@
                             </a>
                         </li>
                         <li>
-                            <a href="inquiry.php">
+                            <a href="{{ route('inquiry') }}">
                                 <i class="fa fa-bell"></i> <span>Inquiry</span>
                                 <span class="pull-right-container">
-                                    <small class="label pull-right bg-red">5</small>
+                                    <small class="label pull-right bg-red" id="inquiry-notif"></small>
                                 </span>
                             </a>
                         </li>
@@ -272,6 +272,25 @@
     });
 </script>
 <!-- CKEditor END -->
+
+<!-- Ajax request -->
+<script>
+    $(document).ready(function() {
+        $.ajax({
+            url: "{{ route('notification') }}",
+            type: 'POST',
+            data: {
+                _token: "{{ csrf_token() }}"
+            },
+            success:function(data) {
+                if (data.inquiry > 0) {
+                    $('#inquiry-notif').html(data.inquiry)
+                }
+            }
+        });
+    });
+</script>
+<!-- Ajax request end -->
 <!--temporary script end-->
 @yield('script')
 </html>

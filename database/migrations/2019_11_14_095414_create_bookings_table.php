@@ -18,6 +18,9 @@ class CreateBookingsTable extends Migration
             $table->string('code');
             $table->string('type');
             $table->string('price');
+            $table->integer('adult');
+            $table->integer('child');
+            $table->integer('infant');
             $table->integer('total');
             $table->timestamps();
         });

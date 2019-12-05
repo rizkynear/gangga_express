@@ -20,6 +20,8 @@ class CreateBookingSchedulesTable extends Migration
             $table->string('route');
             $table->time('departure');
             $table->time('arrival');
+            $table->string('departure_port');
+            $table->string('arrival_port');
             $table->string('type');
         });
     }

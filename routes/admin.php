@@ -16,6 +16,8 @@ Auth::routes(['register' => false, 'reset' => false]);
 Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function() {
     Route::get('/laravel-filemanager', '\UniSharp\LaravelFilemanager\Controllers\LfmController@show');
     Route::post('/laravel-filemanager/upload', '\UniSharp\LaravelFilemanager\Controllers\UploadController@upload');
+
+    Route::post('notification', 'DashboardController@notification')->name('notification');
     
     Route::get('/', function() {
         return redirect('admin/dashboard');
@@ -104,6 +106,19 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function() {
                 Route::delete('{id}/delete', 'DestinationController@delete')->name('delete');
                 Route::get('{id}/edit', 'DestinationController@edit')->name('edit');
                 Route::patch('{id}/update', 'DestinationController@update')->name('update');
+            });
+        });
+
+        Route::prefix('contact')->group(function() {
+            Route::get('/', 'ContactController@index')->name('contact');
+        });
+
+        Route::prefix('inquiry')->group(function() {
+            Route::get('/', 'InquiryController@index')->name('inquiry');
+
+            Route::group(['as' => 'inquiry.'], function() {
+                Route::get('{id}/detail-passenger', 'InquiryController@detailPassenger')->name('detail-passenger');
+                Route::get('{id}/detail-inquiry', 'InquiryController@detailInquiry')->name('detail-inquiry');
             });
         });
     });
