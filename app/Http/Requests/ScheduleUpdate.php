@@ -13,7 +13,7 @@ class ScheduleUpdate extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->user();
     }
 
     /**
