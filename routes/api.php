@@ -60,3 +60,8 @@ Route::group(['prefix' => 'booking'], function() {
 Route::group(['prefix' => 'contact'], function() {
     Route::post('store', 'ContactController@store')->name('store');
 });
+
+Route::group(['prefix' => 'price'], function() {
+    Route::get('domestic', 'PriceController@domestic');
+    Route::get('foreigner', 'PriceController@foreigner');
+});
