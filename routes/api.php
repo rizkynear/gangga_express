@@ -54,6 +54,7 @@ Route::group(['prefix' => 'booking'], function() {
     Route::get('search/departure', 'BookingController@departure');
     Route::get('search/return', 'BookingController@return');
     Route::get('holiday', 'BookingController@holiday');
+    Route::post('store', 'BookingController@store');
 });
 
 Route::group(['prefix' => 'contact'], function() {

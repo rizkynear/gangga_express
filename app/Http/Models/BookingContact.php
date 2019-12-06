@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class BookingContact extends Model
 {
-    public $timestamps = false;
+    public $timestamps  = false;
+    protected $fillable = ['name', 'phone', 'email']; 
 
     public function booking()
     {

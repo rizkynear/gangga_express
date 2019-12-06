@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class BookingSchedule extends Model
 {
-    public $timestamps = false;
+    public $timestamps  = false;
+    protected $fillable = ['date', 'route', 'departure', 'arrival', 'departure_port', 'arrival_port', 'type'];
 
     public function booking()
     {

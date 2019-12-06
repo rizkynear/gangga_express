@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Booking extends Model
 {
+    protected $fillable = ['code', 'type', 'adult', 'child', 'infant', 'total', 'price'];
+    
     public function contact()
     {
         return $this->hasOne('App\Http\Models\BookingContact');
