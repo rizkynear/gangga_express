@@ -54,8 +54,22 @@
                                 <li><a data-toggle="tab" href="#desc-id"><img src="{{ asset('storage/images/admin/flag_id.jpg') }}" alt=""> Indonesia</a></li>
                             </ul>
                             <div class="tab-content">
+                                <!--ENGLISH-->
+                                <div id="desc-en" class="tab-pane fade in active">
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            <label class="required">Title</label>
+                                            <input type="text" class="form-control" name="title_en" value="{{ old('title_en') }}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="required">Description</label>
+                                            <textarea class="ckeditor" name="description_en">{{ old('description_en') }}</textarea>
+                                        </div>
+                                    </div> 
+                                </div>
+                                <!--ENGLISH END-->
                                 <!--INDONESIA-->
-                                <div id="news-id" class="tab-pane fade in active">
+                                <div id="desc-id" class="tab-pane fade">
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label class="required">Title</label>
@@ -68,21 +82,6 @@
                                     </div>
                                 </div>
                                 <!--INDONESIA END-->
-                                <!--ENGLISH-->
-                                <div id="news-en" class="tab-pane fade">
-                                    <div class="box-body">
-                                        <div class="form-group">
-                                            <label>Title</label>
-                                            <input type="text" class="form-control" name="title_en" value="{{ old('title_en') }}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Description</label>
-                                            <textarea class="ckeditor" name="description_en">{{ old('description_en') }}</textarea>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <!--ENGLISH END-->
                             </div>
                             <div class="box-body">
                                 <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Save</button>

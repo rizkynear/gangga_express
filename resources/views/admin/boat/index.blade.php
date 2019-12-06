@@ -36,41 +36,45 @@
                         <!--SAMPLE ALERT END-->
                         <div class="table-responsive">
                             <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Boat name</th>
-                                        <th>Engine</th>
-                                        <th>Capacity</th>
-                                        <th>Length</th>
-                                        <th>Width</th>
-                                        <th style="width: 150px;">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($boats as $boat)
+                                @if ($boats->isEmpty())
+                                    <h2 class="text-center">No data found</h2>
+                                @else
+                                    <thead>
                                         <tr>
-                                            <td>
-                                                <span class="display-xs-block">{{ $boat->name }}</span>
-                                            </td>
-                                            <td>
-                                                <span class="display-xs-block">{{ $boat->engine }}</span>
-                                            </td>
-                                            <td>
-                                                <span class="display-xs-block">{{ $boat->capacity }}</span>
-                                            </td>
-                                            <td>
-                                                <span class="display-xs-block">{{ $boat->length }}</span>
-                                            </td>
-                                            <td>
-                                                <span class="display-xs-block">{{ $boat->width }}</span>
-                                            </td>
-                                            <td>
-                                                <span class="display-xs-inline-block" data-toggle="tooltip" title="Edit"><a href="{{ route('boat.edit', $boat->id) }}" class="btn btn-primary"><i class="fa fa-edit" aria-hidden="true"></i></a></span>
-                                                <span class="display-xs-inline-block" data-toggle="tooltip" title="Delete"><button type="button" class="btn btn-danger delete-boat" data-action="{{ route('boat.delete', $boat->id) }}"><i class="fa fa-trash" aria-hidden="true"></i></button></span>
-                                            </td>
+                                            <th>Boat name</th>
+                                            <th>Engine</th>
+                                            <th>Capacity</th>
+                                            <th>Length</th>
+                                            <th>Width</th>
+                                            <th style="width: 150px;">Action</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($boats as $boat)
+                                            <tr>
+                                                <td>
+                                                    <span class="display-xs-block">{{ $boat->name }}</span>
+                                                </td>
+                                                <td>
+                                                    <span class="display-xs-block">{{ $boat->engine }}</span>
+                                                </td>
+                                                <td>
+                                                    <span class="display-xs-block">{{ $boat->capacity }}</span>
+                                                </td>
+                                                <td>
+                                                    <span class="display-xs-block">{{ $boat->length }}</span>
+                                                </td>
+                                                <td>
+                                                    <span class="display-xs-block">{{ $boat->width }}</span>
+                                                </td>
+                                                <td>
+                                                    <span class="display-xs-inline-block" data-toggle="tooltip" title="Edit"><a href="{{ route('boat.edit', $boat->id) }}" class="btn btn-primary"><i class="fa fa-edit" aria-hidden="true"></i></a></span>
+                                                    <span class="display-xs-inline-block" data-toggle="tooltip" title="Delete"><button type="button" class="btn btn-danger delete-boat" data-action="{{ route('boat.delete', $boat->id) }}"><i class="fa fa-trash" aria-hidden="true"></i></button></span>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                @endif
                             </table>
                         </div>
 

@@ -22,7 +22,7 @@ class DashboardController extends Controller
     public function index()
     {
         $sliders       = Slider::all()->sortBy('position');
-        $secondSection = SecondSection::all()->first();
+        $secondSection = SecondSection::first();
         $testimonials  = Testimonial::all()->sortByDesc('id');
 
         return view('admin.dashboard.index')
@@ -43,7 +43,7 @@ class DashboardController extends Controller
         $slider->position = $position;
         $slider->save();
 
-        return redirect()->back();
+        return redirect()->back()->with('slider-success', 'New Data Successfully Added');
     }
     
     public function sliderEdit(SliderEdit $request)
@@ -58,7 +58,7 @@ class DashboardController extends Controller
 
         $record->update(['image' => $name]);
 
-        return redirect()->back();
+        return redirect()->back()->with('slider-success', 'Data Successfully Updated');
     }
 
     public function sliderDelete(Request $request)
@@ -77,7 +77,7 @@ class DashboardController extends Controller
         $slider->deleteImage($record->image);
         $record->delete();
 
-        return redirect()->back();
+        return redirect()->back()->with('slider-success', 'Data Successfully Deleted');
     }
 
     public function sliderUp(Request $request)
@@ -93,7 +93,7 @@ class DashboardController extends Controller
             $recordDown->save();
         }
         
-        return redirect()->back();
+        return redirect()->back()->with('slider-success', 'Data Successfully Updated');
     }
 
     public function sliderDown(Request $request)
@@ -110,7 +110,7 @@ class DashboardController extends Controller
             $recordUp->save();
         }
         
-        return redirect()->back();
+        return redirect()->back()->with('slider-success', 'Data Successfully Updated');
     }
 
     public function secondSectionSave(SecondSectionSave $request)
@@ -124,43 +124,33 @@ class DashboardController extends Controller
             'id' => ['title' => $request->title_id, 'sub_title' => $request->sub_title_id, 'content' => $request->content_id],
         ]);
 
-        return redirect()->back()->with('success', 'Data Successfully Saved');
+        return redirect()->back()->with('second-section-success', 'Data Successfully Saved');
     }
 
     public function secondSectionEditImage(SecondSectionEditImage $request)
     {
         $secondSection = new SecondSection();
-        $record        = SecondSection::find(1);
+        $record        = SecondSection::first();
         $name          = Str::random(40) . '.' . $request->image->getClientOriginalExtension();
 
         $secondSection->storeImage($request->image, $name);
         $secondSection->storeThumbnail($name, 700);
 
-        if ($request->image_index === 'image_1') {
-            if (!is_null($record->image_1)) {
-                $secondSection->deleteImage($record->image_1);
+        if (is_null($record)) {
+            if ($request->image_index === 'image_1') {
+                $secondSection->create(['image_1' => $name]);
+            } else {
+                $secondSection->create(['image_2' => $name]);
             }
-
-            $secondSection->updateOrCreate([
-                'id' => 1
-            ], [
-                'image_1' => $name
-            ]);
+        } else {
+            if ($request->image_index === 'image_1') {
+                $record->update(['image_1' => $name]);
+            } else {
+                $record->update(['image_2' => $name]);
+            }
         }
 
-        elseif ($request->image_index === 'image_2') {
-            if (!is_null($record->image_2)) {
-                $secondSection->deleteImage($record->image_2);
-            }
-
-            $secondSection->updateOrCreate([
-                'id' => 1
-            ], [
-                'image_2' => $name
-            ]);
-        }
-
-        return redirect()->back()->with('success', 'Image Successfully Updated');
+        return redirect()->back()->with('second-section-success', 'Image Successfully Updated');
     }
 
     public function testimonialStore(TestimonialStore $request)
@@ -181,7 +171,7 @@ class DashboardController extends Controller
 
         $testimonial->create($data);
 
-        return redirect()->back();
+        return redirect()->back()->with('testimonial-success', 'New Data Successfully Added!!');
     }
 
     public function testimonialEdit(Request $request, $id)
@@ -216,7 +206,7 @@ class DashboardController extends Controller
 
         $record->update($data);
 
-        return redirect(route('dashboard'));
+        return redirect(route('dashboard'))->with('testimonial-success', 'Data Successfully Updated!!');;
     }
 
     public function testimonialDelete(Request $request)
@@ -227,7 +217,7 @@ class DashboardController extends Controller
         $testimonial->deleteImage($record->image);
         $record->delete();
 
-        return redirect()->back();
+        return redirect()->back()->with('testimonial-success', 'Data Successfully Deleted!!');;
     }
 
     public function notification(Request $request)

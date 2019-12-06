@@ -40,7 +40,7 @@
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 @if ($holidays->isEmpty())
-                                    <h2>No data found</h2>
+                                    <h2 class="text-center">No data found</h2>
                                 @else
                                 <thead>
                                     <tr>

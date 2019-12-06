@@ -51,7 +51,7 @@
                                         <div class="form-group">
                                             <label class="required">Title</label>
                                             @if (is_null($company))
-                                                <input type="text" name="title_en" class="form-control" value="{{ '' ?? old('title_en') }}">
+                                                <input type="text" name="title_en" class="form-control" value="{{ old('title_en') ?? '' }}">
                                             @else
                                                 <input type="text" class="form-control" name="title_en" value="{{ $errors->has('title_en') ? old('title_en') : $company->translate('en')->title }}">
                                             @endif
@@ -59,7 +59,7 @@
                                         <div class="form-group">
                                             <label class="required">Sub Title</label>
                                             @if (is_null($company))
-                                                <input type="text" name="sub_title_en" class="form-control" value="{{ '' ?? old('sub_title_en') }}">
+                                                <input type="text" name="sub_title_en" class="form-control" value="{{ old('sub_title_en') ?? '' }}">
                                             @else
                                                 <input type="text" class="form-control" name="sub_title_en" value="{{ $errors->has('sub_title_en') ? old('sub_title_en') : $company->translate('en')->sub_title }}">
                                             @endif
@@ -67,7 +67,7 @@
                                         <div class="form-group">
                                             <label class="required">Content</label>
                                             @if (is_null($company))
-                                                <textarea class="ckeditor" name="content_en">{{ '' ?? old('content_en') }}</textarea>
+                                                <textarea class="ckeditor" name="content_en">{{ old('content_en') ?? '' }}</textarea>
                                             @else
                                                 <textarea class="ckeditor" name="content_en">{{ $errors->has('content_en') ? old('content_en') : $company->translate('en')->content }}</textarea>
                                             @endif
@@ -80,7 +80,7 @@
                                         <div class="form-group">
                                             <label class="required">Title</label>
                                             @if (is_null($company))
-                                                <input type="text" name="title_id" class="form-control" value="{{ '' ?? old('title_id') }}">
+                                                <input type="text" name="title_id" class="form-control" value="{{ old('title_id') ?? '' }}">
                                             @else
                                                 <input type="text" class="form-control" name="title_id" value="{{ $errors->has('title_id') ? old('title_id') : $company->translate('id')->title }}">
                                             @endif    
@@ -88,7 +88,7 @@
                                         <div class="form-group">
                                             <label class="required">Sub Title</label>
                                             @if (is_null($company))
-                                                <input type="text" name="sub_title_id" class="form-control" value="{{ '' ?? old('sub_title_id') }}">
+                                                <input type="text" name="sub_title_id" class="form-control" value="{{ old('sub_title_id') ?? '' }}">
                                             @else
                                                 <input type="text" class="form-control" name="sub_title_id" value="{{ $errors->has('sub_title_id') ? old('sub_title_id') : $company->translate('id')->sub_title }}">
                                             @endif
@@ -96,7 +96,7 @@
                                         <div class="form-group">
                                             <label class="required">Content</label>
                                             @if (is_null($company))
-                                                <textarea class="ckeditor" name="content_id">{{ '' ?? old('content_id') }}</textarea>
+                                                <textarea class="ckeditor" name="content_id">{{ old('content_id') ?? '' }}</textarea>
                                             @else
                                                 <textarea class="ckeditor" name="content_id">{{ $errors->has('content_id') ? old('content_id') : $company->translate('id')->content }}</textarea>
                                             @endif

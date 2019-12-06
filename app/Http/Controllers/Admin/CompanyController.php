@@ -18,14 +18,20 @@ class CompanyController extends Controller
 
     public function save(CompanySave $request)
     {
+        $record  = Company::first(); 
         $company = new Company();
 
-        $company->updateOrCreate([
-            'id' => 1
-        ], [
-            'en' => ['title' => $request->title_en, 'sub_title' => $request->sub_title_en, 'content' => $request->content_en],
-            'id' => ['title' => $request->title_id, 'sub_title' => $request->sub_title_id, 'content' => $request->content_id],
-        ]);
+        if (is_null($record)) {
+            $company->create([
+                'en' => ['title' => $request->title_en, 'sub_title' => $request->sub_title_en, 'content' => $request->content_en],
+                'id' => ['title' => $request->title_id, 'sub_title' => $request->sub_title_id, 'content' => $request->content_id]
+            ]);
+        } else {
+            $record->update([
+                'en' => ['title' => $request->title_en, 'sub_title' => $request->sub_title_en, 'content' => $request->content_en],
+                'id' => ['title' => $request->title_id, 'sub_title' => $request->sub_title_id, 'content' => $request->content_id]
+            ]);
+        }
 
         return redirect()->back()->with('success', 'Data Successfully Saved');
     }

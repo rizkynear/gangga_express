@@ -14,36 +14,29 @@ class SchedulesTableSeeder extends Seeder
     {
         $route = new Route();
 
-        $route->departure = 'Tribuana';
-        $route->arrival = 'Sampalan';
-        $route->save();
+        $data_1 = [
+            'departure' => 'Tribuana',
+            'arrival'   => 'Sampalan'
+        ];
 
-        for ($i = 1; $i <= 9; $i++) {
-            $data = [
-                'departure' => '0' . $i . ':00:00',
-                'arrival' => now(),
-                'quota' => 40,
-                'expired_date' => now()
-            ];
+        $data_2 = [
+            'departure' => 'Tribuana',
+            'arrival'   => 'Buyuk'
+        ];
 
-            $route->schedules()->create($data);
-        }
+        $data_3 = [
+            'departure' => 'Sampalan',
+            'arrival'   => 'Tribuana'
+        ];
 
-        $route_2 = new Route();
+        $data_4 = [
+            'departure' => 'Buyuk',
+            'arrival'   => 'Tribuana'
+        ];
 
-        $route_2->departure = 'Sampalan';
-        $route_2->arrival = 'Tribuana';
-        $route_2->save();
-
-        for ($i = 1; $i <= 9; $i++) {
-            $data = [
-                'departure' => '0' . $i . ':00:00',
-                'arrival' => now(),
-                'quota' => 40,
-                'expired_date' => now()
-            ];
-
-            $route_2->schedules()->create($data);
-        }
+        $route->create($data_1);
+        $route->create($data_2);
+        $route->create($data_3);
+        $route->create($data_4);
     }
 }

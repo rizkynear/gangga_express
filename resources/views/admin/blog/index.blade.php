@@ -37,7 +37,7 @@
                         @endif
                         <!--SAMPLE ALERT END-->
                         <div class="table-responsive">
-                            <table class="table table-striped">
+                            <table class="table table-striped" id="table-blog">
                                 <thead>
                                     <tr>
                                         <th style="width: 200px;">Image</th>
@@ -110,6 +110,25 @@
 
             $('#form-delete').attr('action', action);
             $('#modal-delete').modal();
+        });
+
+        $('#table-blog').DataTable({
+            "bSort": false,
+            "pagingType": "full_numbers",
+            "responsive": true,
+            "lengthMenu": [
+                [10, 25, 50],
+                [10, 25, 50]
+            ],
+            "language": {
+                "paginate": {
+                    "first": "&nbsp;",
+                    "last": "&nbsp;",
+                    "previous": "&nbsp;",
+                    "next": "&nbsp;"
+                }
+            },
+            "sPaginationType": "ellipses"
         });
     });
 </script>
