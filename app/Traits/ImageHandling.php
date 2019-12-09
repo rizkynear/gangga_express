@@ -29,12 +29,13 @@ trait ImageHandling
 
     public function storeImage($request, $imageName)
     {
-        $request->storeAs($this->storePath, $imageName, 'public');
-    }
+        $request->image->storeAs($this->storePath, $imageName, 'public');
 
-    public function storeThumbnail($imageName, $width = null, $height = null)
-    {
-        InterventionImage::make($this->imagePath() . $imageName)->resize($width, $height, function ($constrait) {
+        InterventionImage::make($this->imagePath() . $imageName)
+                         ->crop((int)$request->crop_width, (int)$request->crop_height, (int)$request->x_coordinate, (int)$request->y_coordinate)
+                         ->save();
+
+        InterventionImage::make($this->imagePath() . $imageName)->resize(null, 200, function ($constrait) {
             $constrait->aspectRatio();
         })->save($this->thumbnailPath() . $imageName);
     }

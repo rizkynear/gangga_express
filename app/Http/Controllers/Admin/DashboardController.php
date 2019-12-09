@@ -37,8 +37,7 @@ class DashboardController extends Controller
         $position = Slider::all()->count() + 1;
         $name     = Str::random(40) . '.' . $request->image->getClientOriginalExtension();
 
-        $slider->storeImage($request->image, $name);
-        $slider->storeThumbnail($name, 700);
+        $slider->storeImage($request, $name);
         $slider->image    = $name;
         $slider->position = $position;
         $slider->save();
@@ -53,8 +52,7 @@ class DashboardController extends Controller
         $name   = Str::random(40) . '.' . $request->image->getClientOriginalExtension();
 
         $slider->deleteImage($record->image);
-        $slider->storeImage($request->image, $name);
-        $slider->storeThumbnail($name, 700);
+        $slider->storeImage($request, $name);
 
         $record->update(['image' => $name]);
 
@@ -133,8 +131,7 @@ class DashboardController extends Controller
         $record        = SecondSection::first();
         $name          = Str::random(40) . '.' . $request->image->getClientOriginalExtension();
 
-        $secondSection->storeImage($request->image, $name);
-        $secondSection->storeThumbnail($name, 700);
+        $secondSection->storeImage($request, $name);
 
         if (is_null($record)) {
             if ($request->image_index === 'image_1') {
@@ -158,8 +155,7 @@ class DashboardController extends Controller
         $testimonial = new Testimonial();
         $name        = Str::random(40) . '.' . $request->image->getClientOriginalExtension();
 
-        $testimonial->storeImage($request->image, $name);
-        $testimonial->storeThumbnail($name, 700);
+        $testimonial->storeImage($request, $name);
         
         $data = [
             'name'        => $request->name,
@@ -191,8 +187,7 @@ class DashboardController extends Controller
             $name = Str::random(40) . '.' . $request->image->getClientOriginalExtension();
 
             $testimonial->deleteImage($record->image);
-            $testimonial->storeImage($request->image, $name);
-            $testimonial->storeThumbnail($name, 300);
+            $testimonial->storeImage($request, $name);
 
             $record->update(['image' => $name]);
         }

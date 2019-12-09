@@ -28,8 +28,7 @@ class BlogController extends Controller
         $blog = new Blog();
         $name = Str::random(40) . '.' . $request->image->getClientOriginalExtension();
 
-        $blog->storeImage($request->image, $name);
-        $blog->storeThumbnail($name, 250);
+        $blog->storeImage($request, $name);
 
         $data = [
             'image' => $name,
@@ -70,8 +69,7 @@ class BlogController extends Controller
             $name = Str::random(40) . '.' . $request->image->getClientOriginalExtension();
 
             $blog->deleteImage($record->image);
-            $blog->storeImage($request->image, $name);
-            $blog->storeThumbnail($name, 250);
+            $blog->storeImage($request, $name);
 
             $record->update(['image' => $name]);
         }

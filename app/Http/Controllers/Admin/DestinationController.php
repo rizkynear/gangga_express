@@ -28,8 +28,7 @@ class DestinationController extends Controller
         $destination = new Destination();
         $name        = Str::random(40) . '.' . $request->image->getClientOriginalExtension();
         
-        $destination->storeImage($request->image, $name);
-        $destination->storeThumbnail($name, 250);
+        $destination->storeImage($request, $name);
 
         $data = [
             'name'      => $request->name,
@@ -72,8 +71,7 @@ class DestinationController extends Controller
             $name = Str::random(40) . '.' . $request->image->getClientOriginalExtension();
 
             $destination->deleteImage($record->image);
-            $destination->storeImage($request->image, $name);
-            $destination->storeThumbnail($name, 250);
+            $destination->storeImage($request, $name);
 
             $record->update(['image' => $name]);
         }

@@ -17,6 +17,10 @@
     <link rel="stylesheet" href="{{ asset('css/dataTables.fontAwesome.css') }}" type="text/css">
     <!--datatable end-->
 
+    <!-- cropper -->
+    <link rel="stylesheet" href="{{ asset('css/cropper.css') }}" crossorigin="anonymous">
+    <!-- croppper end -->
+
 
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css">
@@ -215,6 +219,8 @@
 
 <script src="{{ asset('js/adminlte.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/textbox-input.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/cropper.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/jquery-cropper.js') }}" type="text/javascript"></script>
 
 <script>
     $(document).ready(function() {
@@ -295,6 +301,63 @@
     });
 </script>
 <!-- Ajax request end -->
+
+
+<script>
+    // INPUT TYPE FILE
+    $(document).on('change', '.btn-file :file', function() {
+        var input = $(this),
+            numFiles = input.get(0).files ? input.get(0).files.length : 1,
+            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        input.trigger('fileselect', [numFiles, label]);
+    });
+
+    $(document).ready(function() {
+        $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
+            var input = $(this).parents('.input-group').find(':text'),
+                log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+            if (input.length) {
+                input.val(log);
+            } else {}
+        });
+    });
+</script>
+
+<script>
+    function imageCropper(input, parent) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function(e) {
+                var image = parent.find('.image-preview').attr('src', e.target.result);
+
+                image.cropper('destroy');
+
+                image.cropper({
+                    viewMode: 3,
+                    aspectRatio: 16 / 9,
+                    crop: function(event) {
+                        parent.find('.x-coordinate').val(event.detail.x);
+                        parent.find('.y-coordinate').val(event.detail.y);
+                        parent.find('.crop-width').val(event.detail.width);
+                        parent.find('.crop-height').val(event.detail.height);
+                    }
+                });
+            }
+            
+            reader.readAsDataURL(input.files[0]);
+        }
+        
+    }
+
+    $(".image-name").change(function() {
+        var parent = $(this).parent().parent().parent().parent().parent();
+
+        imageCropper(this, parent);
+    });
+</script>
+
 <!--temporary script end-->
 @yield('script')
 </html>

@@ -35,14 +35,18 @@
                             <div class="form-group">
                                 <label class="required">Photo</label>
                                 <div class="row row-custom">
-                                    <div class="col-sm-2">
-                                        <img class="img-responsive margin-bot-10" src="{{ asset('storage/images/destinations/thumbnail/' . $destination->image) }}" alt="">
+                                    <div class="col-sm-3">
+                                        <img class="img-responsive margin-bot-10 image-preview" src="{{ asset('storage/images/destinations/thumbnail/' . $destination->image) }}" alt="">
+                                        <input type="hidden" class="x-coordinate" name="x_coordinate">
+                                        <input type="hidden" class="y-coordinate" name="y_coordinate">
+                                        <input type="hidden" class="crop-width" name="crop_width">
+                                        <input type="hidden" class="crop-height" name="crop_height">
                                     </div>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-9">
                                         <div class="input-group">
                                             <span class="input-group-btn">
                                                 <span class="btn btn-primary btn-file">
-                                                    <i class="fa fa-folder-open"></i>&nbsp;Browse <input type="file" name="image">
+                                                    <i class="fa fa-folder-open"></i>&nbsp;Browse <input type="file" name="image" class="image-name">
                                                 </span>
                                             </span>
                                             <input type="text" class="form-control" value="No file chosen" readonly="">
@@ -87,8 +91,6 @@
 @endsection
 
 @section('script')
-<!--JS-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" type="text/javascript"></script>
 <!--MAP-->
 <script src="{{ asset('js/locationpicker.jquery.min.js') }}" type="text/javascript"></script>
 <script type="text/javascript" src='http://maps.google.com/maps/api/js?sensor=false&libraries=places'></script>

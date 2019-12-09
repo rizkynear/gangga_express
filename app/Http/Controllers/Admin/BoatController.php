@@ -23,7 +23,7 @@ class BoatController extends Controller
         $boat = new Boat();
         $name = Str::random(40) . $request->image->getClientOriginalExtension();
 
-        $boat->storeImage($request->image, $name);
+        $boat->storeImage($request, $name);
         $boat->storeThumbnail($name, 700);
 
         $data = [
@@ -67,8 +67,7 @@ class BoatController extends Controller
             $name = Str::random(40) . '.' . $request->image->getClientOriginalExtension();
 
             $boat->deleteImage($record->image);
-            $boat->storeImage($request->image, $name);
-            $boat->storeThumbnail($name, 250);
+            $boat->storeImage($request, $name);
 
             $record->update(['image' => $name]);
         }

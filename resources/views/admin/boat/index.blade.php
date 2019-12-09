@@ -99,14 +99,18 @@
                             <div class="form-group">
                                 <label class="required">Photo</label>
                                 <div class="row row-custom">
-                                    <div class="col-sm-4">
-                                        <img class="img-responsive margin-bot-10" src="http://via.placeholder.com/158x181" alt="">
+                                    <div class="col-sm-5">
+                                        <img class="img-responsive margin-bot-10 image-preview" src="http://via.placeholder.com/158x181" alt="">
+                                        <input type="hidden" class="x-coordinate" name="x_coordinate">
+                                        <input type="hidden" class="y-coordinate" name="y_coordinate">
+                                        <input type="hidden" class="crop-width" name="crop_width">
+                                        <input type="hidden" class="crop-height" name="crop_height">
                                     </div>
-                                    <div class="col-sm-8">
+                                    <div class="col-sm-7">
                                         <div class="input-group">
                                             <span class="input-group-btn">
                                                 <span class="btn btn-primary btn-file">
-                                                    <i class="fa fa-folder-open"></i>&nbsp;Browse <input type="file" name="image">
+                                                    <i class="fa fa-folder-open"></i>&nbsp;Browse <input type="file" name="image" class="image-name">
                                                 </span>
                                             </span>
                                             <input type="text" class="form-control" value="No file chosen" readonly="">

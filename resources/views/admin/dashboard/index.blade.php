@@ -266,13 +266,17 @@
                             <label class="required">Photo</label>
                             <div class="row row-custom">
                                 <div class="col-sm-4">
-                                    <img class="img-responsive margin-bot-10" src="http://via.placeholder.com/700x400" alt="">
+                                    <img class="img-responsive margin-bot-10 image-preview" src="http://via.placeholder.com/700x400" alt="">
+                                    <input type="hidden" class="x-coordinate" name="x_coordinate">
+                                    <input type="hidden" class="y-coordinate" name="y_coordinate">
+                                    <input type="hidden" class="crop-width" name="crop_width">
+                                    <input type="hidden" class="crop-height" name="crop_height">
                                 </div>
                                 <div class="col-sm-8">
                                     <div class="input-group">
                                         <span class="input-group-btn">
                                             <span class="btn btn-primary btn-file">
-                                                <i class="fa fa-folder-open"></i>&nbsp;Browse <input type="file" name="image">
+                                                <i class="fa fa-folder-open"></i>&nbsp;Browse <input type="file" name="image" class="image-name">
                                             </span>
                                         </span>
                                         <input type="text" class="form-control" value="No file chosen" readonly="">
@@ -308,13 +312,17 @@
                             <label class="required">Photo</label>
                             <div class="row row-custom">
                                 <div class="col-sm-4">
-                                    <img class="img-responsive margin-bot-10" src="http://via.placeholder.com/700x400" alt="" id="second-section-image">
+                                    <img class="img-responsive margin-bot-10 image-preview" src="http://via.placeholder.com/700x400" alt="" id="second-section-image">
+                                    <input type="hidden" class="x-coordinate" name="x_coordinate">
+                                    <input type="hidden" class="y-coordinate" name="y_coordinate">
+                                    <input type="hidden" class="crop-width" name="crop_width">
+                                    <input type="hidden" class="crop-height" name="crop_height">
                                 </div>
                                 <div class="col-sm-8">
                                     <div class="input-group">
                                         <span class="input-group-btn">
                                             <span class="btn btn-primary btn-file">
-                                                <i class="fa fa-folder-open"></i>&nbsp;Browse <input type="file" name="image">
+                                                <i class="fa fa-folder-open"></i>&nbsp;Browse <input type="file" name="image" class="image-name">
                                             </span>
                                         </span>
                                         <input type="text" class="form-control" value="No file chosen" readonly="">
@@ -347,13 +355,17 @@
                             <label class="required">Photo</label>
                             <div class="row row-custom">
                                 <div class="col-sm-4">
-                                    <img class="img-responsive margin-bot-10" src="http://via.placeholder.com/700x400" alt="" id="second-section-image">
+                                    <img class="img-responsive margin-bot-10 image-preview" src="http://via.placeholder.com/700x400" alt="" id="second-section-image">
+                                    <input type="hidden" class="x-coordinate" name="x_coordinate">
+                                    <input type="hidden" class="y-coordinate" name="y_coordinate">
+                                    <input type="hidden" class="crop-width" name="crop_width">
+                                    <input type="hidden" class="crop-height" name="crop_height">
                                 </div>
                                 <div class="col-sm-8">
                                     <div class="input-group">
                                         <span class="input-group-btn">
                                             <span class="btn btn-primary btn-file">
-                                                <i class="fa fa-folder-open"></i>&nbsp;Browse <input type="file" name="image">
+                                                <i class="fa fa-folder-open"></i>&nbsp;Browse <input type="file" name="image" class="image-name">
                                             </span>
                                         </span>
                                         <input type="text" class="form-control" value="No file chosen" readonly="">
@@ -388,13 +400,17 @@
                             <label class="required">Photo</label>
                             <div class="row row-custom">
                                 <div class="col-sm-4">
-                                    <img id="edit-slider-image" class="img-responsive margin-bot-10" src="http://via.placeholder.com/700x400" alt="">
+                                    <img id="edit-slider-image" class="img-responsive margin-bot-10 image-preview" src="http://via.placeholder.com/700x400" alt="">
+                                    <input type="hidden" class="x-coordinate" name="x_coordinate">
+                                    <input type="hidden" class="y-coordinate" name="y_coordinate">
+                                    <input type="hidden" class="crop-width" name="crop_width">
+                                    <input type="hidden" class="crop-height" name="crop_height">
                                 </div>
                                 <div class="col-sm-8">
                                     <div class="input-group">
                                         <span class="input-group-btn">
                                             <span class="btn btn-primary btn-file">
-                                                <i class="fa fa-folder-open"></i>&nbsp;Browse <input type="file" name="image">
+                                                <i class="fa fa-folder-open"></i>&nbsp;Browse <input type="file" name="image" class="image-name">
                                             </span>
                                         </span>
                                         <input type="text" class="form-control" value="No file chosen" readonly="">
@@ -453,13 +469,17 @@
                             <label class="required">Photo</label>
                             <div class="row row-custom">
                                 <div class="col-sm-4">
-                                    <img class="img-responsive margin-bot-10" src="http://via.placeholder.com/700x400" alt="">
+                                    <img class="img-responsive margin-bot-10 image-preview" src="http://via.placeholder.com/700x400" alt="">
+                                    <input type="hidden" class="x-coordinate" name="x_coordinate">
+                                    <input type="hidden" class="y-coordinate" name="y_coordinate">
+                                    <input type="hidden" class="crop-width" name="crop_width">
+                                    <input type="hidden" class="crop-height" name="crop_height">
                                 </div>
                                 <div class="col-sm-8">
                                     <div class="input-group">
                                         <span class="input-group-btn">
                                             <span class="btn btn-primary btn-file">
-                                                <i class="fa fa-folder-open"></i>&nbsp;Browse <input type="file" name="image">
+                                                <i class="fa fa-folder-open"></i>&nbsp;Browse <input type="file" name="image" class="image-name">
                                             </span>
                                         </span>
                                         <input type="text" class="form-control" value="No file chosen" readonly="">
@@ -581,7 +601,7 @@
             $('#second-section-image-index').attr('value', imageIndex);
             $('#modal-edit-second-section-'+imageIndex).modal();
         });
-    })
+    });
 </script>
 
 @endsection
