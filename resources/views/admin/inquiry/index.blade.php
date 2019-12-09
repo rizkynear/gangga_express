@@ -28,26 +28,30 @@
                             <div class="row">
                                 <form class="text-left form-inline" action="{{ route('inquiry.search') }}" method="get">
                                     <div class="form-group form-group-inline">
-                                        <input type='text' class="form-control" id='inquiry-date' placeholder="Date" name="date">
+                                        <input type='text' class="form-control" id='inquiry-date' placeholder="Date" name="date" value="{{ request()->get('date') ?? '' }}">
                                     </div>
                                     <div class="form-group form-group-inline">
-                                        <select class="form-control selectpicker">
-                                            <option>All route</option>
-                                            <option value="tribuana-sampalan">Tribuana Port - Sampalan</option>
-                                            <option value="tribuana-buyuk">Tribuana Port - Buyuk</option>
-                                            <option value="sampalan-tribuana">Sampalan - Tribuana Port</option>
-                                            <option value="buyuk-tribuana">Buyuk - Tribuana Port</option>
+                                        <select class="form-control selectpicker" name="route">
+                                            <option value="all" {{ request()->get('route') === 'all' ? 'selected' : '' }}>All route</option>
+                                            <option value="tribuana-sampalan" {{ request()->get('route') === 'tribuana-sampalan' ? 'selected' : '' }}>Tribuana Port - Sampalan</option>
+                                            <option value="tribuana-buyuk" {{ request()->get('route') === 'tribuana-buyuk' ? 'selected' : '' }}>Tribuana Port - Buyuk</option>
+                                            <option value="sampalan-tribuana" {{ request()->get('route') === 'sampalan-tribuana' ? 'selected' : '' }}>Sampalan - Tribuana Port</option>
+                                            <option value="buyuk-tribuana" {{ request()->get('route') === 'buyuk-tribuana' ? 'selected' : '' }}>Buyuk - Tribuana Port</option>
                                         </select>
                                     </div>
                                     <div class="form-group form-group-inline">
-                                        <select class="form-control selectpicker">
-                                            <option>All Schedule</option>
-                                            <option value="06:30:00">06.30 AM</option>
-                                            <option value="07:00:00">07.00 AM</option>
-                                            <option value="08:00:00">08.00 AM</option>
-                                            <option value="12:15:00">12.15 PM</option>
-                                            <option value="13:30:00">13.30 PM</option>
-                                            <option value="14:30:00">14.30 PM</option>
+                                        <select class="form-control selectpicker" name="schedule">
+                                            <option value="all" {{ request()->get('schedule') === 'all' ? 'selected' : '' }}>All Schedule</option>
+                                            <option value="06:30:00" {{ request()->get('schedule') === '06:30:00' ? 'selected' : '' }}>06.30 AM</option>
+                                            <option value="07:00:00" {{ request()->get('schedule') === '07:00:00' ? 'selected' : '' }}>07.00 AM</option>
+                                            <option value="07:30:00" {{ request()->get('schedule') === '07:30:00' ? 'selected' : '' }}>07.30 AM</option>
+                                            <option value="08:00:00" {{ request()->get('schedule') === '08:00:00' ? 'selected' : '' }}>08.00 AM</option>
+                                            <option value="09:00:00" {{ request()->get('schedule') === '09:00:00' ? 'selected' : '' }}>09.00 AM</option>
+                                            <option value="10:00:00" {{ request()->get('schedule') === '10:00:00' ? 'selected' : '' }}>10.00 AM</option>
+                                            <option value="12:15:00" {{ request()->get('schedule') === '12:15:00' ? 'selected' : '' }}>12.15 PM</option>
+                                            <option value="13:30:00" {{ request()->get('schedule') === '13:30:00' ? 'selected' : '' }}>13.30 PM</option>
+                                            <option value="14:30:00" {{ request()->get('schedule') === '14:30:00' ? 'selected' : '' }}>14.30 PM</option>
+                                            <option value="16:00:00" {{ request()->get('schedule') === '16:00:00' ? 'selected' : '' }}>16.00 PM</option>
                                         </select>
                                     </div>
                                     <button type="submit" class="btn btn-primary"><i class="fa fa-filter" aria-hidden="true"></i> Filter</button>
@@ -154,6 +158,7 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
+                                {{ $bookings->appends(Request::except('page'))->links() }}
                                 @endif
                             </table>
                         </div>
