@@ -22,7 +22,7 @@
                     <div class="box-body">
 
                         <div class="table-responsive">
-                            <p><b>Booking Id : {{ $booking->id }}</b></p>
+                            <p><b>Booking Code : {{ $booking->code }}</b></p>
                             <p><b>Personal Information</b></p>
                             <table class="table table-striped">
                                 <tr>

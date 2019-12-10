@@ -34,6 +34,10 @@ class InquiryController extends Controller
             });
         }
 
+        if (!empty($request->code)) {
+            $booking->where('code', '=', $request->code);
+        }
+
         $bookings = $booking->latest()->paginate(10);
 
         return view('admin.inquiry.index')->with(compact('bookings'));

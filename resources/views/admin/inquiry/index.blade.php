@@ -62,11 +62,11 @@
 
                         <div class="row">
                             <div class="col-sm-12 text-right">
-                                <form text="text-right" class="form-inline" action="" method="post">
+                                <form text="text-right" class="form-inline" action="{{ route('inquiry.search') }}" method="get">
                                     <div class="form-group form-group-inline">
-                                        <label class="sr-only">Search</label>
+                                        <label class="sr-only">Search Code</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Search">
+                                            <input type="text" class="form-control" placeholder="Search Code" name="code" value="{{ request()->get('code') }}">
                                             <span class="input-group-btn">
                                                 <button class="btn btn-danger" type="submit">
                                                     <i class="fa fa-search" aria-hidden="true"></i><span class="sr-only"></span>
@@ -86,7 +86,7 @@
                                 @else 
                                 <thead>
                                     <tr>
-                                        <th>Id</th>
+                                        <th>Code</th>
                                         <th>Date</th>
                                         <th>Contact Info</th>
                                         <th>Departure</th>
