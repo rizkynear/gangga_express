@@ -25,6 +25,8 @@ class BookingsTableSeeder extends Seeder
             'route' => 'tribuana-sampalan',
             'departure' => '01:00:00',
             'arrival'  => '11:00:00',
+            'departure_port' => 'Tribuana',
+            'arrival_port' => 'Sampalan',
             'type'     => 'departure'
         ];
 
@@ -33,6 +35,8 @@ class BookingsTableSeeder extends Seeder
             'route' => 'sampalan-tribuana',
             'departure' => '09:00:00',
             'arrival'  => '11:00:00',
+            'departure_port' => 'Sampalan',
+            'arrival_port' => 'Tribuana',
             'type'     => 'return'
         ];
 

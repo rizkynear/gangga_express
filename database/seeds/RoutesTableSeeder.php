@@ -3,7 +3,7 @@
 use App\Http\Models\Route;
 use Illuminate\Database\Seeder;
 
-class SchedulesTableSeeder extends Seeder
+class RoutesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
