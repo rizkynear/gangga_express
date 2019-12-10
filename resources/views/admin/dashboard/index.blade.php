@@ -58,8 +58,8 @@
                                                 <span class="display-xs-block"><img class="img-responsive img-xs" src="{{ asset('storage/images/sliders/thumbnail/' . $slider->image) }}" alt=""></span>
                                             </td>
                                             <td>
-                                                <span class="display-xs-inline-block" data-toggle="tooltip" title="Edit"><button type="button" class="btn btn-primary edit-slider" data-id="{{ $slider->id }}" data-image="{{ asset('storage/images/sliders/thumbnail/' . $slider->image) }}"><i class="fa fa-pencil" aria-hidden="true"></i></button></span>
-                                                <span class="display-xs-inline-block" data-toggle="tooltip" title="Delete"><button type="button" class="btn btn-danger delete-slider" data-id="{{ $slider->id }}"><i class="fa fa-trash" aria-hidden="true"></i></button></span>
+                                                <span class="display-xs-inline-block" data-toggle="tooltip" title="Edit"><button type="button" class="btn btn-primary edit-slider" data-action="{{ route('slider.edit', $slider->id) }}" data-image="{{ asset('storage/images/sliders/thumbnail/' . $slider->image) }}"><i class="fa fa-pencil" aria-hidden="true"></i></button></span>
+                                                <span class="display-xs-inline-block" data-toggle="tooltip" title="Delete"><button type="button" class="btn btn-danger delete-slider" data-action="{{ route('slider.delete', $slider->id) }}"><i class="fa fa-trash" aria-hidden="true"></i></button></span>
                                                 <form action="" method="post" style="display: inline-block">
                                                     @csrf
                                                     <input type="hidden" name="id" value="{{ $slider->id }}">
@@ -236,7 +236,7 @@
                                             </td>
                                             <td>
                                                 <span class="display-xs-inline-block" data-toggle="tooltip" title="Edit"><a href="{{ route('testimonial.edit', $testimonial->id) }}" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></a></span>
-                                                <span class="display-xs-inline-block" data-toggle="tooltip" title="Delete"><button type="button" class="btn btn-danger delete-testimonial" data-id="{{ $testimonial->id }}"><i class="fa fa-trash" aria-hidden="true"></i></button></span>
+                                                <span class="display-xs-inline-block" data-toggle="tooltip" title="Delete"><button type="button" class="btn btn-danger delete-testimonial" data-action="{{ route('testimonial.delete', $testimonial->id) }}"><i class="fa fa-trash" aria-hidden="true"></i></button></span>
                                             </td>
                                         </tr>
                                         @endforeach
@@ -394,8 +394,9 @@
                     <h4 class="title-main">Edit Image</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('slider.edit') }}" method="post" enctype="multipart/form-data">
+                    <form action="" method="post" enctype="multipart/form-data" id="form-edit">
                         @csrf
+                        @method('PATCH')
                         <div class="form-group">
                             <label class="required">Photo</label>
                             <div class="row row-custom">
@@ -422,7 +423,6 @@
                             </div>
                         </div>
                         <hr>
-                        <input type="hidden" id="edit-slider-id" name="id">
                         <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Save</button>
                         <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
                     </form>
@@ -444,7 +444,7 @@
                     </div>
                     <form action="" method="post" id="form-delete">
                         @csrf
-                        <input type="hidden" name="id" id="delete-id" value="">
+                        @method('DELETE')
                         <button class="btn btn-danger mr-5" type="submit"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
                         <button class="btn btn-default" type="submit" data-dismiss="modal">Cancel</button>
                     </form>
@@ -560,28 +560,25 @@
 <script>
     $(document).ready(function() {
         $('.edit-slider').click(function() {
-            var id    = $(this).data('id');
-            var image = $(this).data('image');
+            var action = $(this).data('action');
+            var image  = $(this).data('image');
 
-
-            $('#edit-slider-id').attr('value', id);
+            $('#form-edit').attr('action', action);
             $('#edit-slider-image').attr('src', image);
             $('#modal-edit-slider').modal();
         });
 
         $('.delete-slider').click(function() {
-            var id = $(this).data('id');
+            var action = $(this).data('action');
 
-            $('#delete-id').attr('value', id);
-            $('#form-delete').attr('action', "{{ route('slider.delete') }}");
+            $('#form-delete').attr('action', action);
             $('#modal-delete').modal();
         });
 
         $('.delete-testimonial').click(function() {
-            var id = $(this).data('id');
+            var action = $(this).data('action');
 
-            $('#delete-id').attr('value', id);
-            $('#form-delete').attr('action', "{{ route('testimonial.delete') }}");
+            $('#form-delete').attr('action', action);
             $('#modal-delete').modal();
         });
 

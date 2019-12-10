@@ -17,11 +17,9 @@ class ContactController extends Controller
         return view('admin.contact.index')->with(compact('contacts'));
     }
 
-    public function delete($id)
+    public function delete(Contact $contact)
     {
-        $record = Contact::findOrFail($id);
-
-        $record->delete();
+        $contact->delete();
 
         return redirect()->back()->with('success', 'Data Successfully Deleted');
     }

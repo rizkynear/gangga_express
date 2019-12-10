@@ -24,6 +24,11 @@
                                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                                     <p><i class="icon fa fa-check"></i>{{ session('success') }}</p>
                                 </div>
+                            @elseif (session()->has('error'))
+                                <div class="alert alert-danger alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                    <p><i class="icon fa fa-check"></i>{{ session('error') }}</p>
+                                </div>
                             @endif
                             <div class="row">
                                 <form class="text-left form-inline" method="get">
@@ -167,7 +172,7 @@
                                     </tbody>
                                 @endif
                             </table>
-                            {{ $bulletins->appends(Request::except('page'))->links() }}
+                            {{ $bookings->appends(Request::except('page'))->links() }}
                         </div>
                     </div>
 

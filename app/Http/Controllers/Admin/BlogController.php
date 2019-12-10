@@ -30,56 +30,48 @@ class BlogController extends Controller
 
         $blog->storeImage($request, $name);
 
-        $data = [
+        $blog->create([
             'image' => $name,
             'en'    => ['title' => $request->title_en, 'description' => $request->description_en],
             'id'    => ['title' => $request->title_id, 'description' => $request->description_id]
-        ];
-
-        $blog->create($data);
+        ]);
 
         return redirect(route('blog'))->with('success', 'New Data Successfully Added!!');
     }
 
-    public function delete($id)
+    public function delete(Blog $blog)
     {
-        $blog = new Blog();
-        $record = Blog::findOrFail($id);
+        $blogModel = new Blog();
 
-        $blog->deleteImage($record->image);
+        $blogModel->deleteImage($blog->image);
 
-        $record->delete();
+        $blog->delete();
 
         return redirect()->back()->with('success', 'Data Successfully Deleted!!');
     }
 
-    public function edit($id)
+    public function edit(Blog $blog)
     {
-        $blog = Blog::findOrFail($id);
-
         return view('admin.blog.edit')->with(compact('blog'));
     }
 
-    public function update(BlogUpdate $request, $id)
+    public function update(BlogUpdate $request, Blog $blog)
     {
-        $blog   = new Blog();
-        $record = Blog::findOrFail($id);
+        $blogModel = new Blog();
 
         if ($request->hasFile('image')) {
             $name = Str::random(40) . '.' . $request->image->getClientOriginalExtension();
 
-            $blog->deleteImage($record->image);
-            $blog->storeImage($request, $name);
+            $blogModel->deleteImage($blog->image);
+            $blogModel->storeImage($request, $name);
 
-            $record->update(['image' => $name]);
+            $blog->update(['image' => $name]);
         }
 
-        $data = [
+        $blog->update([
             'en' => ['title' => $request->title_en, 'description' => $request->description_en],
             'id' => ['title' => $request->title_id, 'description' => $request->description_id]
-        ];
-
-        $record->update($data);
+        ]);
 
         return redirect(route('blog'))->with('success', 'Data Successfully Updated!!');
     }

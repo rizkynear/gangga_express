@@ -45,35 +45,34 @@ class DashboardController extends Controller
         return redirect()->back()->with('slider-success', 'New Data Successfully Added');
     }
     
-    public function sliderEdit(SliderEdit $request)
+    public function sliderEdit(SliderEdit $request, Slider $slider)
     {
-        $slider = new Slider();
-        $record = $slider->findOrFail($request->id);
+        $slide = new Slider();
         $name   = Str::random(40) . '.' . $request->image->getClientOriginalExtension();
 
-        $slider->deleteImage($record->image);
-        $slider->storeImage($request, $name);
+        $slide->deleteImage($slider->image);
+        $slide->storeImage($request, $name);
 
-        $record->update(['image' => $name]);
+        $slider->update(['image' => $name]);
 
         return redirect()->back()->with('slider-success', 'Data Successfully Updated');
     }
 
-    public function sliderDelete(Request $request)
+    public function sliderDelete(Slider $slider)
     {
-        $record  = Slider::findOrFail($request->id);
         $sliders = Slider::all();
 
         foreach ($sliders as $slider) {
-            if ($slider->position > $record->position) {
+            if ($slider->position > $slider->position) {
                 $slider->position -= 1;
                 $slider->save();
             }
         }
 
-        $slider = new Slider();
-        $slider->deleteImage($record->image);
-        $record->delete();
+        $slide = new Slider();
+
+        $slide->deleteImage($slider->image);
+        $slider->delete();
 
         return redirect()->back()->with('slider-success', 'Data Successfully Deleted');
     }
@@ -170,26 +169,23 @@ class DashboardController extends Controller
         return redirect()->back()->with('testimonial-success', 'New Data Successfully Added!!');
     }
 
-    public function testimonialEdit(Request $request, $id)
+    public function testimonialEdit(Testimonial $testimonial)
     {
-        $testimonial = Testimonial::findOrFail($id);
-
         return view('admin.dashboard.testimonial-edit')->with(compact('testimonial'));
     }
 
-    public function testimonialUpdate(TestimonialUpdate $request, $id)
-    {
-        $testimonial = new Testimonial();
-        $record      = Testimonial::findOrFail($id);
-        
+    public function testimonialUpdate(TestimonialUpdate $request, Testimonial $testimonial)
+    {   
+        $testimoni = new Testimonial();
+
         if ($request->hasFile('image'))
         {
             $name = Str::random(40) . '.' . $request->image->getClientOriginalExtension();
 
-            $testimonial->deleteImage($record->image);
-            $testimonial->storeImage($request, $name);
+            $testimoni->deleteImage($testimonial->image);
+            $testimoni->storeImage($request, $name);
 
-            $record->update(['image' => $name]);
+            $testimonial->update(['image' => $name]);
         }
 
         $data = [
@@ -199,18 +195,17 @@ class DashboardController extends Controller
             'id'          => ['description' => $request->description_id]
         ];
 
-        $record->update($data);
+        $testimonial->update($data);
 
         return redirect(route('dashboard'))->with('testimonial-success', 'Data Successfully Updated!!');;
     }
 
-    public function testimonialDelete(Request $request)
+    public function testimonialDelete(Testimonial $testimonial)
     {
-        $testimonial = new Testimonial();
-        $record      = Testimonial::findOrFail($request->id);
+        $testimoni = new Testimonial();
 
-        $testimonial->deleteImage($record->image);
-        $record->delete();
+        $testimoni->deleteImage($testimonial->image);
+        $testimonial->delete();
 
         return redirect()->back()->with('testimonial-success', 'Data Successfully Deleted!!');;
     }

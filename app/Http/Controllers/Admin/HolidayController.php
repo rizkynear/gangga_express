@@ -21,42 +21,32 @@ class HolidayController extends Controller
     {
         $holiday = new Holiday();
 
-        $data = [
+        $holiday->create([
             'name' => $request->name,
             'date' => $request->date
-        ];
-
-        $holiday->create($data);
+        ]);
 
         return redirect()->back()->with('success', 'New Data Successfully Added!!');
     }
 
-    public function delete($id)
+    public function delete(Holiday $holiday)
     {
-        $record = Holiday::findOrFail($id);
-
-        $record->delete();
+        $holiday->delete();
 
         return redirect()->back()->with('success', 'Data Successfully Deleted!!');
     }
 
-    public function edit($id)
+    public function edit(Holiday $holiday)
     {
-        $holiday = Holiday::findOrFail($id);
-
         return view('admin.holiday.edit')->with(compact('holiday'));
     }
 
-    public function update(HolidayUpdate $request, $id)
+    public function update(HolidayUpdate $request, Holiday $holiday)
     {
-        $record = Holiday::findOrFail($id);
-
-        $data = [
+        $holiday->update([
             'name' => $request->name,
             'date' => $request->date
-        ];
-
-        $record->update($data);
+        ]);
 
         return redirect(route('holiday'))->with('success', 'Data Successfully Updated!!');
     }

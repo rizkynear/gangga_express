@@ -30,60 +30,52 @@ class DestinationController extends Controller
         
         $destination->storeImage($request, $name);
 
-        $data = [
+        $destination->create([
             'name'      => $request->name,
             'location'  => $request->location,
             'longitude' => $request->longitude,
             'latitude'  => $request->latitude,
             'image'     => $name
-        ];
-
-        $destination->create($data);
+        ]);
 
         return redirect(route('destination'))->with('success', 'New Data Successfully Added!!');
     }
 
-    public function delete($id)
+    public function delete(Destination $destination)
     {
-        $destination = new Destination();
-        $record      = Destination::findOrFail($id);
+        $destinationModel = new Destination();
 
-        $destination->deleteImage($record->image);
+        $destinationModel->deleteImage($destination->image);
         
-        $record->delete();
+        $destination->delete();
 
         return redirect()->back()->with('success', 'Data Successfully Deleted!!');
     }
 
-    public function edit($id)
-    {
-        $destination = Destination::findOrFail($id);
-        
+    public function edit(Destination $destination)
+    {   
         return view('admin.destination.edit')->with(compact('destination'));
     }
 
-    public function update(DestinationUpdate $request, $id)
+    public function update(DestinationUpdate $request, Destination $destination)
     {
-        $destination = new Destination();
-        $record      = Destination::findOrFail($id);
+        $destinationModel = new Destination();
 
         if ($request->hasFile('image')) {
             $name = Str::random(40) . '.' . $request->image->getClientOriginalExtension();
 
-            $destination->deleteImage($record->image);
-            $destination->storeImage($request, $name);
+            $destinationModel->deleteImage($destination->image);
+            $destinationModel->storeImage($request, $name);
 
-            $record->update(['image' => $name]);
+            $destination->update(['image' => $name]);
         }
 
-        $data = [
+        $destination->update([
             'name'      => $request->name,
             'location'  => $request->location,
             'longitude' => $request->longitude,
             'latitude'  => $request->latitude
-        ];
-
-        $record->update($data);
+        ]);
 
         return redirect(route('destination'))->with('success', 'Data Successfully Updated!!');
     }

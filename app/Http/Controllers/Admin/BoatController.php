@@ -26,61 +26,53 @@ class BoatController extends Controller
         $boat->storeImage($request, $name);
         $boat->storeThumbnail($name, 700);
 
-        $data = [
+        $boat->create([
             'name'     => $request->name,
             'engine'   => $request->engine,
             'capacity' => $request->capacity,
             'length'   => $request->length,
             'width'    => $request->width,
             'image'    => $name
-        ];
-
-        $boat->create($data);
+        ]);
 
         return redirect()->back()->with('success', 'Data Successfully Added');
     }
 
-    public function delete($id)
+    public function delete(Boat $boat)
     {
-        $record = Boat::findOrFail($id);
-        $boat   = new Boat();
+        $boatModel   = new Boat();
 
-        $boat->deleteImage($record->image);
-        $record->delete();
+        $boatModel->deleteImage($boat->image);
+        $boat->delete();
 
         return redirect()->back()->with('success', 'Data Successfully Deleted');
     }
 
-    public function edit($id)
+    public function edit(Boat $boat)
     {
-        $boat = Boat::findOrFail($id);
-
         return view('admin.boat.edit')->with(compact('boat'));
     }
 
-    public function update(BoatUpdate $request, $id)
+    public function update(BoatUpdate $request, Boat $boat)
     {
-        $boat   = new Boat();
-        $record = Boat::findOrFail($id);
+        $boatModel = new Boat();
 
         if ($request->hasFile('image')) {
             $name = Str::random(40) . '.' . $request->image->getClientOriginalExtension();
 
-            $boat->deleteImage($record->image);
-            $boat->storeImage($request, $name);
+            $boatModel->deleteImage($boat->image);
+            $boatModel->storeImage($request, $name);
 
-            $record->update(['image' => $name]);
+            $boat->update(['image' => $name]);
         }
 
-        $data = [
+        $boat->update([
             'name'     => $request->name,
             'engine'   => $request->engine,
             'capacity' => $request->capacity,
             'length'   => $request->length,
             'width'    => $request->width
-        ];
-
-        $record->update($data);
+        ]);
 
         return redirect(route('boat'))->with('success', 'Data Successfully Updated!!');
     }

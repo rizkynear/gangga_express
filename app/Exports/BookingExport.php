@@ -15,7 +15,7 @@ class BookingExport implements FromView
         $this->bookings = $bookings;
     }
     /**
-    * @return \Illuminate\Support\Collection
+    * @return \Illuminate\Constracts\View\View
     */
     public function view() : View
     {

@@ -71,21 +71,22 @@ class InquiryController extends Controller
             $booking->where('code', '=', $request->code);
         }
 
-        $bookings = $booking->latest();
+        $bookings = $booking->latest()->get();
+
+        if ($booking->count() < 1) {
+            return redirect()->back()->with('error', 'Cannot export because no data found');
+        }
 
         return Excel::download(new BookingExport($bookings), 'inquiry.xlsx');
     }
 
-    public function detailPassenger($id)
+    public function detailPassenger(Booking $booking)
     {
-        $booking = Booking::findOrFail($id);
-
         return view('admin.inquiry.detail-passenger')->with(compact('booking'));
     }
 
-    public function detailInquiry($id)
+    public function detailInquiry(Booking $booking)
     {
-        $booking        = Booking::findOrFail($id);
         $domesticPrice  = DomesticPrice::first();
         $foreignerPrice = ForeignerPrice::first();
 
@@ -94,10 +95,8 @@ class InquiryController extends Controller
                                                    ->with(compact('foreignerPrice'));
     }
 
-    public function delete($id)
+    public function delete(Booking $booking)
     {
-        $booking = Booking::findOrFail($id);
-
         $booking->delete();
 
         return redirect()->back()->with('success', 'Data Successfully Deleted');
