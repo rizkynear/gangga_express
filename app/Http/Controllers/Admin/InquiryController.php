@@ -47,7 +47,6 @@ class InquiryController extends Controller
 
     public function export(Request $request)
     {
-        dd($request->all());
         $booking = Booking::where('total', '!=', 0);
 
         if (!empty($request->date)) {
@@ -72,7 +71,7 @@ class InquiryController extends Controller
             $booking->where('code', '=', $request->code);
         }
 
-        $bookings = $booking->get();
+        $bookings = $booking->latest();
 
         return Excel::download(new BookingExport($bookings), 'inquiry.xlsx');
     }

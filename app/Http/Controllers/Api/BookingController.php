@@ -50,7 +50,7 @@ class BookingController extends Controller
         $booking          = new Booking();
         $departurePort    = Route::where('route', '=', $request->departure_route)->first();
         
-        $booking->code   = rand(10000000000, 100000000000)->uniqid();
+        $booking->code   = $this->generateCode();
         $booking->type   = $request->booking_type;
         $booking->adult  = ($request->adult ?? 0);
         $booking->child  = ($request->child ?? 0);
@@ -103,5 +103,21 @@ class BookingController extends Controller
             'id'    => $booking->id,
             'price' => $booking->price
         ]);
+    }
+
+    private function generateCode() 
+    {
+        $code = mt_rand(10000000000, 100000000000);
+
+        if ($this->codeExists($code)) {
+            return generateCode();
+        }
+
+        return $code;
+    }
+
+    private function codeExists($code)
+    {
+        return Booking::whereCode($code)->exists();
     }
 }

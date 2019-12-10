@@ -81,83 +81,93 @@
 
                         <div class="table-responsive">
                             <table class="table table-striped">
-                         
-                                <thead>
-                                    <tr>
-                                        <th>Code</th>
-                                        <th>Date</th>
-                                        <th>Contact Info</th>
-                                        <th>Departure</th>
-                                        <th>Return</th>
-                                        <th>Price</th>
-                                        <th style="width: 150px;">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($bookings as $booking)
+                                @if ($bookings->isEmpty())
+                                    <h2 class="text-center">No data found</h2>
+                                @else
+                                    <thead>
                                         <tr>
-                                            <td>
-                                                <span class="display-xs-block">{{ $booking->code }}</span>
-                                                @if ($booking->type === 'one-trip')
-                                                    <span><i class="fa fa-long-arrow-right"></i></span>
-                                                @elseif ($booking->type === 'round-trip')
-                                                    <span><i class="fa fa-exchange"></i></span>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                <span class="display-xs-block">{{ $booking->created_at->format('d M Y') }}</span>
-                                                <span class="display-xs-block">{{ $booking->created_at->format('H:i') }}</span>
-                                            </td>
-                                            <td>
-                                                <span class="display-xs-block">{{ $booking->contact->name }}</span>
-                                                <span class="display-xs-block">{{ $booking->contact->phone }}</span>
-                                                <span class="display-xs-block">{{ $booking->contact->email }}</span>
-                                            </td>
-                                            @foreach ($booking->schedules as $schedule)
-                                                @if ($schedule->type === 'departure')
-                                                    <td>
-                                                        <span class="display-xs-block">{{ $schedule->departure_port }} - {{ $schedule->arrival_port }}</span>
-                                                        <span class="display-xs-block">{{ $schedule->date }}</span>
-                                                        <span class="display-xs-block">{{ str_limit($schedule->departure, 5, '') }} to {{ str_limit($schedule->arrival, 5, '') }}</span>
-                                                    </td>
-                                                @elseif ($schedule->type === 'return')
-                                                    <td>
-                                                        <span class="display-xs-block">{{ $schedule->departure_port }} - {{ $schedule->arrival_port }}</span>
-                                                        <span class="display-xs-block">{{ $schedule->date }}</span>
-                                                        <span class="display-xs-block">{{ str_limit($schedule->departure, 5, '') }} to {{ str_limit($schedule->arrival, 5, '') }}</span>
-                                                    </td>
-                                                @else
-                                                    <td>
-                                                        <span>-</i></span>
-                                                    </td>
-                                                @endif
-                                            @endforeach
-                                            <td>
-                                                <span class="display-xs-block">IDR</span>
-                                                <span class="display-xs-block">{{ number_format($booking->price) }}</span>
-                                            </td>
-                                            <td>
-                                                <span>
-                                                    <a class="btn btn-default" href="{{ route('inquiry.detail-passenger', $booking->id) }}" title="View Passenger" data-toggle="tooltip" data-placement="top">
-                                                        <i class="fa fa-address-book"></i>
-                                                    </a>
-                                                </span>
-                                                <span>
-                                                    <a class="btn btn-default" href="{{ route('inquiry.detail-inquiry', $booking->id) }}" title="Detail" data-toggle="tooltip" data-placement="top">
-                                                        <i class="fa fa-bars"></i>
-                                                    </a>
-                                                </span>
-                                                <span>
-                                                    <button class="btn btn-danger delete-inquiry" title="Delete" data-toggle="tooltip" data-placement="top" type="button" data-action="{{ route('inquiry.delete', $booking->id) }}">
-                                                        <i class="fa fa-trash"></i>
-                                                    </button>
-                                                </span>
-                                            </td>
+                                            <th>Code</th>
+                                            <th>Date</th>
+                                            <th>Contact Info</th>
+                                            <th>Departure</th>
+                                            <th>Return</th>
+                                            <th>Price</th>
+                                            <th style="width: 150px;">Action</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                                
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($bookings as $booking)
+                                            <tr>
+                                                <td>
+                                                    <span class="display-xs-block">{{ $booking->code }}</span>
+                                                    @if ($booking->type === 'one-trip')
+                                                        <span><i class="fa fa-long-arrow-right"></i></span>
+                                                    @elseif ($booking->type === 'round-trip')
+                                                        <span><i class="fa fa-exchange"></i></span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <span class="display-xs-block">{{ $booking->created_at->format('d M Y') }}</span>
+                                                    <span class="display-xs-block">{{ $booking->created_at->format('H:i') }}</span>
+                                                </td>
+                                                <td>
+                                                    <span class="display-xs-block">{{ $booking->contact->name }}</span>
+                                                    <span class="display-xs-block">{{ $booking->contact->phone }}</span>
+                                                    <span class="display-xs-block">{{ $booking->contact->email }}</span>
+                                                </td>
+                                                @if ($booking->type === 'round-trip')
+                                                    @foreach ($booking->schedules as $schedule)
+                                                        @if ($schedule->type === 'departure')
+                                                            <td>
+                                                                <span class="display-xs-block">{{ $schedule->departure_port }} - {{ $schedule->arrival_port }}</span>
+                                                                <span class="display-xs-block">{{ $schedule->date }}</span>
+                                                                <span class="display-xs-block">{{ str_limit($schedule->departure, 5, '') }} to {{ str_limit($schedule->arrival, 5, '') }}</span>
+                                                            </td>
+                                                        @else
+                                                            <td>
+                                                                <span class="display-xs-block">{{ $schedule->departure_port }} - {{ $schedule->arrival_port }}</span>
+                                                                <span class="display-xs-block">{{ $schedule->date }}</span>
+                                                                <span class="display-xs-block">{{ str_limit($schedule->departure, 5, '') }} to {{ str_limit($schedule->arrival, 5, '') }}</span>
+                                                            </td>
+                                                        @endif
+                                                    @endforeach
+                                                @else
+                                                    @foreach ($booking->schedules as $schedule)
+                                                        <td>
+                                                            <span class="display-xs-block">{{ $schedule->departure_port }} - {{ $schedule->arrival_port }}</span>
+                                                            <span class="display-xs-block">{{ $schedule->date }}</span>
+                                                            <span class="display-xs-block">{{ str_limit($schedule->departure, 5, '') }} to {{ str_limit($schedule->arrival, 5, '') }}</span>
+                                                        </td>
+                                                        <td>-</td>
+                                                    @endforeach
+                                                @endif
+                                                <td>
+                                                    <span class="display-xs-block">IDR</span>
+                                                    <span class="display-xs-block">{{ number_format($booking->price) }}</span>
+                                                </td>
+                                                <td>
+                                                    <span>
+                                                        <a class="btn btn-default" href="{{ route('inquiry.detail-passenger', $booking->id) }}" title="View Passenger" data-toggle="tooltip" data-placement="top">
+                                                            <i class="fa fa-address-book"></i>
+                                                        </a>
+                                                    </span>
+                                                    <span>
+                                                        <a class="btn btn-default" href="{{ route('inquiry.detail-inquiry', $booking->id) }}" title="Detail" data-toggle="tooltip" data-placement="top">
+                                                            <i class="fa fa-bars"></i>
+                                                        </a>
+                                                    </span>
+                                                    <span>
+                                                        <button class="btn btn-danger delete-inquiry" title="Delete" data-toggle="tooltip" data-placement="top" type="button" data-action="{{ route('inquiry.delete', $booking->id) }}">
+                                                            <i class="fa fa-trash"></i>
+                                                        </button>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                @endif
                             </table>
+                            {{ $bulletins->appends(Request::except('page'))->links() }}
                         </div>
                     </div>
 
