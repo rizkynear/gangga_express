@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\BookingExport;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Models\Booking;
 use App\Http\Models\DomesticPrice;
 use App\Http\Models\ForeignerPrice;
+use Maatwebsite\Excel\Facades\Excel;
 
 class InquiryController extends Controller
 {
@@ -41,6 +43,38 @@ class InquiryController extends Controller
         $bookings = $booking->latest()->paginate(10);
 
         return view('admin.inquiry.index')->with(compact('bookings'));
+    }
+
+    public function export(Request $request)
+    {
+        dd($request->all());
+        $booking = Booking::where('total', '!=', 0);
+
+        if (!empty($request->date)) {
+            $booking->whereHas('schedules', function($query) use($request) {
+                $query->where('date', '=', $request->date);
+            });
+        }
+
+        if (!empty($request->route) && $request->route !== 'all') {
+            $booking->whereHas('schedules', function($query) use($request) {
+                $query->where('route', '=', $request->route);
+            });
+        }
+
+        if (!empty($request->schedule) && $request->schedule !== 'all') {
+            $booking->whereHas('schedules', function($query) use($request) {
+                $query->where('departure', '=', $request->schedule);
+            });
+        }
+
+        if (!empty($request->code)) {
+            $booking->where('code', '=', $request->code);
+        }
+
+        $bookings = $booking->get();
+
+        return Excel::download(new BookingExport($bookings), 'inquiry.xlsx');
     }
 
     public function detailPassenger($id)

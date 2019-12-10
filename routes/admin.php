@@ -122,6 +122,7 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function() {
                 Route::get('{id}/detail-inquiry', 'InquiryController@detailInquiry')->name('detail-inquiry');
                 Route::delete('{id}/delete', 'InquiryController@delete')->name('delete');
                 Route::get('search', 'InquiryController@index')->name('search');
+                Route::get('export', 'InquiryController@export')->name('export');
             });
         });
     });

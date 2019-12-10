@@ -26,7 +26,7 @@
                                 </div>
                             @endif
                             <div class="row">
-                                <form class="text-left form-inline" action="{{ route('inquiry.search') }}" method="get">
+                                <form class="text-left form-inline" method="get">
                                     <div class="form-group form-group-inline">
                                         <input type='text' class="form-control" id='inquiry-date' placeholder="Date" name="date" value="{{ request()->get('date') ?? '' }}">
                                     </div>
@@ -54,8 +54,8 @@
                                             <option value="16:00:00" {{ request()->get('schedule') === '16:00:00' ? 'selected' : '' }}>16.00 PM</option>
                                         </select>
                                     </div>
-                                    <button type="submit" class="btn btn-primary"><i class="fa fa-filter" aria-hidden="true"></i> Filter</button>
-                                    <a type="button" class="btn btn-default" href="add-blog.php"><i class="fa fa-download" aria-hidden="true"></i> Export CSV</a>
+                                    <button formaction="{{ route('inquiry.search') }}" type="submit" class="btn btn-primary"><i class="fa fa-filter" aria-hidden="true"></i> Filter</button>
+                                    <button formaction="{{ route('inquiry.export') }}" type="submit" class="btn btn-default"><i class="fa fa-download" aria-hidden="true"></i> Export CSV</button>
                                 </form>
                             </div>
                         </div>
@@ -81,9 +81,7 @@
 
                         <div class="table-responsive">
                             <table class="table table-striped">
-                                @if ($bookings->isEmpty())
-                                    <h2 class="text-center">No data found</h2>
-                                @else 
+                         
                                 <thead>
                                     <tr>
                                         <th>Code</th>
@@ -158,8 +156,7 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
-                                {{ $bookings->appends(Request::except('page'))->links() }}
-                                @endif
+                                
                             </table>
                         </div>
                     </div>
