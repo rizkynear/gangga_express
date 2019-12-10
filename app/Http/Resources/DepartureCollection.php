@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use App\Http\Resources\DepartureResource;
 
 class DepartureCollection extends ResourceCollection
 {

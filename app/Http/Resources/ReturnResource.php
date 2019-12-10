@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Http\Models\BookingSchedule;
+use App\Http\Models\Booking;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ReturnResource extends JsonResource
@@ -15,13 +15,19 @@ class ReturnResource extends JsonResource
      */
     public function toArray($request)
     {
-        $bookingSchedules = BookingSchedule::where('route', '=', $this->route);
-
+        $bookings = Booking::where('paid_status', '=', 1);
+        
         if ($request->has('return_date')) {
-            $bookingSchedules->where('date', '=', $request->return_date);
+            $bookings->whereHas('schedules', function($query) use($request) {
+                $query->where('date', '=', $request->return_date);
+            });
         }
 
-        $total = $this->checkTotal($request, $bookingSchedules->get());
+        $bookings->whereHas('schedules', function($query) {
+            $query->where('departure', '=', $this->departure);
+        });
+
+        $total = $this->checkTotal($request, $bookings->get());
 
         return [
             'id'        => $this->id,
@@ -32,16 +38,12 @@ class ReturnResource extends JsonResource
         ];
     }
 
-    private function checkTotal($request, $bookingSchedules)
+    private function checkTotal($request, $bookings)
     {   
-        $count = 0;
         $total = $request->adult + $request->child;
 
-        foreach($bookingSchedules as $bookingSchedule) {
-            if ($this->departure == $bookingSchedule->departure) {
-                $count += $bookingSchedule->booking->details->where('category', '!=', 'infant')->count();
-                $total = $request->adult + $request->child + $count;
-            }
+        foreach($bookings as $booking) {
+            $total += $booking->adult + $booking->child;
         }
 
         return $total;

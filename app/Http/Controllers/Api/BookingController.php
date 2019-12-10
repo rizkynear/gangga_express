@@ -21,7 +21,7 @@ class BookingController extends Controller
         }
 
         if ($request->has('departure_date')) {
-            $departure->where('expired_date', '>', $request->departure_date);
+            $departure->where('expired_date', '>', $request->departure_date)->orWhere('expired_date', '=', null);
         }
 
         return new DepartureCollection($departure->get());
@@ -34,7 +34,7 @@ class BookingController extends Controller
         }
 
         if ($request->has('return_date')) {
-            $return->where('expired_date', '>', $request->return_date);
+            $return->where('expired_date', '>', $request->return_date)->orWhere('expired_date', '=', null);
         }
 
         return new ReturnCollection($return->get());
