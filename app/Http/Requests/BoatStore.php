@@ -31,7 +31,20 @@ class BoatStore extends FormRequest
             'capacity' => 'required|numeric',
             'length'   => 'required|numeric',
             'width'    => 'required|numeric',
-            'image'    => 'required|mimes:jpg,jpeg,png|max:1024'
+            'image'    => 'required|mimes:jpg,jpeg,png|max:3072'
+        ];
+    }
+
+    
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'image.max' => 'Image must be 3mb or less'
         ];
     }
 }

@@ -28,7 +28,20 @@ class DestinationUpdate extends FormRequest
             'location'  => 'required|max:255',
             'latitude'  => 'required',
             'longitude' => 'required',
-            'image'     => 'mimes:jpg,jpeg,png|max:2048'
+            'image'     => 'mimes:jpg,jpeg,png|max:3072'
+        ];
+    }
+
+    
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'image.max' => 'Image must be 3mb or less'
         ];
     }
 }

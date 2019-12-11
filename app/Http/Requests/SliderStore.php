@@ -26,7 +26,20 @@ class SliderStore extends FormRequest
     public function rules()
     {
         return [
-            'image' => 'required|mimes:jpg,jpeg,png|max:1024'
+            'image' => 'required|mimes:jpg,jpeg,png|max:6144'
+        ];
+    }
+
+    
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'image.max' => 'Image must be 6mb or less'
         ];
     }
 

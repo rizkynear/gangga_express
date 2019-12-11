@@ -29,7 +29,20 @@ class BoatUpdate extends FormRequest
             'capacity' => 'required|numeric',
             'length'   => 'required|numeric',
             'width'    => 'required|numeric',
-            'image'    => 'mimes:jpg,jpeg,png|max:1024'
+            'image'    => 'mimes:jpg,jpeg,png|max:3072'
+        ];
+    }
+
+    
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'image.max' => 'Image must be 3mb or less'
         ];
     }
 }

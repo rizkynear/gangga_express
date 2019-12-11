@@ -24,11 +24,24 @@ class BlogStore extends FormRequest
     public function rules()
     {
         return [
-            'title_id' => 'required|max:255',
+            'title_id'       => 'required|max:255',
             'description_id' => 'required',
-            'title_en' => 'required|max:255',
+            'title_en'       => 'required|max:255',
             'description_en' => 'required',
-            'image' => 'required|mimes:jpg,jpeg,png|max:1024',
+            'image'          => 'required|mimes:jpg,jpeg,png|max:3072',
+        ];
+    }
+
+    
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'image.max' => 'Image must be 3mb or less'
         ];
     }
 }

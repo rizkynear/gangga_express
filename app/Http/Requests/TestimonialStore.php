@@ -27,10 +27,23 @@ class TestimonialStore extends FormRequest
     {
         return [
             'name'           => 'required|max:255',
-            'image'          => 'required|mimes:jpg,jpeg,png|max:1024',
+            'image'          => 'required|mimes:jpg,jpeg,png|max:3072',
             'nationality'    => 'required|max:255',
             'description_en' => 'required',
             'description_id' => 'required',
+        ];
+    }
+
+    
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'image.max' => 'Image must be 3mb or less'
         ];
     }
 
