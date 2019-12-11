@@ -24,9 +24,9 @@ class BlogUpdate extends FormRequest
     public function rules()
     {
         return [
-            'title_id'       => 'required|max:255',
+            'title_id'       => 'required|max:191',
             'description_id' => 'required',
-            'title_en'       => 'required|max:255',
+            'title_en'       => 'required|max:191',
             'description_en' => 'required',
             'image'          => 'mimes:jpg,jpeg,png|max:3072'
         ];

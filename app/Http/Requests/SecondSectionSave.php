@@ -26,12 +26,12 @@ class SecondSectionSave extends FormRequest
     public function rules()
     {
         return [
-            'title_en'     => 'required|max:255',
-            'sub_title_en' => 'required|max:255',
+            'title_en'     => 'required|max:191',
+            'sub_title_en' => 'required|max:191',
             'content_en'   => 'required',
-            'title_id'     => 'required|max:255',
-            'sub_title_id' => 'required|max:255',
-            'content_id'   => 'required|max:255',
+            'title_id'     => 'required|max:191',
+            'sub_title_id' => 'required|max:191',
+            'content_id'   => 'required|max:191',
         ];
     }
 

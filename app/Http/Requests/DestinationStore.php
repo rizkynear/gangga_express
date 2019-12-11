@@ -24,8 +24,8 @@ class DestinationStore extends FormRequest
     public function rules()
     {
         return [
-            'name'      => 'required|max:255',
-            'location'  => 'required|max:255',
+            'name'      => 'required|max:191',
+            'location'  => 'required|max:191',
             'latitude'  => 'required',
             'longitude' => 'required',
             'image'     => 'required|mimes:jpg,jpeg,png|max:3072'

@@ -24,8 +24,8 @@ class BoatUpdate extends FormRequest
     public function rules()
     {
         return [
-            'name'     => 'required|max:255',
-            'engine'   => 'required|max:255',
+            'name'     => 'required|max:191',
+            'engine'   => 'required|max:191',
             'capacity' => 'required|numeric',
             'length'   => 'required|numeric',
             'width'    => 'required|numeric',
