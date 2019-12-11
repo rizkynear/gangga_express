@@ -298,7 +298,7 @@
     <!--MODAL ADD SLIDER END-->
 
     <!--MODAL EDIT SECOND SECTION IMAGE-->
-    <div class="modal fade" id="modal-edit-second-section-image_1" role="dialog">
+    <div class="modal fade" id="modal-edit-second-section-image" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -331,50 +331,6 @@
                             </div>
                         </div>
                         <hr>
-                        <input type="hidden" id="second-section-id" name="id" value="">
-                        <input type="hidden" id="second-section-image-index" name="image_index" value="">
-                        <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Save</button>
-                        <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="modal-edit-second-section-image_2" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="title-main">Edit Image</h4>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ route('second-section.edit-image') }}" method="post" enctype="multipart/form-data">
-                        @csrf
-                        <div class="form-group">
-                            <label class="required">Photo</label>
-                            <div class="row row-custom">
-                                <div class="col-sm-4">
-                                    <img class="img-responsive margin-bot-10 image-preview" src="http://via.placeholder.com/700x400" alt="" id="second-section-image">
-                                    <input type="hidden" class="x-coordinate" name="x_coordinate">
-                                    <input type="hidden" class="y-coordinate" name="y_coordinate">
-                                    <input type="hidden" class="crop-width" name="crop_width">
-                                    <input type="hidden" class="crop-height" name="crop_height">
-                                </div>
-                                <div class="col-sm-8">
-                                    <div class="input-group">
-                                        <span class="input-group-btn">
-                                            <span class="btn btn-primary btn-file">
-                                                <i class="fa fa-folder-open"></i>&nbsp;Browse <input type="file" name="image" class="image-name">
-                                            </span>
-                                        </span>
-                                        <input type="text" class="form-control" value="No file chosen" readonly="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <input type="hidden" id="second-section-id" name="id" value="">
                         <input type="hidden" id="second-section-image-index" name="image_index" value="">
                         <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Save</button>
                         <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
@@ -583,11 +539,8 @@
         });
 
         $('.edit-second-section-image').click(function() {
-            if ($(this).data('id')) {
-                var id = $(this).data('id');
-                $('#second-section-id').attr('value', id);
-            }
-
+            $('#second-section-image').attr('src', "http://via.placeholder.com/700x400");
+            
             if ($(this).data('image')) {
                 var image = $(this).data('image');
                 $('#second-section-image').attr('src', "{{ asset('storage/images/second-sections/thumbnail') }}" + '/' + image);
@@ -596,7 +549,7 @@
             var imageIndex = $(this).data('image-index'); 
 
             $('#second-section-image-index').attr('value', imageIndex);
-            $('#modal-edit-second-section-'+imageIndex).modal();
+            $('#modal-edit-second-section-image').modal();
         });
     });
 </script>
