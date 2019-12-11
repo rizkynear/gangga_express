@@ -47,11 +47,11 @@ class DashboardController extends Controller
     
     public function sliderEdit(SliderEdit $request, Slider $slider)
     {
-        $slide = new Slider();
+        $sliderModel = new Slider();
         $name   = Str::random(40) . '.' . $request->image->getClientOriginalExtension();
 
-        $slide->deleteImage($slider->image);
-        $slide->storeImage($request, $name);
+        $sliderModel->deleteImage($slider->image);
+        $sliderModel->storeImage($request, $name);
 
         $slider->update(['image' => $name]);
 
@@ -69,9 +69,9 @@ class DashboardController extends Controller
             }
         }
 
-        $slide = new Slider();
+        $sliderModel = new Slider();
 
-        $slide->deleteImage($slider->image);
+        $sliderModel->deleteImage($slider->image);
         $slider->delete();
 
         return redirect()->back()->with('slider-success', 'Data Successfully Deleted');
@@ -131,7 +131,7 @@ class DashboardController extends Controller
         $name          = Str::random(40) . '.' . $request->image->getClientOriginalExtension();
 
         $secondSection->storeImage($request, $name);
-
+        
         if (is_null($record)) {
             if ($request->image_index === 'image_1') {
                 $secondSection->create(['image_1' => $name]);
@@ -140,8 +140,12 @@ class DashboardController extends Controller
             }
         } else {
             if ($request->image_index === 'image_1') {
+                $secondSection->deleteImage($record->image_1);
+
                 $record->update(['image_1' => $name]);
             } else {
+                $secondSection->deleteImage($record->image_2);
+
                 $record->update(['image_2' => $name]);
             }
         }
@@ -176,14 +180,14 @@ class DashboardController extends Controller
 
     public function testimonialUpdate(TestimonialUpdate $request, Testimonial $testimonial)
     {   
-        $testimoni = new Testimonial();
+        $testimonialModel = new Testimonial();
 
         if ($request->hasFile('image'))
         {
             $name = Str::random(40) . '.' . $request->image->getClientOriginalExtension();
 
-            $testimoni->deleteImage($testimonial->image);
-            $testimoni->storeImage($request, $name);
+            $testimonialModel->deleteImage($testimonial->image);
+            $testimonialModel->storeImage($request, $name);
 
             $testimonial->update(['image' => $name]);
         }
@@ -202,9 +206,9 @@ class DashboardController extends Controller
 
     public function testimonialDelete(Testimonial $testimonial)
     {
-        $testimoni = new Testimonial();
+        $testimonialModel = new Testimonial();
 
-        $testimoni->deleteImage($testimonial->image);
+        $testimonialModel->deleteImage($testimonial->image);
         $testimonial->delete();
 
         return redirect()->back()->with('testimonial-success', 'Data Successfully Deleted!!');;

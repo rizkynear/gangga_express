@@ -18,6 +18,9 @@ class BookingsTableSeeder extends Seeder
         $booking->type = 'round-trip';
         $booking->price = 150000;
         $booking->total = 5;
+        $booking->adult = 0;
+        $booking->child = 0;
+        $booking->infant = 0;
         $booking->save();
 
         $schedule = [

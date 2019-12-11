@@ -28,18 +28,18 @@ trait HandleJsonError
                 ], 404);
             }
 
-            // if ($exception instanceof FatalThrowableError) {
-            //     return response()->json([
-            //         'error' => [
-            //             'code'   => 500,
-            //             'title'  => "FatalThrowableError",
-            //             'errors' => [
-            //                 'title'   => 'FatalThrowableError',
-            //                 'message' => 'Server Error'
-            //             ]
-            //         ]
-            //     ], 500);
-            // }
+            if ($exception instanceof FatalThrowableError) {
+                return response()->json([
+                    'error' => [
+                        'code'   => 500,
+                        'title'  => "FatalThrowableError",
+                        'errors' => [
+                            'title'   => 'FatalThrowableError',
+                            'message' => 'Server Error'
+                        ]
+                    ]
+                ], 500);
+            }
 
             if ($exception instanceof AuthenticationException) {
                 return response()->json([

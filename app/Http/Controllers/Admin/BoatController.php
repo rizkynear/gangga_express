@@ -21,7 +21,7 @@ class BoatController extends Controller
     public function store(BoatStore $request)
     {
         $boat = new Boat();
-        $name = Str::random(40) . $request->image->getClientOriginalExtension();
+        $name = Str::random(40) . '.' . $request->image->getClientOriginalExtension();
 
         $boat->storeImage($request, $name);
 
