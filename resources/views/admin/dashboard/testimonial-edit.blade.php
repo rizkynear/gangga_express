@@ -15,6 +15,7 @@
                     <div class="box-body">
                         <form action="{{ route('testimonial.update', $testimonial->id) }}" method="post" enctype="multipart/form-data">
                             @csrf
+                            @method('PATCH')
                             <div class="form-group">
                                 <label class="required">Photo</label>
                                 <div class="row row-custom">
