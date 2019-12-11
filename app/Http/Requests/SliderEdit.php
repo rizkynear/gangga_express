@@ -26,7 +26,7 @@ class SliderEdit extends FormRequest
     public function rules()
     {
         return [
-            'image' => 'required|mimes:jpg,jpeg,png|max6144'
+            'image' => 'required|mimes:jpg,jpeg,png|max:6144'
         ];
     }
 

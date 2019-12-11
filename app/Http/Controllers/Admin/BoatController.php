@@ -24,7 +24,6 @@ class BoatController extends Controller
         $name = Str::random(40) . $request->image->getClientOriginalExtension();
 
         $boat->storeImage($request, $name);
-        $boat->storeThumbnail($name, 700);
 
         $boat->create([
             'name'     => $request->name,
