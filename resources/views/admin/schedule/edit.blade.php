@@ -89,11 +89,11 @@
     $(function() {
         $('#datetimepicker12').datetimepicker({
             inline: true,
-            format: 'HH:mm:ss'
+            format: 'HH:mm'
         });
         $('#datetimepicker11').datetimepicker({
             inline: true,
-            format: 'HH:mm:ss'
+            format: 'HH:mm'
         });
 
         $('#clear').click(function() {

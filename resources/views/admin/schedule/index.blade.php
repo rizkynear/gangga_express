@@ -7,7 +7,7 @@
             {{ $route->departure }} - {{ $route->arrival }}
         </h1>
         <ol class="breadcrumb">
-            <li><a href="dashboard.php">Dashboard</a></li>
+            <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
             <li>Fastboat Schedule</li>
             <li class="active">{{ $route->departure }} - {{ $route->arrival }}</li>
         </ol>
@@ -197,11 +197,11 @@
     $(function() {
         $('#datetimepicker12').datetimepicker({
             inline: true,
-            format: 'HH:mm:ss'
+            format: 'HH:mm'
         });
         $('#datetimepicker11').datetimepicker({
             inline: true,
-            format: 'HH:mm:ss'
+            format: 'HH:mm'
         });
     });
 </script>

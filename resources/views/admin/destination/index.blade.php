@@ -7,7 +7,7 @@
             Destinations
         </h1>
         <ol class="breadcrumb">
-            <li><a href="dashboard.php">Dashboard</a></li>
+            <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
             <li class="active">Destinations</li>
         </ol>
     </section>

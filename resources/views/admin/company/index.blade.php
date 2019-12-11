@@ -7,7 +7,7 @@
             The Company
         </h1>
         <ol class="breadcrumb">
-            <li><a href="dashboard.php">Dashboard</a></li>
+            <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
             <li>About us</li>
             <li class="active">The Company</li>
         </ol>
