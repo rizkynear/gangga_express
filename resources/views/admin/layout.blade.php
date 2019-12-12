@@ -331,18 +331,32 @@
             
             reader.onload = function(e) {
                 var image = parent.find('.image-preview').attr('src', e.target.result);
+                var cropBoxWidth = 200;
+                var cropBoxHeight = 100;
 
                 image.cropper('destroy');
 
                 image.cropper({
-                    viewMode: 3,
-                    aspectRatio: 16 / 9,
+                    ready: function () {
+                        var container = $(this).cropper('getContainerData');
+
+                        $(this).cropper("setCropBoxData", {
+                            width: cropBoxWidth, 
+                            height: cropBoxHeight,
+                            left: (container.width - cropBoxWidth) / 2,
+                            top: (container.height - cropBoxHeight) / 2
+                        });
+                    },
                     crop: function(event) {
                         parent.find('.x-coordinate').val(event.detail.x);
                         parent.find('.y-coordinate').val(event.detail.y);
                         parent.find('.crop-width').val(event.detail.width);
                         parent.find('.crop-height').val(event.detail.height);
-                    }
+                    },
+                    viewMode: 3,
+                    cropBoxResizable: false,
+                    minCropBoxWidth: cropBoxWidth,
+                    minCropBoxHeight: cropBoxHeight,
                 });
             }
             

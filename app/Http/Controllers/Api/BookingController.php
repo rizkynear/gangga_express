@@ -11,6 +11,7 @@ use App\Http\Models\Schedule;
 use App\Http\Resources\DepartureCollection;
 use App\Http\Resources\HolidayCollection;
 use App\Http\Resources\ReturnCollection;
+use App\Util\Price\Price;
 
 class BookingController extends Controller
 {
@@ -47,8 +48,11 @@ class BookingController extends Controller
 
     public function store(Request $request)
     {
-        $booking          = new Booking();
-        $departurePort    = Route::where('route', '=', $request->departure_route)->first();
+        $booking = new Booking();
+        $port    = Route::where('route', '=', $request->departure_route)->first();
+
+        $price      = new Price();
+        $totalPrice = $price->total($request);
         
         $booking->code   = $this->generateCode();
         $booking->type   = $request->booking_type;
@@ -56,7 +60,7 @@ class BookingController extends Controller
         $booking->child  = ($request->child ?? 0);
         $booking->infant = ($request->infant ?? 0);
         $booking->total  = $request->total_passenger;
-        $booking->price  = $request->price;
+        $booking->price  = $totalPrice;
         $booking->save();
 
         $booking->contact()->create([
@@ -70,21 +74,21 @@ class BookingController extends Controller
             'route'          => $request->departure_route, 
             'departure'      => $request->departure_time,
             'arrival'        => $request->departure_arrival_time,
-            'departure_port' => $departurePort->departure,
-            'arrival_port'   => $departurePort->arrival,
+            'departure_port' => $port->departure,
+            'arrival_port'   => $port->arrival,
             'type'           => 'departure'
         ]);
         
         if ($request->has('return_route')) {
-            $returnPort    = Route::where('route', '=', $request->return_route)->first();
+            $port = Route::where('route', '=', $request->return_route)->first();
 
             $booking->schedules()->create([
                 'date'           => $request->return_date,
                 'route'          => $request->return_route, 
                 'departure'      => $request->return_time,
                 'arrival'        => $request->return_arrival_time,
-                'departure_port' => $returnPort->departure,
-                'arrival_port'   => $returnPort->arrival,
+                'departure_port' => $port->departure,
+                'arrival_port'   => $port->arrival,
                 'type'           => 'return'
             ]);           
         }
@@ -100,8 +104,7 @@ class BookingController extends Controller
         }
 
         return response()->json([
-            'id'    => $booking->id,
-            'price' => $booking->price
+            'success' => 'Data Successfully Added'
         ]);
     }
 
