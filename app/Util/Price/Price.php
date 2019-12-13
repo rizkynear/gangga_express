@@ -16,7 +16,7 @@ class Price
         $foreignerChild  = 0;
         $foreignerAdult  = 0;
 
-        for ($i = 0; $i < count($request->name); $i++) {
+        for ($i = 0; $i < count($request->category); $i++) {
             if ($request->category[$i] == 'infant') {
                 if ($request->nationality[$i] == 'indonesia') {
                     $domesticInfant += 1;
@@ -50,7 +50,7 @@ class Price
         return $total;
     }
 
-    public function domestic($infantTotal, $childTotal, $adultTotal)
+    private function domestic($infantTotal, $childTotal, $adultTotal)
     {
         $domestic = DomesticPrice::first();
 
@@ -63,7 +63,7 @@ class Price
         return $total;
     }
 
-    public function foreigner($infantTotal, $childTotal, $adultTotal)
+    private function foreigner($infantTotal, $childTotal, $adultTotal)
     {
         $foreigner = ForeignerPrice::first();
 
