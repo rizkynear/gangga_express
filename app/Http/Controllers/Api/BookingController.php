@@ -17,12 +17,12 @@ class BookingController extends Controller
 {
     public function departure(Request $request)
     {
-        if ($request->has('departure_route')) {
-            $departure = Schedule::where('route', '=', $request->departure_route);
+        if ($request->has('departure_date')) {
+            $departure = Schedule::where('expired_date', '>', $request->departure_date)->orWhere('expired_date', '=', null);;
         }
 
-        if ($request->has('departure_date')) {
-            $departure->where('expired_date', '>', $request->departure_date)->orWhere('expired_date', '=', null);
+        if ($request->has('departure_route')) {
+            $departure->where('route', '=', $request->departure_route);
         }
 
         return new DepartureCollection($departure->get());
@@ -30,12 +30,12 @@ class BookingController extends Controller
     
     public function return(Request $request)
     {
-        if ($request->has('return_route')) {
-            $return = Schedule::where('route', '=', $request->return_route);
-        }
-
         if ($request->has('return_date')) {
-            $return->where('expired_date', '>', $request->return_date)->orWhere('expired_date', '=', null);
+            $return = Schedule::where('expired_date', '>', $request->return_date)->orWhere('expired_date', '=', null);
+        }
+        
+        if ($request->has('return_route')) {
+            $return->where('route', '=', $request->return_route);
         }
 
         return new ReturnCollection($return->get());
