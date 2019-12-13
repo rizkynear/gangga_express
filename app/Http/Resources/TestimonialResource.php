@@ -19,7 +19,7 @@ class TestimonialResource extends JsonResource
             'name'        => $this->name,
             'nationality' => $this->nationality,
             'description' => $this->description,
-            'image'       => $this->image
+            'image'       => asset('storage/images/testimonials/' . $this->image)
         ];
     }
 }

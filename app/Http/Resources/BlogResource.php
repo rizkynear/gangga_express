@@ -18,7 +18,7 @@ class BlogResource extends JsonResource
             'id'          => $this->id,
             'title'       => $this->title,
             'description' => $this->description,
-            'image'       => $this->image,
+            'image'       => asset('storage/images/blogs/' . $this->image),
             'link'        => route('api.blog', $this->slug),
             'upload_at'   => $this->created_at->format('Y-m-d')
         ];

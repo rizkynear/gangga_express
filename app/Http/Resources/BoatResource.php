@@ -21,7 +21,7 @@ class BoatResource extends JsonResource
             'capacity' => $this->capacity,
             'length'   => $this->length,
             'width'    => $this->width,
-            'image'    => $this->image,
+            'image'    => asset('storage/images/boats/' . $this->image)
         ];
     }
 }

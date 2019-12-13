@@ -19,8 +19,8 @@ class SecondSectionResource extends JsonResource
             'title'     => $this->title,
             'sub_title' => $this->sub_title,
             'content'   => $this->content,
-            'image_1'   => $this->image_1,
-            'image_2'   => $this->image_2
+            'image_1'   => asset('storage/images/second-sections/' . $this->image_1),
+            'image_2'   => asset('storage/images/second-sections/' . $this->image_2)
         ];
     }
 }
