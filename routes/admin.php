@@ -111,6 +111,7 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function() {
 
         Route::prefix('contact')->group(function() {
             Route::get('/', 'ContactController@index')->name('contact');
+            Route::get('search', 'ContactController@index')->name('contact.search');
             Route::delete('{contact}/delete', 'ContactController@delete')->name('contact.delete');
         });
 

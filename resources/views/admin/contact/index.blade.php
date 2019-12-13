@@ -18,6 +18,23 @@
                 <div class="box box-danger">
 
                     <div class="box-body">
+                        <div class="row">
+                            <div class="col-sm-12 text-right">
+                                <form text="text-right" class="form-inline" action="{{ route('contact.search') }}" method="get">
+                                    <div class="form-group form-group-inline">
+                                        <label class="sr-only">Search</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Search" name="keyword" value="{{ request()->get('keyword') }}" required>
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-danger" type="submit">
+                                                    <i class="fa fa-search" aria-hidden="true"></i><span class="sr-only"></span>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                         @if (session()->has('success'))
                             <div class="alert alert-success alert-dismissible">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -26,44 +43,49 @@
                         @endif
                         <div class="table-responsive">
                             <table class="table table-striped" id="table-contact">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 120px;">Date</th>
-                                        <th>Name</th>
-                                        <th>Phone</th>
-                                        <th>Email</th>
-                                        <th style="width: 300px;">Message</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($contacts as $contact)
+                                @if ($contacts->isEmpty())
+                                    <h2 class="text-center">No data found</h2>
+                                @else
+                                    <thead>
                                         <tr>
-                                            <td>
-                                                <span class="display-xs-block">{{ $contact->created_at->format('d M Y') }}</span>
-                                                <span class="display-xs-block">{{ $contact->created_at->format('H:i') }}</span>
-                                            </td>
-                                            <td>
-                                                <span class="display-xs-block">{{ $contact->name }}</span>
-                                            </td>
-                                            <td>
-                                                <span class="display-xs-block">{{ $contact->phone }}</span>
-                                            </td>
-                                            <td>
-                                                <span class="display-xs-block">{{ $contact->email }}</span>
-                                            </td>
-                                            <td>
-                                                <span class="message">{{ $contact->message }}</span>
-                                            </td>
-                                            <td>
-                                                <button type="button" class="btn btn-danger delete-contact" data-action="{{ route('contact.delete', $contact->id) }}"  data-placement="top">
-                                                    <i class="fa fa-trash"></i>
-                                                </button>
-                                            </td>
+                                            <th style="width: 120px;">Date</th>
+                                            <th>Name</th>
+                                            <th>Phone</th>
+                                            <th>Email</th>
+                                            <th style="width: 300px;">Message</th>
+                                            <th>Action</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($contacts as $contact)
+                                            <tr>
+                                                <td>
+                                                    <span class="display-xs-block">{{ $contact->created_at->format('d M Y') }}</span>
+                                                    <span class="display-xs-block">{{ $contact->created_at->format('H:i') }}</span>
+                                                </td>
+                                                <td>
+                                                    <span class="display-xs-block">{{ $contact->name }}</span>
+                                                </td>
+                                                <td>
+                                                    <span class="display-xs-block">{{ $contact->phone }}</span>
+                                                </td>
+                                                <td>
+                                                    <span class="display-xs-block">{{ $contact->email }}</span>
+                                                </td>
+                                                <td>
+                                                    <span class="message">{{ $contact->message }}</span>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-danger delete-contact" data-action="{{ route('contact.delete', $contact->id) }}"  data-placement="top">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                @endif
                             </table>
+                            {{ $contacts->appends(Request::except('page'))->links() }}
                         </div>
 
                     </div>
@@ -99,29 +121,6 @@
 @section('script')
 <script type="text/javascript">
     $(document).ready(function() {
-        //tooltip button icon
-        $('[data-toggle="tooltip"]').tooltip();
-
-        //data table
-        $('#table-contact').DataTable({
-            "bSort": false,
-            "pagingType": "full_numbers",
-            "responsive": true,
-            "lengthMenu": [
-                [10, 25, 50],
-                [10, 25, 50]
-            ],
-            "language": {
-                "paginate": {
-                    "first": "&nbsp;",
-                    "last": "&nbsp;",
-                    "previous": "&nbsp;",
-                    "next": "&nbsp;"
-                }
-            },
-            "sPaginationType": "ellipses"
-        });
-
         $(".message").shorten({
             showChars: 70
         });

@@ -8,11 +8,17 @@ use App\Http\Models\Contact;
 
 class ContactController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         Contact::where('read_status', '=', 0)->update(['read_status' => 1]);
 
-        $contacts = Contact::all()->sortByDesc('id');
+        $contact = Contact::where('id', '!=', 0);
+
+        if ($request->has('keyword') && !empty($request->keyword)) {
+            $contact->where('name', 'LIKE', "%{$request->keyword}%")->orWhere('phone', 'LIKE', "%{$request->keyword}%")->orWhere('email', 'LIKE', "%{$request->keyword}%")->orWhere('message', 'LIKE', "%{$request->keyword}%");
+        }
+
+        $contacts = $contact->latest()->paginate(10);
 
         return view('admin.contact.index')->with(compact('contacts'));
     }
