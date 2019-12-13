@@ -97,6 +97,7 @@
                                             <th>Departure</th>
                                             <th>Return</th>
                                             <th>Price</th>
+                                            <th>Paid Status</th>
                                             <th style="width: 150px;">Action</th>
                                         </tr>
                                     </thead>
@@ -149,6 +150,9 @@
                                                 <td>
                                                     <span class="display-xs-block">IDR</span>
                                                     <span class="display-xs-block">{{ number_format($booking->price) }}</span>
+                                                </td>
+                                                <td>
+                                                    <span class="display-xs-block">{{ $booking->paid_status === 0 ? 'Belum Dibayar' : 'Sudah Dibayar' }}</span>
                                                 </td>
                                                 <td>
                                                     <span>

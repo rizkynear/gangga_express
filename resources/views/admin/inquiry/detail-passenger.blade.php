@@ -75,6 +75,8 @@
 
                                 <tr>
                                     <td class="fourth text-uppercase"><b>Total</b></td>
+                                    <td></td>
+                                    <td></td>
                                     <td class="text-right text-uppercase"><b>{{ $booking->total }} Pax</b></td>
                                 </tr>
                             </table>
