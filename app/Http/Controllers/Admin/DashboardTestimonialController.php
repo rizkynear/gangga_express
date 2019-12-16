@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Models\Testimonial;
 use App\Http\Requests\TestimonialStore;
+use App\Http\Requests\TestimonialUpdate;
 use Illuminate\Support\Str;
 
 class DashboardTestimonialController extends Controller

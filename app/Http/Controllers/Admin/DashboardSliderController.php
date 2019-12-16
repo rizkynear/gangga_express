@@ -33,7 +33,7 @@ class DashboardSliderController extends Controller
         return redirect()->back()->with('slider-success', 'New Data Successfully Added');
     }
     
-    public function update(SliderEdit $request, Slider $slider)
+    public function edit(SliderEdit $request, Slider $slider)
     {
         $sliderModel = new Slider();
         $name   = Str::random(40) . '.' . $request->image->getClientOriginalExtension();
