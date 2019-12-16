@@ -26,7 +26,7 @@ class SecondSectionEditImage extends FormRequest
     public function rules()
     {
         return [
-            'image' => 'required|mimes:jpg,jpeg,png|max:1024'
+            'image' => 'required|mimes:jpg,jpeg,png|dimensions:max_width=2500,max_height=2500|max:5120'
         ];
     }
 

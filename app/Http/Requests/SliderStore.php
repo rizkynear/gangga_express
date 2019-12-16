@@ -26,7 +26,7 @@ class SliderStore extends FormRequest
     public function rules()
     {
         return [
-            'image' => 'required|mimes:jpg,jpeg,png|max:6144'
+            'image' => 'required|mimes:jpg,jpeg,png|dimensions:max_width=2500,max_height=2500|max:5120'
         ];
     }
 
@@ -39,7 +39,7 @@ class SliderStore extends FormRequest
     public function messages()
     {
         return [
-            'image.max' => 'Image must be 6mb or less'
+            'image.max' => 'Image must be 5mb or less'
         ];
     }
 

@@ -28,7 +28,7 @@ class BlogUpdate extends FormRequest
             'description_id' => 'required',
             'title_en'       => 'required|max:191',
             'description_en' => 'required',
-            'image'          => 'mimes:jpg,jpeg,png|max:3072'
+            'image'          => 'mimes:jpg,jpeg,png|dimensions:max_width=2500,max_height=2500|max:5120'
         ];
     }
 
@@ -41,7 +41,7 @@ class BlogUpdate extends FormRequest
     public function messages()
     {
         return [
-            'image.max' => 'Image must be 3mb or less'
+            'image.max' => 'Image must be 5mb or less'
         ];
     }
 }

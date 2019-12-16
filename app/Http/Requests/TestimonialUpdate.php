@@ -25,7 +25,7 @@ class TestimonialUpdate extends FormRequest
     {
         return [
             'name'           => 'required|max:191',
-            'image'          => 'mimes:jpg,jpeg,png|max:3072',
+            'image'          => 'mimes:jpg,jpeg,png|dimensions:max_width=2500,max_height=2500|max:5120',
             'nationality'    => 'required|max:191',
             'description_en' => 'required',
             'description_id' => 'required',
@@ -41,7 +41,7 @@ class TestimonialUpdate extends FormRequest
     public function messages()
     {
         return [
-            'image.max' => 'Image must be 3mb or less'
+            'image.max' => 'Image must be 5mb or less'
         ];
     }
 }

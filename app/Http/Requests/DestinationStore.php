@@ -28,7 +28,7 @@ class DestinationStore extends FormRequest
             'location'  => 'required|max:191',
             'latitude'  => 'required',
             'longitude' => 'required',
-            'image'     => 'required|mimes:jpg,jpeg,png|max:3072'
+            'image'     => 'required|mimes:jpg,jpeg,png|dimensions:max_width=2500,max_height=2500|max:5120'
         ];
     }
 
@@ -40,7 +40,7 @@ class DestinationStore extends FormRequest
     public function messages()
     {
         return [
-            'image.max' => 'Image must be 3mb or less'
+            'image.max' => 'Image must be 5mb or less'
         ];
     }
 }
