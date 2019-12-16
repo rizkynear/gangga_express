@@ -18,7 +18,7 @@ class DestinationResource extends JsonResource
             'id'        => $this->id,
             'name'      => $this->name,
             'location'  => $this->location,
-            'image'     => $this->image,
+            'image'     => asset('storage/images/destinations/' . $this->image),
             'latitude'  => (double)$this->latitude,
             'longitude' => (double)$this->longitude,
         ];
