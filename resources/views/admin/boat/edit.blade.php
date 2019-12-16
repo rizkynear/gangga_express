@@ -23,14 +23,12 @@
                                         <img class="img-responsive margin-bot-10 image-preview" src="{{ asset('storage/images/boats/thumbnail/' . $boat->image) }}" alt="">
                                         <input type="hidden" class="x-coordinate" name="x_coordinate">
                                         <input type="hidden" class="y-coordinate" name="y_coordinate">
-                                        <input type="hidden" class="crop-width" name="crop_width">
-                                        <input type="hidden" class="crop-height" name="crop_height">
                                     </div>
                                     <div class="col-sm-9">
                                         <div class="input-group">
                                             <span class="input-group-btn">
                                                 <span class="btn btn-primary btn-file">
-                                                    <i class="fa fa-folder-open"></i>&nbsp;Browse <input type="file" name="image" class="image-name">
+                                                    <i class="fa fa-folder-open"></i>&nbsp;Browse <input type="file" name="image" class="boat-image">
                                                 </span>
                                             </span>
                                             <input type="text" class="form-control" value="No file chosen" readonly="">
@@ -85,4 +83,26 @@
         </div>
     </section>
 </div>
+@endsection
+
+@section('script')
+<script>
+    $(document).ready(function() {
+        $(".boat-image").change(function() {
+            var parent = $(this).parent().parent().parent().parent().parent();
+            var input = this;
+
+            $.ajax({
+                url: "{{ route('boat.cropBox') }}",
+                type: 'POST',
+                data: {
+                    _token: "{{ csrf_token() }}"
+                },
+                success:function(data) {
+                    imageCropper(input, parent, data.width, data.height);
+                }
+            });
+        });
+    });
+</script>
 @endsection

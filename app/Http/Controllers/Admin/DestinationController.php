@@ -11,6 +11,14 @@ use Illuminate\Support\Str;
 
 class DestinationController extends Controller
 {
+    const width  = 400;
+    const height = 300;
+
+    public function setCropBox(Request $request)
+    {
+        return response()->json(['width' => self::width, 'height' => self::height]);
+    }
+
     public function index()
     {
         $destinations = Destination::all()->sortByDesc('id');
@@ -28,7 +36,7 @@ class DestinationController extends Controller
         $destination = new Destination();
         $name        = Str::random(40) . '.' . $request->image->getClientOriginalExtension();
         
-        $destination->storeImage($request, $name);
+        $destination->storeImage($request, $name, self::width, self::height);
 
         $destination->create([
             'name'      => $request->name,
@@ -65,7 +73,7 @@ class DestinationController extends Controller
             $name = Str::random(40) . '.' . $request->image->getClientOriginalExtension();
 
             $destinationModel->deleteImage($destination->image);
-            $destinationModel->storeImage($request, $name);
+            $destinationModel->storeImage($request, $name, self::width, self::height);
 
             $destination->update(['image' => $name]);
         }

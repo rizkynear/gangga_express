@@ -11,6 +11,14 @@ use Illuminate\Support\Str;
 
 class BlogController extends Controller
 {
+    const width  = 450;
+    const height = 350;
+
+    public function setCropBox(Request $request)
+    {
+        return response()->json(['width' => self::width, 'height' => self::height]);
+    }
+
     public function index()
     {
         $blogs = Blog::all()->sortByDesc('id');
@@ -28,7 +36,7 @@ class BlogController extends Controller
         $blog = new Blog();
         $name = Str::random(40) . '.' . $request->image->getClientOriginalExtension();
 
-        $blog->storeImage($request, $name);
+        $blog->storeImage($request, $name, self::width, self::height);
 
         $blog->create([
             'image' => $name,
@@ -63,7 +71,7 @@ class BlogController extends Controller
             $name = Str::random(40) . '.' . $request->image->getClientOriginalExtension();
 
             $blogModel->deleteImage($blog->image);
-            $blogModel->storeImage($request, $name);
+            $blogModel->storeImage($request, $name, self::width, self::height);
 
             $blog->update(['image' => $name]);
         }

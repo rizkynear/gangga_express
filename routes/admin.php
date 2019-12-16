@@ -27,23 +27,26 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function() {
         Route::get('/', 'DashboardController@index')->name('dashboard');
 
         Route::group(['prefix' => 'slider', 'as' => 'slider.'], function() {
-            Route::post('store', 'DashboardController@sliderStore')->name('store');
-            Route::patch('{slider}/edit', 'DashboardController@sliderEdit')->name('edit');
-            Route::delete('{slider}/delete', 'DashboardController@sliderDelete')->name('delete');
-            Route::post('up', 'DashboardController@sliderUp')->name('up');
-            Route::post('down', 'DashboardController@sliderDown')->name('down');
+            Route::post('store', 'DashboardSliderController@store')->name('store');
+            Route::patch('{slider}/edit', 'DashboardSliderController@edit')->name('edit');
+            Route::delete('{slider}/delete', 'DashboardSliderController@delete')->name('delete');
+            Route::post('up', 'DashboardSliderController@up')->name('up');
+            Route::post('down', 'DashboardSliderController@down')->name('down');
+            Route::post('setCropBox', 'DashboardSliderController@setCropBox')->name('cropBox');
         });
 
         Route::group(['prefix' => 'testimonial', 'as' => 'testimonial.'], function() {
-            Route::post('store', 'DashboardController@testimonialStore')->name('store');
-            Route::get('{testimonial}/edit', 'DashboardController@testimonialEdit')->name('edit');
-            Route::patch('{testimonial}/update', 'DashboardController@testimonialUpdate')->name('update');
-            Route::delete('{testimonial}/delete', 'DashboardController@testimonialDelete')->name('delete');
+            Route::post('store', 'DashboardTestimonialController@store')->name('store');
+            Route::get('{testimonial}/edit', 'DashboardTestimonialController@edit')->name('edit');
+            Route::patch('{testimonial}/update', 'DashboardTestimonialController@update')->name('update');
+            Route::delete('{testimonial}/delete', 'DashboardTestimonialController@delete')->name('delete');
+            Route::post('setCropBox', 'DashboardTestimonialController@setCropBox')->name('cropBox');
         });
 
         Route::group(['prefix' => 'second-section', 'as' => 'second-section.'], function() {
-            Route::post('save', 'DashboardController@secondSectionSave')->name('save');
-            Route::post('edit-image', 'DashboardController@secondSectionEditImage')->name('edit-image');
+            Route::post('save', 'DashboardSecondSectionController@save')->name('save');
+            Route::post('edit-image', 'DashboardSecondSectionController@editImage')->name('edit-image');
+            Route::post('setCropBox', 'DashboardSecondSectionController@setCropBox')->name('cropBox');
         });
 
         Route::prefix('fasboat-schedule-route')->group(function() {
@@ -77,6 +80,7 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function() {
                 Route::delete('{blog}/delete', 'BlogController@delete')->name('delete');
                 Route::get('{blog}/edit', 'BlogController@edit')->name('edit');
                 Route::patch('{blog}/update', 'BlogController@update')->name('update');
+                Route::post('setCropBox', 'BlogController@setCropBox')->name('cropBox');
             });
         });
 
@@ -88,6 +92,7 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function() {
                 Route::get('{boat}/edit', 'BoatController@edit')->name('edit');
                 Route::patch('{boat}/update', 'BoatController@update')->name('update');
                 Route::delete('{boat}/delete', 'BoatController@delete')->name('delete');
+                Route::post('setCropBox', 'BoatController@setCropBox')->name('cropBox');
             });
 
             Route::get('the-company', 'CompanyController@index')->name('company');
@@ -106,6 +111,7 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function() {
                 Route::delete('{destination}/delete', 'DestinationController@delete')->name('delete');
                 Route::get('{destination}/edit', 'DestinationController@edit')->name('edit');
                 Route::patch('{destination}/update', 'DestinationController@update')->name('update');
+                Route::post('setCropBox', 'DestinationController@setCropBox')->name('cropBox');
             });
         });
 

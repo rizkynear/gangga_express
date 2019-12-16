@@ -325,51 +325,38 @@
 </script>
 
 <script>
-    function imageCropper(input, parent) {
+    function imageCropper(input, parent, cropWidth, cropHeight) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
             
             reader.onload = function(e) {
+                console.log(cropWidth);
+                console.log(cropHeight);
                 var image = parent.find('.image-preview').attr('src', e.target.result);
-                var cropBoxWidth = 200;
-                var cropBoxHeight = 100;
 
                 image.cropper('destroy');
 
                 image.cropper({
+                    viewMode: 3,
+                    cropBoxResizable: false,
+                    guides: false,
+                    center: false,
                     ready: function () {
-                        var container = $(this).cropper('getContainerData');
-
-                        $(this).cropper("setCropBoxData", {
-                            width: cropBoxWidth, 
-                            height: cropBoxHeight,
-                            left: (container.width - cropBoxWidth) / 2,
-                            top: (container.height - cropBoxHeight) / 2
+                        $(this).cropper("setData", {
+                            width: cropWidth,
+                            height: cropHeight,
                         });
                     },
                     crop: function(event) {
                         parent.find('.x-coordinate').val(event.detail.x);
                         parent.find('.y-coordinate').val(event.detail.y);
-                        parent.find('.crop-width').val(event.detail.width);
-                        parent.find('.crop-height').val(event.detail.height);
-                    },
-                    viewMode: 3,
-                    cropBoxResizable: false,
-                    minCropBoxWidth: cropBoxWidth,
-                    minCropBoxHeight: cropBoxHeight,
+                    }
                 });
             }
             
             reader.readAsDataURL(input.files[0]);
-        }
-        
+        }   
     }
-
-    $(".image-name").change(function() {
-        var parent = $(this).parent().parent().parent().parent().parent();
-
-        imageCropper(this, parent);
-    });
 </script>
 
 <!--temporary script end-->

@@ -27,13 +27,11 @@ trait ImageHandling
         parent::__construct($attributes);
     }
 
-    public function storeImage($request, $imageName)
+    public function storeImage($request, $imageName, $width, $height)
     {
-        $request->image->storeAs($this->storePath, $imageName, 'public');
-
-        InterventionImage::make($this->imagePath() . $imageName)
-                         ->crop((int)$request->crop_width, (int)$request->crop_height, (int)$request->x_coordinate, (int)$request->y_coordinate)
-                         ->save();
+        InterventionImage::make($request->image->getRealPath())
+                         ->crop($width, $height, (int)$request->x_coordinate, (int)$request->y_coordinate)
+                         ->save($this->imagePath() . $imageName);
 
         InterventionImage::make($this->imagePath() . $imageName)->resize(null, 200, function ($constrait) {
             $constrait->aspectRatio();

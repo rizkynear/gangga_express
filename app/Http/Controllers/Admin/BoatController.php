@@ -11,6 +11,14 @@ use Illuminate\Support\Str;
 
 class BoatController extends Controller
 {
+    const width  = 1110;
+    const height = 480;
+
+    public function setCropBox(Request $request)
+    {
+        return response()->json(['width' => self::width, 'height' => self::height]);
+    }
+
     public function index()
     {
         $boats = Boat::all();
@@ -23,7 +31,7 @@ class BoatController extends Controller
         $boat = new Boat();
         $name = Str::random(40) . '.' . $request->image->getClientOriginalExtension();
 
-        $boat->storeImage($request, $name);
+        $boat->storeImage($request, $name, self::width, self::height);
 
         $boat->create([
             'name'     => $request->name,
@@ -60,7 +68,7 @@ class BoatController extends Controller
             $name = Str::random(40) . '.' . $request->image->getClientOriginalExtension();
 
             $boatModel->deleteImage($boat->image);
-            $boatModel->storeImage($request, $name);
+            $boatModel->storeImage($request, $name, self::width, self::height);
 
             $boat->update(['image' => $name]);
         }
