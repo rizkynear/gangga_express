@@ -62,10 +62,10 @@ class DashboardController extends Controller
     {
         $sliders = Slider::all();
 
-        foreach ($sliders as $slider) {
-            if ($slider->position > $slider->position) {
-                $slider->position -= 1;
-                $slider->save();
+        foreach ($sliders as $slide) {
+            if ($slide->position > $slider->position) {
+                $slide->position -= 1;
+                $slide->save();
             }
         }
 
