@@ -330,8 +330,6 @@
             var reader = new FileReader();
             
             reader.onload = function(e) {
-                console.log(cropWidth);
-                console.log(cropHeight);
                 var image = parent.find('.image-preview').attr('src', e.target.result);
 
                 image.cropper('destroy');
