@@ -31,6 +31,9 @@
                                 </tr>
                                 <tr>
                                     <td class="fourth"><b>Adult</b></td>
+                                    <td class="fourth"></td>
+                                    <td class="fourth"></td>
+                                    <td class="fourth"></td>
                                 </tr>
                                 @foreach ($booking->details as $detail)
                                     @if ($detail->category === 'adult')
@@ -45,6 +48,9 @@
 
                                 <tr>
                                     <td class="fourth"><b>Child</b></td>
+                                    <td class="fourth"></td>
+                                    <td class="fourth"></td>
+                                    <td class="fourth"></td>
                                 </tr>
 
                                 @foreach ($booking->details as $detail)
@@ -60,6 +66,9 @@
 
                                 <tr>
                                     <td class="fourth"><b>Infant</b></td>
+                                    <td class="fourth"></td>
+                                    <td class="fourth"></td>
+                                    <td class="fourth"></td>
                                 </tr>
 
                                 @foreach ($booking->details as $detail)
@@ -75,9 +84,9 @@
 
                                 <tr>
                                     <td class="fourth text-uppercase"><b>Total</b></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td class="text-right text-uppercase"><b>{{ $booking->total }} Pax</b></td>
+                                    <td class="text-uppercase"><b>{{ $booking->total }} Pax</b></td>
+                                    <td class="fourth"></td>
+                                    <td class="fourth"></td>
                                 </tr>
                             </table>
                         </div>
