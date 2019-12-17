@@ -16,7 +16,7 @@ class Price
         $foreignerChild  = 0;
         $foreignerAdult  = 0;
 
-        for ($i = 0; $i < count($request->category); $i++) {
+        for ($i = 0; $i < $request->total_passenger; $i++) {
             if ($request->category[$i] == 'infant') {
                 if ($request->nationality[$i] == 'indonesia') {
                     $domesticInfant += 1;
