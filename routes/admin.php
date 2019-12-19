@@ -132,5 +132,11 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function() {
                 Route::get('export', 'InquiryController@export')->name('export');
             });
         });
+
+        Route::prefix('doku')->group(function() {
+            Route::get('/', function() {
+                return view('admin.doku.index');
+            });
+        });
     });
 });
