@@ -11,12 +11,12 @@ use Illuminate\Support\Str;
 
 class DashboardSliderController extends Controller
 {
-    const width  = 1920;
-    const height = 1080;
+    const WIDTH  = 1920;
+    const HEIGHT = 1080;
 
     public function setCropBox(Request $request)
     {
-        return response()->json(['width' => self::width, 'height' => self::height]);
+        return response()->json(['width' => self::WIDTH, 'height' => self::HEIGHT]);
     }
 
     public function store(SliderStore $request)
@@ -25,7 +25,7 @@ class DashboardSliderController extends Controller
         $position = Slider::all()->count() + 1;
         $name     = Str::random(40) . '.' . $request->image->getClientOriginalExtension();
 
-        $slider->storeImage($request, $name, self::width, self::height);
+        $slider->storeImage($request, $name, self::WIDTH, self::HEIGHT);
         $slider->image    = $name;
         $slider->position = $position;
         $slider->save();
@@ -39,7 +39,7 @@ class DashboardSliderController extends Controller
         $name   = Str::random(40) . '.' . $request->image->getClientOriginalExtension();
 
         $sliderModel->deleteImage($slider->image);
-        $sliderModel->storeImage($request, $name, self::width, self::height);
+        $sliderModel->storeImage($request, $name, self::WIDTH, self::HEIGHT);
 
         $slider->update(['image' => $name]);
 

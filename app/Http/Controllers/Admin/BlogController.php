@@ -11,12 +11,12 @@ use Illuminate\Support\Str;
 
 class BlogController extends Controller
 {
-    const width  = 450;
-    const height = 350;
+    const WIDTH  = 450;
+    const HEIGHT = 350;
 
     public function setCropBox(Request $request)
     {
-        return response()->json(['width' => self::width, 'height' => self::height]);
+        return response()->json(['width' => self::WIDTH, 'height' => self::HEIGHT]);
     }
 
     public function index()
@@ -36,7 +36,7 @@ class BlogController extends Controller
         $blog = new Blog();
         $name = Str::random(40) . '.' . $request->image->getClientOriginalExtension();
 
-        $blog->storeImage($request, $name, self::width, self::height);
+        $blog->storeImage($request, $name, self::WIDTH, self::HEIGHT);
 
         $blog->create([
             'image' => $name,
@@ -71,7 +71,7 @@ class BlogController extends Controller
             $name = Str::random(40) . '.' . $request->image->getClientOriginalExtension();
 
             $blogModel->deleteImage($blog->image);
-            $blogModel->storeImage($request, $name, self::width, self::height);
+            $blogModel->storeImage($request, $name, self::WIDTH, self::HEIGHT);
 
             $blog->update(['image' => $name]);
         }

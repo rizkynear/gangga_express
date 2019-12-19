@@ -11,18 +11,18 @@ use Illuminate\Support\Str;
 
 class DashboardSecondSectionController extends Controller
 {
-    const largeWidth  = 600; 
-    const largeHeight = 600;
-    const smallWidth  = 300;
-    const smallHeight = 300;
+    const LARGEWIDTH  = 600; 
+    const LARGEHEIGHT = 600;
+    const SMALLWIDTH  = 300;
+    const SMALLHEIGHT = 300;
 
     public function setCropBox(Request $request)
     {
         if ($request->image_index == 'image_1') {
-            return response()->json(['width' => self::largeWidth, 'height' => self::largeHeight]);
+            return response()->json(['width' => self::LARGEWIDTH, 'height' => self::LARGEHEIGHT]);
         }
         
-        return response()->json(['width' => self::smallWidth, 'height' => self::smallHeight]);
+        return response()->json(['width' => self::SMALLWIDTH, 'height' => self::SMALLHEIGHT]);
     }
 
     public function save(SecondSectionSave $request)
@@ -47,22 +47,22 @@ class DashboardSecondSectionController extends Controller
         
         if (is_null($record)) {
             if ($request->image_index === 'image_1') {
-                $secondSection->storeImage($request, $name, self::largeWidth, self::largeHeight);
+                $secondSection->storeImage($request, $name, self::LARGEWIDTH, self::LARGEHEIGHT);
 
                 $secondSection->create(['image_1' => $name]);
             } else {
-                $secondSection->storeImage($request, $name, self::smallWidth, self::smallHeight);
+                $secondSection->storeImage($request, $name, self::SMALLWIDTH, self::SMALLHEIGHT);
 
                 $secondSection->create(['image_2' => $name]);
             }
         } else {
             if ($request->image_index === 'image_1') {
-                $secondSection->storeImage($request, $name, self::largeWidth, self::largeHeight);
+                $secondSection->storeImage($request, $name, self::LARGEWIDTH, self::LARGEHEIGHT);
                 $secondSection->deleteImage($record->image_1);
                 
                 $record->update(['image_1' => $name]);
             } else {
-                $secondSection->storeImage($request, $name, self::smallWidth, self::smallHeight);
+                $secondSection->storeImage($request, $name, self::SMALLWIDTH, self::SMALLHEIGHT);
                 $secondSection->deleteImage($record->image_2);
 
                 $record->update(['image_2' => $name]);

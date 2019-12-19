@@ -11,12 +11,12 @@ use Illuminate\Support\Str;
 
 class DashboardTestimonialController extends Controller
 {
-    const width  = 150;
-    const height = 150;
+    const WIDTH  = 150;
+    const HEIGHT = 150;
 
     public function setCropBox(Request $request)
     {
-        return response()->json(['width' => self::width, 'height' => self::height]);
+        return response()->json(['width' => self::WIDTH, 'height' => self::HEIGHT]);
     }
 
     public function store(TestimonialStore $request)
@@ -24,7 +24,7 @@ class DashboardTestimonialController extends Controller
         $testimonial = new Testimonial();
         $name        = Str::random(40) . '.' . $request->image->getClientOriginalExtension();
 
-        $testimonial->storeImage($request, $name, self::width, self::height);
+        $testimonial->storeImage($request, $name, self::WIDTH, self::HEIGHT);
 
         $testimonial->create([
             'name'        => $request->name,
@@ -51,7 +51,7 @@ class DashboardTestimonialController extends Controller
             $name = Str::random(40) . '.' . $request->image->getClientOriginalExtension();
 
             $testimonialModel->deleteImage($testimonial->image);
-            $testimonialModel->storeImage($request, $name, self::width, self::height);
+            $testimonialModel->storeImage($request, $name, self::WIDTH, self::HEIGHT);
 
             $testimonial->update(['image' => $name]);
         }
