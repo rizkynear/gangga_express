@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['prefix' => 'latest-blogs'], function() {
-    Route::get('/', 'BlogController@latest');
+    Route::get('{total}', 'BlogController@latest');
 });
 
 Route::group(['prefix' => 'blogs'], function() {

@@ -13,7 +13,7 @@ class BlogController extends Controller
 {
     public function showAll()
     {
-        return new BlogCollection(Blog::all()->sortByDesc('created_at'));
+        return new BlogCollection(Blog::latest()->paginate(6));
     }
 
     public function showOne(BlogTranslation $blog)
@@ -23,9 +23,9 @@ class BlogController extends Controller
         return new BlogResource($blog);
     }
 
-    public function latest() 
+    public function latest($total) 
     {
-        $blogs = Blog::all()->sortByDesc('id')->take(3);
+        $blogs = Blog::all()->sortByDesc('id')->take($total);
 
         return new BlogCollection($blogs);
     }
