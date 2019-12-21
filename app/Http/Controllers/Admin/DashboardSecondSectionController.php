@@ -32,8 +32,8 @@ class DashboardSecondSectionController extends Controller
         $secondSection->updateOrCreate([
             'id' => 1
         ], [
-            'en' => ['title' => $request->title_en, 'sub_title' => $request->sub_title_en, 'content' => $request->content_en],
-            'id' => ['title' => $request->title_id, 'sub_title' => $request->sub_title_id, 'content' => $request->content_id],
+            'en' => ['title' => $request->second_section_title_en, 'sub_title' => $request->second_section_sub_title_en, 'content' => $request->second_section_content_en],
+            'id' => ['title' => $request->second_section_title_id, 'sub_title' => $request->second_section_sub_title_id, 'content' => $request->second_section_content_id],
         ]);
 
         return redirect()->back()->with('second-section-success', 'Data Successfully Saved');

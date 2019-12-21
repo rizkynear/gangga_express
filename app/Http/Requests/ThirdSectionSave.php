@@ -3,10 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\ValidationException;
 
-class SecondSectionSave extends FormRequest
+class ThirdSectionSave extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,12 +26,12 @@ class SecondSectionSave extends FormRequest
     public function rules()
     {
         return [
-            'second_section_title_en'     => 'required|max:191',
-            'second_section_sub_title_en' => 'required|max:191',
-            'second_section_content_en'   => 'required',
-            'second_section_title_id'     => 'required|max:191',
-            'second_section_sub_title_id' => 'required|max:191',
-            'second_section_content_id'   => 'required|max:191',
+            'third_section_title_en'     => 'required|max:191',
+            'third_section_sub_title_en' => 'required|max:191',
+            'third_section_content_en'   => 'required',
+            'third_section_title_id'     => 'required|max:191',
+            'third_section_sub_title_id' => 'required|max:191',
+            'third_section_content_id'   => 'required|max:191',
         ];
     }
 
@@ -46,7 +46,7 @@ class SecondSectionSave extends FormRequest
     protected function failedValidation(Validator $validator)
     {
         throw (new ValidationException($validator))
-                    ->errorBag('secondSectionSave')
+                    ->errorBag('thirdSectionSave')
                     ->redirectTo($this->getRedirectUrl());
     }
 }

@@ -49,6 +49,12 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function() {
             Route::post('setCropBox', 'DashboardSecondSectionController@setCropBox')->name('cropBox');
         });
 
+        Route::group(['prefix' => 'third-section', 'as' => 'third-section.'], function() {
+            Route::post('save', 'DashboardThirdSectionController@save')->name('save');
+            Route::post('edit-image', 'DashboardThirdSectionController@editImage')->name('edit-image');
+            Route::post('setCropBox', 'DashboardThirdSectionController@setCropBox')->name('cropBox');
+        });
+
         Route::prefix('fasboat-schedule-route')->group(function() {
             Route::get('{route}', 'ScheduleController@index')->name('route');
             

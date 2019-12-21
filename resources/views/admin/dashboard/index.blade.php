@@ -128,25 +128,25 @@
                                         <div class="form-group">
                                             <label class="required">Title</label>
                                             @if (is_null($secondSection) || is_null($secondSection->translate()))
-                                                <input type="text" name="title_en" class="form-control" value="{{ old('title_en') ?? '' }}">
+                                                <input type="text" name="second_section_title_en" class="form-control" value="{{ old('second_section_title_en') ?? '' }}">
                                             @else 
-                                                <input type="text" name="title_en" class="form-control" value="{{ $errors->secondSectionSave->has('title_en') ? old('title_en') : $secondSection->translate('en')->title }}">
+                                                <input type="text" name="second_section_title_en" class="form-control" value="{{ $errors->secondSectionSave->has('second_section_title_en') ? old('second_section_title_en') : $secondSection->translate('en')->title }}">
                                             @endif
                                         </div>
                                         <div class="form-group">
                                             <label class="required">Sub Title</label>
                                             @if (is_null($secondSection) || is_null($secondSection->translate()))
-                                                <input type="text" name="sub_title_en" class="form-control" value="{{ old('sub_title_en') ?? '' }}">
+                                                <input type="text" name="second_section_sub_title_en" class="form-control" value="{{ old('second_section_sub_title_en') ?? '' }}">
                                             @else
-                                                <input type="text" name="sub_title_en" class="form-control" value="{{ $errors->secondSectionSave->has('sub_title_en') ? old('sub_title_en') : $secondSection->translate('en')->sub_title }}">
+                                                <input type="text" name="second_section_sub_title_en" class="form-control" value="{{ $errors->secondSectionSave->has('second_section_sub_title_en') ? old('second_section_sub_title_en') : $secondSection->translate('en')->sub_title }}">
                                             @endif
                                         </div>
                                         <div class="form-group">
                                             <label class="required">Content</label>
                                             @if (is_null($secondSection) || is_null($secondSection->translate()))
-                                                <textarea rows="5" name="content_en" class="ckeditor form-controler"> {{ old('content_en') ?? '' }}</textarea>
+                                                <textarea rows="5" name="second_section_content_en" class="ckeditor form-controler"> {{ old('second_section_content_en') ?? '' }}</textarea>
                                             @else 
-                                                <textarea rows="5" name="content_en" class="ckeditor form-controler"> {{ $errors->secondSectionSave->has('content_en') ? old('content_en') : $secondSection->translate('en')->content }}</textarea>
+                                                <textarea rows="5" name="second_section_content_en" class="ckeditor form-controler"> {{ $errors->secondSectionSave->has('second_section_content_en') ? old('second_section_content_en') : $secondSection->translate('en')->content }}</textarea>
                                             @endif
                                         </div>
                                     </div>
@@ -156,25 +156,134 @@
                                         <div class="form-group">
                                             <label class="required">Title</label>
                                             @if (is_null($secondSection) || is_null($secondSection->translate()))
-                                                <input type="text" name="title_id" class="form-control" value="{{ old('title_id') ?? '' }}">
+                                                <input type="text" name="second_section_title_id" class="form-control" value="{{ old('second_section_title_id') ?? '' }}">
                                             @else 
-                                                <input type="text" name="title_id" class="form-control" value="{{ $errors->secondSectionSave->has('title_id') ? old('title_id') : $secondSection->translate('id')->title }}">
+                                                <input type="text" name="second_section_title_id" class="form-control" value="{{ $errors->secondSectionSave->has('second_section_title_id') ? old('second_section_title_id') : $secondSection->translate('id')->title }}">
                                             @endif
                                         </div>
                                         <div class="form-group">
                                             <label class="required">Sub Title</label>
                                             @if (is_null($secondSection) || is_null($secondSection->translate()))
-                                                <input type="text" name="sub_title_id" class="form-control" value="{{ old('sub_title_id') ?? '' }}">
+                                                <input type="text" name="second_section_sub_title_id" class="form-control" value="{{ old('second_section_sub_title_id') ?? '' }}">
                                             @else
-                                                <input type="text" name="sub_title_id" class="form-control" value="{{ $errors->secondSectionSave->has('sub_title_id') ? old('sub_title_id') : $secondSection->translate('id')->sub_title }}">
+                                                <input type="text" name="second_section_sub_title_id" class="form-control" value="{{ $errors->secondSectionSave->has('second_section_sub_title_id') ? old('second_section_sub_title_id') : $secondSection->translate('id')->sub_title }}">
                                             @endif
                                         </div>
                                         <div class="form-group">
                                             <label class="required">Content</label>
                                             @if (is_null($secondSection) || is_null($secondSection->translate()))
-                                                <textarea rows="5" name="content_id" class="form-controler ckeditor"> {{ old('content_id') ?? '' }}</textarea>
+                                                <textarea rows="5" name="second_section_content_id" class="form-controler ckeditor"> {{ old('second_section_content_id') ?? '' }}</textarea>
                                             @else 
-                                                <textarea rows="5" name="content_id" class="form-controler ckeditor"> {{ $errors->secondSectionSave->has('content_id') ? old('content_id') : $secondSection->translate('id')->content }}</textarea>
+                                                <textarea rows="5" name="second_section_content_id" class="form-controler ckeditor"> {{ $errors->secondSectionSave->has('second_section_content_id') ? old('second_section_content_id') : $secondSection->translate('id')->content }}</textarea>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <button class="btn btn-success" type="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save Changes</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12">
+                <div class="box box-danger">
+                    <div class="box-header with-border">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h2 class="font18 my-5">Third Section</h2>
+                            </div>
+                            <div class="col-sm-6 text-right">
+                                @if (is_null($thirdSection))
+                                    <button type="button" class="btn btn-default edit-third-section-image"><i class="fa fa-plus" aria-hidden="true"></i> Edit Image</button>
+                                @else
+                                    <button type="button" class="btn btn-default edit-third-section-image" data-id="{{ $thirdSection->id }}" data-image="{{ $thirdSection->image }}"><i class="fa fa-plus" aria-hidden="true"></i> Edit Image</button>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <!--SAMPLE ALERT-->
+                        @if (session()->has('third-section-success'))
+                            <div class="alert alert-success alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <p><i class="icon fa fa-check"></i>{{ session('third-section-success') }}</p>
+                            </div>
+                        @elseif ($errors->thirdSectionSave->has('*'))
+                            <div class="alert alert-danger alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                @foreach ($errors->thirdSectionSave->all() as $error)
+                                    <p><i class="icon fa fa-check"></i>{{ $error }}</p>
+                                @endforeach
+                            </div>
+                        @elseif ($errors->thirdSectionEditImage->has('*'))
+                            <div class="alert alert-danger alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <p><i class="icon fa fa-check"></i>{{ $errors->thirdSectionEditImage->first() }}</p>
+                            </div>
+                        @endif
+                        <!--SAMPLE ALERT END-->
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#third-section-en"><img src="{{ asset('storage/images/admin/flag_gb.png') }}" alt=""> English</a></li>
+                            <li><a data-toggle="tab" href="#third-section-id"><img src="{{ asset('storage/images/admin/flag_id.jpg') }}" alt=""> Indonesia</a></li>
+                        </ul>
+                        <form method="post" action="{{ route('third-section.save') }}">
+                            @csrf
+                            <div class="tab-content">
+                                <div id="third-section-en" class="tab-pane fade in active">
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            <label class="required">Title</label>
+                                            @if (is_null($thirdSection) || is_null($thirdSection->translate()))
+                                                <input type="text" name="third_section_title_en" class="form-control" value="{{ old('third_section_title_en') ?? '' }}">
+                                            @else 
+                                                <input type="text" name="third_section_title_en" class="form-control" value="{{ $errors->thirdSectionSave->has('third_section_title_en') ? old('third_section_title_en') : $thirdSection->translate('en')->title }}">
+                                            @endif
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="required">Sub Title</label>
+                                            @if (is_null($thirdSection) || is_null($thirdSection->translate()))
+                                                <input type="text" name="third_section_sub_title_en" class="form-control" value="{{ old('third_section_sub_title_en') ?? '' }}">
+                                            @else
+                                                <input type="text" name="third_section_sub_title_en" class="form-control" value="{{ $errors->thirdSectionSave->has('third_section_sub_title_en') ? old('third_section_sub_title_en') : $thirdSection->translate('en')->sub_title }}">
+                                            @endif
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="required">Content</label>
+                                            @if (is_null($thirdSection) || is_null($thirdSection->translate()))
+                                                <textarea rows="5" name="third_section_content_en" class="ckeditor form-controler"> {{ old('third_section_content_en') ?? '' }}</textarea>
+                                            @else 
+                                                <textarea rows="5" name="third_section_content_en" class="ckeditor form-controler"> {{ $errors->thirdSectionSave->has('third_section_content_en') ? old('third_section_content_en') : $thirdSection->translate('en')->content }}</textarea>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="third-section-id" class="tab-pane fade">
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            <label class="required">Title</label>
+                                            @if (is_null($thirdSection) || is_null($thirdSection->translate()))
+                                                <input type="text" name="third_section_title_id" class="form-control" value="{{ old('third_section_title_id') ?? '' }}">
+                                            @else 
+                                                <input type="text" name="third_section_title_id" class="form-control" value="{{ $errors->thirdSectionSave->has('third_section_title_id') ? old('third_section_title_id') : $thirdSection->translate('id')->title }}">
+                                            @endif
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="required">Sub Title</label>
+                                            @if (is_null($thirdSection) || is_null($thirdSection->translate()))
+                                                <input type="text" name="third_section_sub_title_id" class="form-control" value="{{ old('third_section_sub_title_id') ?? '' }}">
+                                            @else
+                                                <input type="text" name="third_section_sub_title_id" class="form-control" value="{{ $errors->thirdSectionSave->has('third_section_sub_title_id') ? old('third_section_sub_title_id') : $thirdSection->translate('id')->sub_title }}">
+                                            @endif
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="required">Content</label>
+                                            @if (is_null($thirdSection) || is_null($thirdSection->translate()))
+                                                <textarea rows="5" name="third_section_content_id" class="form-controler ckeditor"> {{ old('third_section_content_id') ?? '' }}</textarea>
+                                            @else 
+                                                <textarea rows="5" name="third_section_content_id" class="form-controler ckeditor"> {{ $errors->thirdSectionSave->has('third_section_content_id') ? old('third_section_content_id') : $secondSection->translate('id')->content }}</textarea>
                                             @endif
                                         </div>
                                     </div>
@@ -531,7 +640,7 @@
         });
 
         $('.edit-second-section-image').click(function() {
-            $('#second-section-image').attr('src', "http://via.placeholder.com/700x400");
+            $('#second-section-image').attr('src', "http://via.placeholder.com/600x600");
             
             if ($(this).data('image')) {
                 var image = $(this).data('image');
@@ -541,6 +650,17 @@
             var imageIndex = $(this).data('image-index'); 
 
             $('#second-section-image-index').attr('value', imageIndex);
+            $('#modal-edit-second-section-image').modal();
+        });
+
+        $('.edit-third-section-image').click(function() {
+            $('#second-section-image').attr('src', "http://via.placeholder.com/400x400");
+            
+            if ($(this).data('image')) {
+                var image = $(this).data('image');
+                $('#second-section-image').attr('src', "{{ asset('storage/images/second-sections/thumbnail') }}" + '/' + image);
+            }
+
             $('#modal-edit-second-section-image').modal();
         });
 
@@ -571,6 +691,22 @@
                 data: {
                     _token: "{{ csrf_token() }}",
                     image_index: index
+                },
+                success:function(data) {
+                    imageCropper(input, parent, data.width, data.height);
+                }
+            });
+        });
+
+        $(".third-section-image").change(function() {
+            var parent = $(this).parent().parent().parent().parent().parent();
+            var input  = this;
+
+            $.ajax({
+                url: "{{ route('third-section.cropBox') }}",
+                type: 'POST',
+                data: {
+                    _token: "{{ csrf_token() }}"
                 },
                 success:function(data) {
                     imageCropper(input, parent, data.width, data.height);

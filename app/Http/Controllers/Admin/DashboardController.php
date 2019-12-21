@@ -9,6 +9,7 @@ use App\Http\Models\Contact;
 use App\Http\Models\SecondSection;
 use App\Http\Models\Slider;
 use App\Http\Models\Testimonial;
+use App\Http\Models\ThirdSection;
 
 class DashboardController extends Controller
 {
@@ -16,11 +17,13 @@ class DashboardController extends Controller
     {
         $sliders       = Slider::all()->sortBy('position');
         $secondSection = SecondSection::first();
+        $thirdSection  = ThirdSection::first();
         $testimonials  = Testimonial::all()->sortByDesc('id');
 
         return view('admin.dashboard.index')
                     ->with(compact('sliders'))
                     ->with(compact('secondSection'))
+                    ->with(compact('thirdSection'))
                     ->with(compact('testimonials'));
     }
 
