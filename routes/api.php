@@ -65,3 +65,7 @@ Route::group(['prefix' => 'price'], function() {
     Route::get('domestic', 'PriceController@domestic');
     Route::get('foreigner', 'PriceController@foreigner');
 });
+
+Route::group(['prefix' => 'schedules'], function() {
+    Route::get('/', 'ScheduleController@show');
+});
