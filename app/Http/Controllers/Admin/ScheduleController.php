@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Models\Route;
-use App\Http\Models\Schedule;
 use App\Http\Requests\ScheduleStore;
 use App\Http\Requests\ScheduleUpdate;
 
@@ -13,6 +12,8 @@ class ScheduleController extends Controller
 {
     public function index(Route $route)
     {
+        $route->load('schedules');
+
         return view('admin.schedule.index')->with(compact('route'));
     }
 

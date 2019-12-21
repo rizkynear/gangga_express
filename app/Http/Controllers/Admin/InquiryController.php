@@ -82,6 +82,8 @@ class InquiryController extends Controller
 
     public function detailPassenger(Booking $booking)
     {
+        $booking->with('details');
+
         return view('admin.inquiry.detail-passenger')->with(compact('booking'));
     }
 
@@ -89,6 +91,8 @@ class InquiryController extends Controller
     {
         $domesticPrice  = DomesticPrice::first();
         $foreignerPrice = ForeignerPrice::first();
+
+        $booking->with('contact', 'schedules');
 
         return view('admin.inquiry.detail-inquiry')->with(compact('booking'))
                                                    ->with(compact('domesticPrice'))
