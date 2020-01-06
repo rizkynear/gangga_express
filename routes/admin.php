@@ -104,7 +104,12 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function() {
             Route::get('the-company', 'CompanyController@index')->name('company');
 
             Route::group(['prefix' => 'the-company', 'as' => 'company.'], function() {
-                Route::post('save', 'CompanyController@save')->name('save');
+                Route::post('first-save', 'CompanyFirstSectionController@save')->name('first.save');
+                Route::post('second-save', 'CompanySecondSectionController@save')->name('second.save');
+                Route::post('first-setCropBox', 'CompanyFirstSectionController@setCropBox')->name('first.cropBox');
+                Route::post('second-setCropBox', 'CompanySecondSectionController@setCropBox')->name('second.cropBox');
+                Route::post('first-edit-image', 'CompanyFirstSectionController@editImage')->name('first.edit-image');
+                Route::post('second-edit-image', 'CompanySecondSectionController@editImage')->name('second.edit-image');
             });
         });
 
