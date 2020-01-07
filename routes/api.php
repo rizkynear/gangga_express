@@ -72,6 +72,7 @@ Route::group(['prefix' => 'contact'], function() {
 Route::group(['prefix' => 'price'], function() {
     Route::get('domestic', 'PriceController@domestic');
     Route::get('foreigner', 'PriceController@foreigner');
+    Route::post('total', 'PriceController@total');
 });
 
 Route::group(['prefix' => 'schedules'], function() {

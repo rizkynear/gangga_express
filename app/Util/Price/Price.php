@@ -16,7 +16,7 @@ class Price
         $foreignerChild  = 0;
         $foreignerAdult  = 0;
 
-        for ($i = 0; $i < $request->total_passenger; $i++) {
+        for ($i = 0; $i < count($request->category); $i++) {
             if ($request->category[$i] == 'infant') {
                 if ($request->nationality[$i] == 'indonesia') {
                     $domesticInfant += 1;
@@ -42,15 +42,16 @@ class Price
             }
         }
 
-        $domesticPrice  = $this->domestic($domesticInfant, $domesticChild, $domesticAdult);
-        $foreignerPrice = $this->foreigner($foreignerInfant, $foreignerChild, $foreignerAdult);
+        $domestic  = $this->domesticPrice($domesticInfant, $domesticChild, $domesticAdult);
+        $foreigner = $this->foreignerPrice($foreignerInfant, $foreignerChild, $foreignerAdult);
 
-        $total = $domesticPrice + $foreignerPrice;
+        $total = ['totalPrice' => $domestic['domesticTotalPrice'] + $foreigner['foreignerTotalPrice']];
 
-        return $total;
+        return array_merge($domestic, $foreigner, $total);
+
     }
 
-    private function domestic($infantTotal, $childTotal, $adultTotal)
+    public function domesticPrice($infantTotal, $childTotal, $adultTotal)
     {
         $domestic = DomesticPrice::first();
 
@@ -60,10 +61,15 @@ class Price
 
         $total = $infantPrice + $childPrice + $adultPrice;
 
-        return $total;
+        return [
+            'domesticAdultPrice'  => $adultPrice,
+            'domesticChildPrice'  => $childPrice,
+            'domesticInfantPrice' => $infantPrice,
+            'domesticTotalPrice'  => $total
+        ];
     }
 
-    private function foreigner($infantTotal, $childTotal, $adultTotal)
+    public function foreignerPrice($infantTotal, $childTotal, $adultTotal)
     {
         $foreigner = ForeignerPrice::first();
 
@@ -73,6 +79,11 @@ class Price
 
         $total = $infantPrice + $childPrice + $adultPrice;
 
-        return $total;
+        return [
+            'foreignerAdultPrice'  => $adultPrice,
+            'foreignerChildPrice'  => $childPrice,
+            'foreignerInfantPrice' => $infantPrice,
+            'foreignerTotalPrice'  => $total
+        ];
     }
 }

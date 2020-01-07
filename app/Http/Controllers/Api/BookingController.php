@@ -51,8 +51,8 @@ class BookingController extends Controller
         $booking = new Booking();
         $port    = Route::where('route', '=', $request->departure_route)->first();
 
-        $price      = new Price();
-        $totalPrice = $price->total($request);
+        $price = new Price();
+        $total = $price->total($request);
         
         $booking->code   = $this->generateCode();
         $booking->type   = $request->booking_type;
@@ -60,7 +60,7 @@ class BookingController extends Controller
         $booking->child  = ($request->child ?? 0);
         $booking->infant = ($request->infant ?? 0);
         $booking->total  = $request->total_passenger;
-        $booking->price  = $totalPrice;
+        $booking->price  = $total['totalPrice'];
         $booking->save();
 
         $booking->contact()->create([
