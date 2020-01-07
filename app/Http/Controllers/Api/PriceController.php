@@ -30,13 +30,39 @@ class PriceController extends Controller
 
         return response()->json([
             'data' => [
-                'domesticAdultPrice'   => $total['domesticAdultPrice'],
-                'domesticChildPrice'   => $total['domesticChildPrice'],
-                'domesticInfantPrice'  => $total['domesticInfantPrice'],
-                'foreignerAdultPrice'  => $total['foreignerAdultPrice'],
-                'foreignerChildPrice'  => $total['foreignerChildPrice'],
-                'foreignerInfantPrice' => $total['foreignerInfantPrice'],
-                'totalPrice'           => $total['totalPrice']
+                [
+                    'category'    => 'adult',
+                    'nationality' => 'indonesia',
+                    'total'       => $total['domesticAdultTotal'],
+                    'price'       => $total['domesticAdultPrice']
+                ], [
+                    'category'    => 'child',
+                    'nationality' => 'indonesia',
+                    'total'       => $total['domesticChildTotal'],
+                    'price'       => $total['domesticChildPrice']
+                ], [
+                    'category'    => 'infant',
+                    'nationality' => 'indonesia',
+                    'total'       => $total['domesticInfantTotal'],
+                    'price'       => $total['domesticInfantPrice']
+                ], [
+                    'category'    => 'adult',
+                    'nationality' => 'foreigner',
+                    'total'       => $total['foreignerAdultTotal'],
+                    'price'       => $total['foreignerAdultPrice']
+                ], [
+                    'category'    => 'child',
+                    'nationality' => 'foreigner',
+                    'total'       => $total['foreignerChildTotal'],
+                    'price'       => $total['foreignerChildPrice']
+                ], [
+                    'category'    => 'infant',
+                    'nationality' => 'foreigner',
+                    'total'       => $total['foreignerInfantTotal'],
+                    'price'       => $total['foreignerInfantPrice']
+                ], [
+                    'totalPrice' => $total['totalPrice']
+                ]
             ]
         ]);
     }

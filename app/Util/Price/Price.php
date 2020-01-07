@@ -65,6 +65,9 @@ class Price
             'domesticAdultPrice'  => $adultPrice,
             'domesticChildPrice'  => $childPrice,
             'domesticInfantPrice' => $infantPrice,
+            'domesticAdultTotal'  => $adultTotal,
+            'domesticChildTotal'  => $childTotal,
+            'domesticInfantTotal' => $infantTotal,
             'domesticTotalPrice'  => $total
         ];
     }
@@ -83,6 +86,9 @@ class Price
             'foreignerAdultPrice'  => $adultPrice,
             'foreignerChildPrice'  => $childPrice,
             'foreignerInfantPrice' => $infantPrice,
+            'foreignerAdultTotal'  => $adultTotal,
+            'foreignerChildTotal'  => $childTotal,
+            'foreignerInfantTotal' => $infantTotal,
             'foreignerTotalPrice'  => $total
         ];
     }
