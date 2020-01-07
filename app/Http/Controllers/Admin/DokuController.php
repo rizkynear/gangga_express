@@ -5,16 +5,11 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Models\Booking;
-use App\Traits\Doku;
+use App\Util\Doku\Doku;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class DokuController extends Controller
 {
-    use Doku;
-
-    const MALLID    = '209';
-    const SHAREDKEY = 'uUqPRAr689d0';
-
     public function setParams()
     {
         
