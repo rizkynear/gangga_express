@@ -27,6 +27,10 @@ Route::group(['prefix' => 'second-sections'], function() {
     Route::get('/', 'SecondSectionController@show');
 });
 
+Route::group(['prefix' => 'third-sections'], function() { 
+    Route::get('/', 'ThirdSectionController@show');
+});
+
 Route::group(['prefix' => 'testimonials'], function() {
     Route::get('/', 'TestimonialController@showAll');
     Route::get('{testimonial}', 'TestimonialController@showOne');
