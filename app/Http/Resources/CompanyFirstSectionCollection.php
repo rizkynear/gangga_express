@@ -3,9 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
-use App\Http\Resources\CompanyResource;
 
-class CompanyCollection extends ResourceCollection
+class CompanyFirstSectionCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -16,7 +15,7 @@ class CompanyCollection extends ResourceCollection
     public function toArray($request)
     {
         return [
-            'data' => CompanyResource::collection($this->collection)
+            'data' => CompanyFirstSectionResource::collection($this->collection)
         ];
     }
 }

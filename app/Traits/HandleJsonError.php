@@ -4,7 +4,6 @@ namespace App\Traits;
 
 use Exception;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Validation\ValidationException;

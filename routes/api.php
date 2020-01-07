@@ -32,8 +32,12 @@ Route::group(['prefix' => 'testimonials'], function() {
     Route::get('{testimonial}', 'TestimonialController@showOne');
 });
 
-Route::group(['prefix' => 'company'], function() {
-    Route::get('/', 'CompanyController@show');
+Route::group(['prefix' => 'company-first-section'], function() {
+    Route::get('/', 'CompanyFirstSectionController@show');
+});
+
+Route::group(['prefix' => 'company-second-section'], function() {
+    Route::get('/', 'CompanySecondSectionController@show');
 });
 
 Route::group(['prefix' => 'destinations'], function() {

@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CompanyResource extends JsonResource
+class CompanySecondSectionResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,7 +18,8 @@ class CompanyResource extends JsonResource
             'id'        => $this->id,
             'title'     => $this->title,
             'sub_title' => $this->sub_title,
-            'content'   => $this->content
+            'content'   => $this->content,
+            'image'     => asset('storage/images/company-firsts/' . $this->image)
         ];
     }
 }
