@@ -11,10 +11,13 @@ use App\Http\Models\Schedule;
 use App\Http\Resources\DepartureCollection;
 use App\Http\Resources\HolidayCollection;
 use App\Http\Resources\ReturnCollection;
+use App\Traits\Generate;
 use App\Util\Price\Price;
 
 class BookingController extends Controller
 {
+    use Generate;
+    
     public function departure(Request $request)
     {
         if ($request->has('departure_date')) {
@@ -106,21 +109,5 @@ class BookingController extends Controller
         return response()->json([
             'success' => 'Data Successfully Added'
         ]);
-    }
-
-    private function generateCode() 
-    {
-        $code = mt_rand(10000000000, 100000000000);
-
-        if ($this->codeExists($code)) {
-            return generateCode();
-        }
-
-        return $code;
-    }
-
-    private function codeExists($code)
-    {
-        return Booking::whereCode($code)->exists();
     }
 }

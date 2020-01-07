@@ -10,11 +10,6 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class DokuController extends Controller
 {
-    public function setParams()
-    {
-        
-    }
-
     public function notify(Request $request)
     {
         try {
