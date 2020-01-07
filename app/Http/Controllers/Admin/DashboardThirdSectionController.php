@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Models\ThirdSection;
 use App\Http\Requests\ThirdSectionEditImage;
 use App\Http\Requests\ThirdSectionSave;
+use Illuminate\Support\Str;
 
 class DashboardThirdSectionController extends Controller
 {
