@@ -12,7 +12,7 @@ class ScheduleController extends Controller
 {
     public function index(Route $route)
     {
-        $route->load('schedules');
+        $route->with('schedules');
 
         return view('admin.schedule.index')->with(compact('route'));
     }
