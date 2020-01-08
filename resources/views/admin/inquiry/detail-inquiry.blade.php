@@ -73,19 +73,19 @@
                                     <td>
                                         <ul class="clearfix no-list">
                                             <li class="pull-left">Domestic Adult (x{{ $booking->details->where('category', '=', 'adult')->where('nationality', '=', 'indonesia')->count() }})</li>
-                                            <li class="pull-right">Rp. {{ number_format($booking->details->where('category', '=', 'adult')->where('nationality', '=', 'indonesia')->count() * $domesticPrice->adult, 0, '.', '.') }}</li>
+                                            <li class="pull-right">Rp. {{ number_format($booking->details->where('category', '=', 'adult')->where('nationality', '=', 'indonesia')->count() * $domesticPrice->adult) }}</li>
                                         </ul>
                                         <ul class="clearfix no-list">
                                             <li class="pull-left">Foreigner Adult (x{{ $booking->details->where('category', '=', 'adult')->where('nationality', '=', 'foreigner')->count() }})</li>
-                                            <li class="pull-right">Rp. {{ number_format($booking->details->where('category', '=', 'adult')->where('nationality', '=', 'foreigner')->count() * $foreignerPrice->adult, 0, '.', '.') }}</li>
+                                            <li class="pull-right">Rp. {{ number_format($booking->details->where('category', '=', 'adult')->where('nationality', '=', 'foreigner')->count() * $foreignerPrice->adult) }}</li>
                                         </ul>
                                         <ul class="clearfix no-list">
                                             <li class="pull-left">Domestic Child (x{{ $booking->details->where('category', '=', 'child')->where('nationality', '=', 'indonesia')->count() }})</li>
-                                            <li class="pull-right">Rp. {{ number_format($booking->details->where('category', '=', 'child')->where('nationality', '=', 'indonesia')->count() * $domesticPrice->child, 0, '.', '.') }}</li>
+                                            <li class="pull-right">Rp. {{ number_format($booking->details->where('category', '=', 'child')->where('nationality', '=', 'indonesia')->count() * $domesticPrice->child) }}</li>
                                         </ul>
                                         <ul class="clearfix no-list">
                                             <li class="pull-left">Foreigner Child (x{{ $booking->details->where('category', '=', 'child')->where('nationality', '=', 'foreigner')->count() }})</li>
-                                            <li class="pull-right">Rp. {{ number_format($booking->details->where('category', '=', 'child')->where('nationality', '=', 'foreigner')->count() * $foreignerPrice->child, 0, '.', '.') }}</li>
+                                            <li class="pull-right">Rp. {{ number_format($booking->details->where('category', '=', 'child')->where('nationality', '=', 'foreigner')->count() * $foreignerPrice->child) }}</li>
                                         </ul>
                                         <ul class="clearfix no-list">
                                             <li class="pull-left">Domestic Infant (x{{ $booking->details->where('category', '=', 'infant')->where('nationality', '=', 'indonesia')->count() }})</li>
