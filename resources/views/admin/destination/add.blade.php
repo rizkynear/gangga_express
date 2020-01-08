@@ -90,7 +90,7 @@
 @section('script')
 <!--MAP-->
 <script src="{{ asset('js/locationpicker.jquery.min.js') }}" type="text/javascript"></script>
-<script type="text/javascript" src='http://maps.google.com/maps/api/js?sensor=false&libraries=places'></script>
+<script type="text/javascript" src='http://maps.google.com/maps/api/js?key=AIzaSyBO9L4f__DjVqsRWqSGaoCGwzqKml_I0M0'></script>
 <!--MAP END-->
 
 <script type="text/javascript">
@@ -106,7 +106,8 @@
             inputBinding: {
                 latitudeInput: $('#loc-lat'),
                 longitudeInput: $('#loc-lon'),
-                radiusInput: $('#loc-radius')
+                radiusInput: $('#loc-radius'),
+                locationNameInput: $('#loc-address') 
             },
             enableAutocomplete: true
         });
