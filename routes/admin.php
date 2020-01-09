@@ -144,16 +144,5 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function() {
             });
         });
 
-        Route::prefix('doku')->group(function() {
-            Route::get('/', function() {
-                return view('admin.doku.index');
-            });
-
-            Route::get('success', function() {
-                return view('admin.doku.success');
-            });
-
-            Route::get('notify', 'DokuController@notify')->name('doku.notify');
-        });
     });
 });
