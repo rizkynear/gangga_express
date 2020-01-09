@@ -19,7 +19,7 @@ class DokuController extends Controller
 
         $checkWords = Doku::checkWords($request);
 
-        if ($checkWords === true && (int)$request->RESPONSECODE === 0000 && $request->RESULTMSG === 'SUCCESS' && $booking->paid_status !== 1) {
+        if ($checkWords === true && (int)$request->RESPONSECODE === 0000 && $request->RESULTMSG === 'SUCCESS' && $booking->paid_status !== 1 && $request->VERIFYSTATUS === 'APPROVE') {
             $booking->update(['paid_status' => 1]);
 
             return 'continue';

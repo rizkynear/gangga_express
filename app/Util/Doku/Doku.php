@@ -9,7 +9,7 @@ class Doku
 
     public static function checkWords($request)
     {
-        $words = sha1($request->AMOUNT . self::MALLID . self::SHAREDKEY . $request->TRANSIDMERCHANT . $request->RESULTMSG . $request->RESPONSECODE);
+        $words = sha1($request->AMOUNT . self::MALLID . self::SHAREDKEY . $request->TRANSIDMERCHANT . $request->RESULTMSG . $request->VERIFYSTATUS);
 
         if ($words === $request->WORDS) {
             return true;

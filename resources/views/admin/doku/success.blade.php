@@ -13,6 +13,7 @@
         <input type="text" name="TRANSIDMERCHANT" value="2">
         <input type="text" name="AMOUNT" value="100000.00">
         <input type="text" name="WORDS" value="938dc97c71571737303aa14bca61eb84a96550c6">
+        <input type="text" name="VERIFYSTATUS" value="APPROVE">
         <input type="submit">
     </form>
 </body>
