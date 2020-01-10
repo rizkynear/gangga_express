@@ -78,5 +78,3 @@ Route::group(['prefix' => 'price'], function() {
 Route::group(['prefix' => 'schedules'], function() {
     Route::get('/', 'ScheduleController@show');
 });
-
-Route::get('doku/notify', 'DokuController@notify')->name('doku.notify');
