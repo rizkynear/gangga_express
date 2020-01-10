@@ -12,7 +12,7 @@ class DokuController extends Controller
     public function notify(Request $request)
     {
         // try {
-            $booking = Booking::findOrFail($request->TRANSIDMERCHANT);
+            // $booking = Booking::findOrFail($request->TRANSIDMERCHANT);
         // } catch (ModelNotFoundException $e) {
         //     return 'stop';
         // }
@@ -27,6 +27,8 @@ class DokuController extends Controller
 
         // return 'stop';
 
-        $booking->update(['paid_status' => 1]);
+        // $booking->update(['paid_status' => 1]);
+
+        dd('woi');
     }
 }
