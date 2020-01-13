@@ -24,6 +24,7 @@ class CreateBookingsTable extends Migration
             $table->string('price');
             $table->integer('read_status')->default(0);
             $table->integer('paid_status')->default(0);
+            $table->timestamp('paid_at')->nullable()->default(null);
             $table->timestamps();
         });
     }
