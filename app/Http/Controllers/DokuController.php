@@ -25,6 +25,6 @@ class DokuController extends Controller
         //     return 'continue';
         // }
 
-        return 'stop';
+        return 'Stop';
     }
 }
