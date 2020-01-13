@@ -14,7 +14,7 @@ class DokuController extends Controller
         // try {
         //     $booking = Booking::findOrFail($request->TRANSIDMERCHANT);
         // } catch (ModelNotFoundException $e) {
-        //     return 'stop';
+        //     return 'Stop';
         // }
 
         // $checkWords = Doku::checkWords($request);
@@ -22,9 +22,9 @@ class DokuController extends Controller
         // if ($checkWords === true && (int)$request->RESPONSECODE === 0000 && $request->RESULTMSG === 'SUCCESS' && $booking->paid_status !== 1 && $request->VERIFYSTATUS === 'APPROVE') {
         //     $booking->update(['paid_status' => 1]);
 
-        //     return 'continue';
+        //     return 'Continue';
         // }
 
-        echo 'Stop';
+        return 'Stop';
     }
 }
