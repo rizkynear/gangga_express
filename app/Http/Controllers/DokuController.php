@@ -25,7 +25,7 @@ class DokuController extends Controller
         //     return 'Continue';
         // }
 
-        echo 'Stop';
+        echo 'STOP';
     }
 
     public function redirect(Request $request)
