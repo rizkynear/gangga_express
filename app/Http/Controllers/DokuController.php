@@ -12,7 +12,7 @@ class DokuController extends Controller
     public function notify(Request $request)
     {
         try {
-            $booking = Booking::findOrFail($request->TRANSIDMERCHANT);
+            $booking = Booking::find($request->TRANSIDMERCHANT);
         } catch (ModelNotFoundException $e) {
             return 'stop';
         }
