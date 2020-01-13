@@ -27,4 +27,9 @@ class DokuController extends Controller
 
         return 'Stop';
     }
+
+    public function redirect(Request $request)
+    {
+        dd($request->all());
+    }
 }
