@@ -83,4 +83,4 @@ Route::prefix('api/v1')->group(function() {
     });
 });
 
-Route::post('doku/notify', 'DokuController@notify')->name('doku.notify');
+Route::post('doku/notify.php', 'DokuController@notify')->name('doku.notify');
