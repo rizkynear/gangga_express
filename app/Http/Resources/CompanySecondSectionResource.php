@@ -19,7 +19,7 @@ class CompanySecondSectionResource extends JsonResource
             'title'     => $this->title,
             'sub_title' => $this->sub_title,
             'content'   => $this->content,
-            'image'     => asset('storage/images/company-firsts/' . $this->image)
+            'image'     => asset('storage/images/company-seconds/' . $this->image)
         ];
     }
 }
