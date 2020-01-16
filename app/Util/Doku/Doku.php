@@ -2,6 +2,10 @@
 
 namespace App\Util\Doku;
 
+use App\Http\Models\Booking;
+use App\Http\Models\Route;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+
 class Doku
 {
     const MALLID    = '209';
@@ -41,5 +45,48 @@ class Doku
             'EMAIL' => $email,
             'BASKET' => $basket
         ];
+    }
+
+    public static function checkAvailable($transId)
+    {
+        try {
+            $booking = Booking::findOrFail($transId);
+        } catch (ModelNotFoundException $e) {
+            return false;
+        }
+        
+        
+        $reqPassenger = $booking->child + $booking->adult;
+        $reqRoute     = $booking->schedule->route;
+        $reqDate      = $booking->schedule->date;
+        $reqTime      = $booking->schedule->departure;
+        
+        $route    = Route::where('route', '=', $reqRoute)->first();
+        $bookings = Booking::where('paid_status', '=', 1);
+
+        $schedule = $route->schedules->where('departure')->first();
+        
+        $bookings->whereHas('schedules', function($query) use ($reqTime, $reqRoute, $reqDate) {
+            $query->where('route', '=', $reqRoute)->where('date', '=', $reqDate)->where('departure', '=', $reqTime);
+        });
+
+        $total = $this->checkTotalBooked($bookings->get()) + $reqPassenger;
+
+        if ($total > $schedule->quota ) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private function checkTotalBooked($bookings)
+    {
+        $total = 0;
+
+        foreach($bookings as $booking) {
+            $total += $booking->adult + $booking->child;
+        }
+
+        return $total;
     }
 }

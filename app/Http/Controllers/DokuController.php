@@ -17,9 +17,10 @@ class DokuController extends Controller
             return 'STOP';
         }
 
-        $checkWords = Doku::checkWords($request);
+        $checkWords     = Doku::checkWords($request);
+        $checkAvailable = Doku::checkAvailable($request->TRANSIDMERCHANT);
 
-        if ($checkWords === true && (int)$request->RESPONSECODE === 0000 && $request->RESULTMSG === 'SUCCESS' && $booking->paid_status !== 1) {
+        if ($checkWords === true && $checkAvailable === true && (int)$request->RESPONSECODE === 0000 && $request->RESULTMSG === 'SUCCESS' && $booking->paid_status !== 1) {
             $booking->update([
                 'paid_status' => 1,
                 'paid_at'     => now()
