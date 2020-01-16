@@ -47,46 +47,46 @@ class Doku
         ];
     }
 
-    public static function checkAvailable($transId)
-    {
-        try {
-            $booking = Booking::findOrFail($transId);
-        } catch (ModelNotFoundException $e) {
-            return false;
-        }
+    // public static function checkAvailable($transId)
+    // {
+    //     try {
+    //         $booking = Booking::findOrFail($transId);
+    //     } catch (ModelNotFoundException $e) {
+    //         return false;
+    //     }
         
         
-        $reqPassenger = $booking->child + $booking->adult;
-        $reqRoute     = $booking->schedule->route;
-        $reqDate      = $booking->schedule->date;
-        $reqTime      = $booking->schedule->departure;
+    //     $reqPassenger = $booking->child + $booking->adult;
+    //     $reqRoute     = $booking->schedule->route;
+    //     $reqDate      = $booking->schedule->date;
+    //     $reqTime      = $booking->schedule->departure;
         
-        $route    = Route::where('route', '=', $reqRoute)->first();
-        $bookings = Booking::where('paid_status', '=', 1);
+    //     $route    = Route::where('route', '=', $reqRoute)->first();
+    //     $bookings = Booking::where('paid_status', '=', 1);
 
-        $schedule = $route->schedules->where('departure')->first();
+    //     $schedule = $route->schedules->where('departure')->first();
         
-        $bookings->whereHas('schedules', function($query) use ($reqTime, $reqRoute, $reqDate) {
-            $query->where('route', '=', $reqRoute)->where('date', '=', $reqDate)->where('departure', '=', $reqTime);
-        });
+    //     $bookings->whereHas('schedules', function($query) use ($reqTime, $reqRoute, $reqDate) {
+    //         $query->where('route', '=', $reqRoute)->where('date', '=', $reqDate)->where('departure', '=', $reqTime);
+    //     });
 
-        $total = $this->checkTotalBooked($bookings->get()) + $reqPassenger;
+    //     $total = $this->checkTotalBooked($bookings->get()) + $reqPassenger;
 
-        if ($total > $schedule->quota ) {
-            return false;
-        }
+    //     if ($total > $schedule->quota ) {
+    //         return false;
+    //     }
 
-        return true;
-    }
+    //     return true;
+    // }
 
-    private function checkTotalBooked($bookings)
-    {
-        $total = 0;
+    // private function checkTotalBooked($bookings)
+    // {
+    //     $total = 0;
 
-        foreach($bookings as $booking) {
-            $total += $booking->adult + $booking->child;
-        }
+    //     foreach($bookings as $booking) {
+    //         $total += $booking->adult + $booking->child;
+    //     }
 
-        return $total;
-    }
+    //     return $total;
+    // }
 }
