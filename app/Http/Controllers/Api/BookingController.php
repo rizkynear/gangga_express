@@ -8,6 +8,7 @@ use App\Http\Models\Booking;
 use App\Http\Models\Holiday;
 use App\Http\Models\Route;
 use App\Http\Models\Schedule;
+use App\Http\Requests\BookingStore;
 use App\Http\Resources\DepartureCollection;
 use App\Http\Resources\HolidayCollection;
 use App\Http\Resources\ReturnCollection;
@@ -50,7 +51,7 @@ class BookingController extends Controller
         return new HolidayCollection(Holiday::all());
     }
 
-    public function store(Request $request)
+    public function store(BookingStore $request)
     {
         $booking = new Booking();
         $port    = Route::where('route', '=', $request->departure_route)->first();
