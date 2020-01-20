@@ -31,7 +31,7 @@ class CompanySecondSave extends FormRequest
             'second_content_en'   => 'required',
             'second_title_id'     => 'required|max:191',
             'second_sub_title_id' => 'required|max:191',
-            'second_content_id'   => 'required|max:191'
+            'second_content_id'   => 'required'
         ];
     }
 

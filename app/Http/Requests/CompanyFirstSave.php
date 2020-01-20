@@ -31,7 +31,7 @@ class CompanyFirstSave extends FormRequest
             'first_content_en'   => 'required',
             'first_title_id'     => 'required|max:191',
             'first_sub_title_id' => 'required|max:191',
-            'first_content_id'   => 'required|max:191'
+            'first_content_id'   => 'required'
         ];
     }
     

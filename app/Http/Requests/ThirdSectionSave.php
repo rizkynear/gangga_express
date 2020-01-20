@@ -31,7 +31,7 @@ class ThirdSectionSave extends FormRequest
             'third_section_content_en'   => 'required',
             'third_section_title_id'     => 'required|max:191',
             'third_section_sub_title_id' => 'required|max:191',
-            'third_section_content_id'   => 'required|max:191',
+            'third_section_content_id'   => 'required',
         ];
     }
 

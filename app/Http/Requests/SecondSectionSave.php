@@ -31,7 +31,7 @@ class SecondSectionSave extends FormRequest
             'second_section_content_en'   => 'required',
             'second_section_title_id'     => 'required|max:191',
             'second_section_sub_title_id' => 'required|max:191',
-            'second_section_content_id'   => 'required|max:191',
+            'second_section_content_id'   => 'required',
         ];
     }
 
