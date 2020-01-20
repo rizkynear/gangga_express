@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Models\Booking;
+use App\Mail\BookingInformation;
 use App\Util\Doku\Doku;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Mail;
 
 class DokuController extends Controller
 {
@@ -17,13 +19,17 @@ class DokuController extends Controller
             return 'STOP';
         }
 
-        $checkWords     = Doku::checkWords($request);
+        $checkWords = Doku::checkWords($request);
 
         if ($checkWords === true && (int)$request->RESPONSECODE === 0000 && $request->RESULTMSG === 'SUCCESS' && $booking->paid_status !== 1) {
             $booking->update([
                 'paid_status' => 1,
                 'paid_at'     => now()
             ]);
+
+            $booking->with('details', 'contact', 'schedules');
+
+            Mail::to($booking->contact->email)->send(new BookingInformation($booking));
 
             return 'CONTINUE';
         }

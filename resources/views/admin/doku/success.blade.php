@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="{{ route('doku.notify') }}" method="GET">
+    <form action="{{ route('doku.notify') }}" method="POST">
         <input type="text" name="RESPONSECODE" value="0000">
         <input type="text" name="RESULTMSG" value="SUCCESS">
         <input type="text" name="TRANSIDMERCHANT" value="2">
