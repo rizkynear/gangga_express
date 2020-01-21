@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <!-- <script type="text/javascript">
+    <script type="text/javascript">
         function postPay() {
             document.forms["pay"].submit();
         }
-    </script> -->
+    </script>
 </head>
 <body onload="postPay()">
     <form action="https://staging.doku.com/Suite/Receive" method="POST" name="pay">
