@@ -42,8 +42,7 @@ class Kernel extends HttpKernel
         'api' => [
             'throttle:60,1',
             'bindings',
-            \App\Http\Middleware\LocalizeApiRequest::class,
-            \Fruitcake\Cors\HandleCors::class,
+            \App\Http\Middleware\LocalizeApiRequest::class
         ],
     ];
 
