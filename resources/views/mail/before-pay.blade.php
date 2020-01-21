@@ -199,7 +199,7 @@
                     </tr>
                     <tr>
                         <td style="padding:0px 30px; text-align:center">
-                            <a href="{{ route('doku.pay', $booking->id) }}" style="text-decoration: none;color: #fff;background-color: #005396;padding: 12px;display: block;margin: 0 auto;width: 25%;font-weight: bold;margin-bottom: 25px;">Pay Now!</a>
+                            <a href="{{ route('doku.pay', $booking->id) }}" target="_blank" style="text-decoration: none;color: #fff;background-color: #005396;padding: 12px;display: block;margin: 0 auto;width: 25%;font-weight: bold;margin-bottom: 25px;">Pay Now!</a>
                         </td>
                     </tr>
                     <!-- MAIN-CONTENT END -->
