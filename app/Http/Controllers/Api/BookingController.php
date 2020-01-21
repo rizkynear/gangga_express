@@ -15,6 +15,8 @@ use App\Http\Resources\ReturnCollection;
 use App\Traits\Generate;
 use App\Util\Doku\Doku;
 use App\Util\Price\Price;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\BeforePayMail;
 
 class BookingController extends Controller
 {
@@ -109,6 +111,8 @@ class BookingController extends Controller
         }
 
         $params = Doku::setPaymentParams($booking->price, $booking->id, $booking->created_at->format('YmdHis'), $request->currency, $request->contact_name, $request->contact_email, $request->basket);
+    
+        Mail::to($request->contact_email)->send(new BeforePayMail($booking));
 
         return response()->json($params);
     }

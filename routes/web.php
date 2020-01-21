@@ -17,10 +17,12 @@ Route::get('/', function () {
 
 Route::prefix('doku')->group(function() {
     Route::get('/', function() {
-        return view('admin.doku.index');
+        return view('doku.index');
     });
 
     Route::get('success', function() {
-        return view('admin.doku.success');
+        return view('doku.success');
     });
+
+    Route::get('pay/{booking}', 'DokuController@pay')->name('doku.pay');
 });

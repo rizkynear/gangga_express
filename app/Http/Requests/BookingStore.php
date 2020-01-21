@@ -42,7 +42,6 @@ class BookingStore extends FormRequest
             'address.*'              => 'required',
             'category.*'             => 'required|max:191',
             'currency'               => 'required|numeric',
-            'basket'                 => 'required'
         ];
     }
 }

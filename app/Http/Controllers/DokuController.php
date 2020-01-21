@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Models\Booking;
-use App\Mail\BookingInformation;
+use App\Mail\AfterPayMail;
 use App\Util\Doku\Doku;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Mail;
@@ -29,7 +29,7 @@ class DokuController extends Controller
 
             $booking->with('details', 'contact', 'schedules');
 
-            Mail::to($booking->contact->email)->send(new BookingInformation($booking));
+            Mail::to($booking->contact->email)->send(new AfterPayMail($booking));
 
             return 'CONTINUE';
         }
@@ -40,5 +40,12 @@ class DokuController extends Controller
     public function redirect(Request $request)
     {
         dd($request->all());
+    }
+
+    public function pay(Booking $booking)
+    {
+        $params = Doku::setPaymentParams($booking->price, $booking->id, $booking->created_at->format('YmdHis'), 360, $booking->contact->name, $booking->contact->email);
+
+        return view('doku.pay')->with(compact('params'));
     }
 }

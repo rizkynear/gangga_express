@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class BookingInformation extends Mailable
+class AfterPayMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -32,6 +32,6 @@ class BookingInformation extends Mailable
     {
         $booking = $this->booking;
 
-        return $this->view('mail.index')->with(compact('booking'));
+        return $this->view('mail.after-pay')->with(compact('booking'));
     }
 }
