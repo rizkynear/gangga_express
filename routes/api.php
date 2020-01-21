@@ -22,7 +22,7 @@ Route::prefix('api/v1')->group(function() {
         
         Route::group(['prefix' => 'blogs'], function() {
             Route::get('/', 'BlogController@showAll');
-            Route::get('{blog}', 'BlogController@showOne')->name('blog');
+            Route::get('{blog}', 'BlogController@showOne')->name('api.blog');
         });
         
         Route::group(['prefix' => 'second-sections'], function() { 
@@ -68,7 +68,7 @@ Route::prefix('api/v1')->group(function() {
         });
         
         Route::group(['prefix' => 'contact'], function() {
-            Route::post('store', 'ContactController@store')->name('store');
+            Route::post('store', 'ContactController@store');
         });
         
         Route::group(['prefix' => 'price'], function() {
