@@ -13,19 +13,19 @@
 </head>
 <body onload="postPay()">
     <form action="https://staging.doku.com/Suite/Receive" method="POST" name="pay">
-        <input type="text" name="MALLID" value="{{ $params['MALLID'] }}">
-        <input type="text" name="CHAINMERCHANT" value="{{ $params['CHAINMERCHANT'] }}">
-        <input type="text" name="AMOUNT" value="{{ $params['AMOUNT'] }}">
-        <input type="text" name="PURCHASEAMOUNT" value="{{ $params['PURCHASEAMOUNT'] }}">
-        <input type="text" name="TRANSIDMERCHANT" value="{{ $params['TRANSIDMERCHANT'] }}">
-        <input type="text" name="WORDS" value="{{ $params['WORDS'] }}">
-        <input type="text" name="REQUESTDATETIME" value="{{ $params['REQUESTDATETIME'] }}">
-        <input type="text" name="CURRENCY" value="{{ $params['CURRENCY'] }}">
-        <input type="text" name="PURCHASECURRENCY" value="{{ $params['PURCHASECURRENCY'] }}">
-        <input type="text" name="SESSIONID" value="{{ $params['SESSIONID'] }}">
-        <input type="text" name="NAME" value="{{ $params['NAME'] }}">
-        <input type="text" name="EMAIL" value="{{ $params['EMAIL'] }}">
-        <input type="text" name="BASKET" value="{{ $params['BASKET'] }}">
+        <input type="hidden" name="MALLID" value="{{ $params['MALLID'] }}">
+        <input type="hidden" name="CHAINMERCHANT" value="{{ $params['CHAINMERCHANT'] }}">
+        <input type="hidden" name="AMOUNT" value="{{ $params['AMOUNT'] }}">
+        <input type="hidden" name="PURCHASEAMOUNT" value="{{ $params['PURCHASEAMOUNT'] }}">
+        <input type="hidden" name="TRANSIDMERCHANT" value="{{ $params['TRANSIDMERCHANT'] }}">
+        <input type="hidden" name="WORDS" value="{{ $params['WORDS'] }}">
+        <input type="hidden" name="REQUESTDATETIME" value="{{ $params['REQUESTDATETIME'] }}">
+        <input type="hidden" name="CURRENCY" value="{{ $params['CURRENCY'] }}">
+        <input type="hidden" name="PURCHASECURRENCY" value="{{ $params['PURCHASECURRENCY'] }}">
+        <input type="hidden" name="SESSIONID" value="{{ $params['SESSIONID'] }}">
+        <input type="hidden" name="NAME" value="{{ $params['NAME'] }}">
+        <input type="hidden" name="EMAIL" value="{{ $params['EMAIL'] }}">
+        <input type="hidden" name="BASKET" value="{{ $params['BASKET'] }}">
     </form>
 </body>
 </html>
