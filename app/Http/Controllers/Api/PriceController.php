@@ -66,7 +66,6 @@ class PriceController extends Controller
             ] 
         ])->header('Access-Control-Allow-Origin', '*')
           ->header('Access-Control-Allow-Methods', '*')
-          ->header('Access-Control-Allow-Headers', '*')
-          ->header('Access-Control-Max-Age', '86400');
+          ->header('Access-Control-Allow-Headers', '*');
     }
 }
