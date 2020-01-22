@@ -67,7 +67,7 @@ class BookingController extends Controller
         $booking->child  = ($request->child ?? 0);
         $booking->infant = ($request->infant ?? 0);
         $booking->total  = $request->total_passenger;
-        $booking->price  = $total['totalPrice'];
+        $booking->price  = ($request->booking_type == 'round-trip' ? $total['totalPrice'] * 2 : $total['totalPrice']);
         $booking->save();
 
         $booking->contact()->create([
