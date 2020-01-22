@@ -28,7 +28,7 @@ class PriceController extends Controller
 
         $total = $price->total($request);
 
-        return response([
+        return response()->json([
             'data' => [
                 [
                     'category'    => 'adult',
@@ -64,8 +64,8 @@ class PriceController extends Controller
                     'totalPrice' => $total['totalPrice']
                 ]
             ] 
-        ])->header('Access-Control-Allow-Origin', "*")
-          ->header('Access-Control-Allow-', "*")
-          ->header('Access-Control-Allow-Origin', "*");
+        ], 200, [
+            'Access-Control-Allow-Origin' => '*'
+        ]);
     }
 }
