@@ -61,7 +61,7 @@ class PriceController extends Controller
                     'total'       => $total['foreignerInfantTotal'],
                     'price'       => $total['foreignerInfantPrice']
                 ], [
-                    'totalPrice' => $total['totalPrice'],
+                    'totalPrice' => $total['totalPrice']
                 ]
             ] 
         ])->header('Access-Control-Allow-Origin', "*");
