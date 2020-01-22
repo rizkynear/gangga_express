@@ -64,8 +64,8 @@ class PriceController extends Controller
                     'totalPrice' => $total['totalPrice']
                 ]
             ] 
-        ], 200, [
-            'Access-Control-Allow-Origin' => '*'
-        ]);
+        ])->header('Access-Control-Allow-Origin', "*")
+          ->header('Access-Control-Allow-', "*")
+          ->header('Access-Control-Allow-Origin', "*");
     }
 }
