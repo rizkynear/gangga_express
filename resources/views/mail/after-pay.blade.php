@@ -35,9 +35,9 @@
                                 <tr>
                                     <td>
                                         <br>
-                                        Complete your payment immediately to get your e-ticket.
+                                        Your payment was successfull
                                         <br />
-                                        This is your order details :
+                                        This is your booking ticket details :
                                     </td>
                                 </tr>
                             </table>
