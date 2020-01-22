@@ -28,7 +28,7 @@ class PriceController extends Controller
 
         $total = $price->total($request);
 
-        return response()->json([
+        return response([
             'data' => [
                 [
                     'category'    => 'adult',
