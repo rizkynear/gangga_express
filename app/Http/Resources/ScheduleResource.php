@@ -16,7 +16,7 @@ class ScheduleResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'departure' => Str::limit($this->departure, 5, ''),
+            'departure' => Str::limit((string)$this->departure, 5, ''),
             'arrival'   => $this->arrival
         ];
     }
