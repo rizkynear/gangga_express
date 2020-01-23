@@ -3,7 +3,6 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Str;
 
 class ScheduleResource extends JsonResource
 {
@@ -16,7 +15,7 @@ class ScheduleResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'departure' => Str::limit((string)$this->departure, 5, ''),
+            'departure' => $this->departure,
             'arrival'   => $this->arrival
         ];
     }
