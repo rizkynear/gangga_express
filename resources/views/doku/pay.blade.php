@@ -26,6 +26,7 @@
         <input type="hidden" name="NAME" value="{{ $params['NAME'] }}">
         <input type="hidden" name="EMAIL" value="{{ $params['EMAIL'] }}">
         <input type="hidden" name="BASKET" value="{{ $params['BASKET'] }}">
+        <input type="hidden" name="PAYMENTCHANNEL" value="{{ $params['PAYMENTCHANNEL'] }}">
     </form>
 </body>
 </html>

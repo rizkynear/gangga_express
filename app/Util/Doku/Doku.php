@@ -18,7 +18,7 @@ class Doku
         return false;
     }
 
-    public static function setPaymentParams($amount, $transId, $date, $currency, $name, $email)
+    public static function setPaymentParams($amount, $transId, $date, $currency, $name, $email, $basket, $payment_channel)
     {
         $amount = number_format($amount, 2, '.', '');
 
@@ -29,24 +29,20 @@ class Doku
         }
 
         return [
-            'MALLID' => self::MALLID,
-            'CHAINMERCHANT' => 'NA',
-            'AMOUNT' => $amount,
-            'PURCHASEAMOUNT' => $amount,
-            'TRANSIDMERCHANT' => $transId,
-            'WORDS' => $words,
-            'REQUESTDATETIME' => $date,
-            'CURRENCY' => $currency,
+            'MALLID'           => self::MALLID,
+            'CHAINMERCHANT'    => 'NA',
+            'AMOUNT'           => $amount,
+            'PURCHASEAMOUNT'   => $amount,
+            'TRANSIDMERCHANT'  => $transId,
+            'WORDS'            => $words,
+            'REQUESTDATETIME'  => $date,
+            'CURRENCY'         => $currency,
             'PURCHASECURRENCY' => $currency,
-            'SESSIONID' => 'booking-ticket',
-            'NAME' => $name,
-            'EMAIL' => $email,
-            'BASKET' => self::setBasket($amount)
+            'SESSIONID'        => 'booking-ticket',
+            'NAME'             => $name,
+            'EMAIL'            => $email,
+            'BASKET'           => $basket,
+            'PAYMENTCHANNEL'   => $payment_channel
         ];
-    }
-
-    public static function setBasket($amount)
-    {
-        return "booking-ticket," . $amount . ",1," . $amount;
     }
 }

@@ -23,6 +23,7 @@ class CreateBookingsTable extends Migration
             $table->integer('total');
             $table->string('price');
             $table->integer('payment_channel');
+            $table->longText('basket');
             $table->integer('read_status')->default(0);
             $table->integer('paid_status')->default(0);
             $table->timestamp('paid_at')->nullable();

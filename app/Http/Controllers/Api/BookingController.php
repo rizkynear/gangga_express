@@ -61,13 +61,15 @@ class BookingController extends Controller
         $price = new Price();
         $total = $price->total($request);
         
-        $booking->code   = $this->generateCode();
-        $booking->type   = $request->booking_type;
-        $booking->adult  = ($request->adult ?? 0);
-        $booking->child  = ($request->child ?? 0);
-        $booking->infant = ($request->infant ?? 0);
-        $booking->total  = $request->total_passenger;
-        $booking->price  = ($request->booking_type == 'round-trip' ? $total['totalPrice'] * 2 : $total['totalPrice']);
+        $booking->code            = $this->generateCode();
+        $booking->type            = $request->booking_type;
+        $booking->adult           = ($request->adult ?? 0);
+        $booking->child           = ($request->child ?? 0);
+        $booking->infant          = ($request->infant ?? 0);
+        $booking->total           = $request->total_passenger;
+        $booking->price           = ($request->booking_type == 'round-trip' ? $total['totalPrice'] * 2 : $total['totalPrice']);
+        $booking->payment_channel = $request->payment_channel;
+        $booking->basket          = $request->basket;
         $booking->save();
 
         $booking->contact()->create([
@@ -110,7 +112,7 @@ class BookingController extends Controller
             ]);
         }
 
-        $params = Doku::setPaymentParams($booking->price, $booking->id, $booking->created_at->format('YmdHis'), $request->currency, $request->contact_name, $request->contact_email, $request->basket);
+        $params = Doku::setPaymentParams($booking->price, $booking->id, $booking->created_at->format('YmdHis'), 360, $request->contact_name, $request->contact_email, $request->basket, $request->payment_channel);
     
         Mail::to($request->contact_email)->send(new BeforePayMail($booking));
 

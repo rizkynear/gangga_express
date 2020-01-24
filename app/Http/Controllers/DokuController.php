@@ -44,7 +44,7 @@ class DokuController extends Controller
 
     public function pay(Booking $booking)
     {
-        $params = Doku::setPaymentParams($booking->price, $booking->id, $booking->created_at->format('YmdHis'), 360, $booking->contact->name, $booking->contact->email);
+        $params = Doku::setPaymentParams($booking->price, $booking->id, $booking->created_at->format('YmdHis'), 360, $booking->contact->name, $booking->contact->email, $booking->basket, $booking->payment_channel);
 
         return view('doku.pay')->with(compact('params'));
     }
