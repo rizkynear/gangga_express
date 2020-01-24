@@ -12,7 +12,7 @@ class BlogsTableSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= 30; $i++) {
             $data = [
                 'image' => 'blogs.jpg',
                 'en'    => ['title' => 'this is a title', 'description' => 'this is a description'],
