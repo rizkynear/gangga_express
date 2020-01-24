@@ -32,8 +32,8 @@ class DepartureResource extends JsonResource
         return [
             'id'        => $this->id,
             'route'     => $this->route,
-            'departure' => $this->departure,
-            'arrival'   => $this->arrival,
+            'departure' => str_limit($this->departure, 5, ''),
+            'arrival'   => str_limit($this->arrival, 5, ''),
             'status'    => $total > $this->quota ? 'full' : 'available'
         ];
     }
