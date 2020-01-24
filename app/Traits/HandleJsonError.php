@@ -21,7 +21,7 @@ trait HandleJsonError
                         'title'  => "NotFoundHttpException",
                         'errors' => [
                             'title'   => 'NotFoundHttpException',
-                            'message' => 'Not Found'
+                            'message' => 'Not Found',
                         ]
                     ]
                 ], 404);
