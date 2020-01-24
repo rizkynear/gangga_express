@@ -41,7 +41,8 @@ class BookingStore extends FormRequest
             'age.*'                  => 'required|numeric',
             'address.*'              => 'required',
             'category.*'             => 'required|max:191',
-            'currency'               => 'required|numeric',
+            'basket'                 => 'required',
+            'payment_channel'        => 'required'
         ];
     }
 }
