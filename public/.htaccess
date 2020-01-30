@@ -5,9 +5,16 @@
 
     RewriteEngine On
 
-    # Handle Authorization Header
-    RewriteCond %{HTTP:Authorization} .
-    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+    # If not HTTPS
+    RewriteCond %{HTTPS} off
+    # Rewrite to HTTPS:
+    RewriteRule .* https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    
+    # If www
+    RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+    # Rewrite to non www:
+    RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+
 
     # Redirect Trailing Slashes If Not A Folder...
     RewriteCond %{REQUEST_FILENAME} !-d
