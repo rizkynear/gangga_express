@@ -4,8 +4,8 @@ namespace App\Util\Doku;
 
 class Doku
 {
-    const MALLID    = '209';
-    const SHAREDKEY = 'uUqPRAr689d0';
+    const MALLID    = '11777957';
+    const SHAREDKEY = 'JP6ze5YPSBmb';
 
     public static function checkWords($request)
     {
