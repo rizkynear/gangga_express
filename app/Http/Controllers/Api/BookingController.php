@@ -112,7 +112,7 @@ class BookingController extends Controller
             ]);
         }
 
-        $params = Doku::setPaymentParams($booking->price, $booking->code, $booking->created_at->format('YmdHis'), 360, $request->contact_name, $request->contact_email, $request->basket, $request->payment_channel, $booking->id);
+        $params = Doku::setPaymentParams($booking->price, $booking->id, $booking->created_at->format('YmdHis'), 360, $request->contact_name, $request->contact_email, $request->basket, $request->payment_channel);
     
         Mail::to($request->contact_email)->send(new BeforePayMail($booking));
 

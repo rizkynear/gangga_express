@@ -18,7 +18,7 @@ class Doku
         return false;
     }
 
-    public static function setPaymentParams($amount, $transId, $date, $currency, $name, $email, $basket, $payment_channel, $id)
+    public static function setPaymentParams($amount, $transId, $date, $currency, $name, $email, $basket, $payment_channel)
     {
         $amount = number_format($amount, 2, '.', '');
 
@@ -38,7 +38,7 @@ class Doku
             'REQUESTDATETIME'  => $date,
             'CURRENCY'         => $currency,
             'PURCHASECURRENCY' => $currency,
-            'SESSIONID'        => $id,
+            'SESSIONID'        => 'booking-ticket',
             'NAME'             => $name,
             'EMAIL'            => $email,
             'BASKET'           => $basket,
