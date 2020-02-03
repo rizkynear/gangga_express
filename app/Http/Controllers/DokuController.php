@@ -13,29 +13,28 @@ class DokuController extends Controller
 {
     public function notify(Request $request)
     {
+        try {
+            $booking = Booking::findOrFail($request->SESSIONID);
+        } catch (ModelNotFoundException $e) {
+            return 'STOP';
+        }
+
+        $checkWords = Doku::checkWords($request);
+
+        if ($checkWords === true && (int)$request->RESPONSECODE === 0000 && $request->RESULTMSG === 'SUCCESS' && $booking->paid_status !== 1) {
+            $booking->update([
+                'paid_status' => 1,
+                'paid_at'     => now()
+            ]);
+
+            $booking->with('details', 'contact', 'schedules');
+
+            Mail::to($booking->contact->email)->send(new AfterPayMail($booking));
+
+            return 'CONTINUE';
+        }
+
         return 'STOP';
-        // try {
-        //     $booking = Booking::findOrFail($request->SESSIONID);
-        // } catch (ModelNotFoundException $e) {
-        //     return 'STOP';
-        // }
-
-        // $checkWords = Doku::checkWords($request);
-
-        // if ($checkWords === true && (int)$request->RESPONSECODE === 0000 && $request->RESULTMSG === 'SUCCESS' && $booking->paid_status !== 1) {
-        //     $booking->update([
-        //         'paid_status' => 1,
-        //         'paid_at'     => now()
-        //     ]);
-
-        //     $booking->with('details', 'contact', 'schedules');
-
-        //     Mail::to($booking->contact->email)->send(new AfterPayMail($booking));
-
-        //     return 'CONTINUE';
-        // }
-
-        // return 'STOP';
     }
 
     public function redirect(Request $request)
