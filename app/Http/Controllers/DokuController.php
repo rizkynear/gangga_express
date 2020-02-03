@@ -14,7 +14,7 @@ class DokuController extends Controller
     public function notify(Request $request)
     {
         try {
-            $booking = Booking::findOrFail($request->TRANSIDMERCHANT);
+            $booking = Booking::findOrFail($request->SESSIONID);
         } catch (ModelNotFoundException $e) {
             return 'STOP';
         }
@@ -44,7 +44,7 @@ class DokuController extends Controller
 
     public function pay(Booking $booking)
     {
-        $params = Doku::setPaymentParams($booking->price, $booking->id, $booking->created_at->format('YmdHis'), 360, $booking->contact->name, $booking->contact->email, $booking->basket, $booking->payment_channel);
+        $params = Doku::setPaymentParams($booking->price, $booking->code, $booking->created_at->format('YmdHis'), 360, $booking->contact->name, $booking->contact->email, $booking->basket, $booking->payment_channel, $booking->id);
 
         return view('doku.pay')->with(compact('params'));
     }
