@@ -88,7 +88,7 @@ class BookingController extends Controller
             'type'           => 'departure'
         ]);
         
-        if ($request->has('return_route')) {
+        if ($request->has('return_route') && $request->booking_type == 'round-trip') {
             $port = Route::where('route', '=', $request->return_route)->first();
 
             $booking->schedules()->create([
